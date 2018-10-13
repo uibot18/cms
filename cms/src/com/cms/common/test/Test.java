@@ -17,7 +17,7 @@ public class Test{
 		
 String str="/localhost:8080/cms/login";
 	
-		System.out.println(str.substring(beginIndex));
+		//System.out.println(str.substring(beginIndex));
 		
 	}
 }
