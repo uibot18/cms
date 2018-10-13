@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.cms.user.login.LoginDetail;
 import com.cms.user.login.util.LoginUtil;
@@ -36,6 +37,7 @@ public class CMSFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 		
 		HttpServletRequest request= (HttpServletRequest) servletRequest;
+		HttpServletResponse response=(HttpServletResponse) servletResponse;
 		LoginDetail loginDetail=LoginUtil.getLoginDetail(request) ;
 		System.out.println("URI: "+request.getRequestURI());
 		
@@ -45,12 +47,12 @@ public class CMSFilter implements Filter {
 		
 		if(loginDetail!=null && !loginDetail.getLoginId().isEmpty() ||  url.isEmpty() || openURLs.contains(url)  ) {
 			if(request.getRequestURI().equals("/cms/") ) {
-				request.getRequestDispatcher("/login").forward(servletRequest, servletResponse);
+				response.sendRedirect("home");
 			}else {
 				filterChain.doFilter(servletRequest, servletResponse);
 			}
 		}else {
-			request.getRequestDispatcher("/login").forward(servletRequest, servletResponse);
+			response.sendRedirect("login");
 		}
 	}
 }
