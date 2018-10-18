@@ -96,13 +96,21 @@
 		<servlet-name>processController</servlet-name>
 		<url-pattern>/process</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>taskConfigController</servlet-name>
 		<servlet-class>com.cms.task.config.controller.TaskConfigController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>taskConfigController</servlet-name>
 		<url-pattern>/taskConfig</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>taskQuestionnaireController</servlet-name>
+		<servlet-class>com.cms.questionnaire.controller.TaskQuestionnaireController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>taskQuestionnaireController</servlet-name>
+		<url-pattern>/taskQuestionnaire</url-pattern>
 	</servlet-mapping>
 
 	<filter>
@@ -121,6 +129,7 @@
 		<url-pattern>/package</url-pattern>
 		<url-pattern>/process</url-pattern>
 		<url-pattern>/taskConfig</url-pattern>
+		<url-pattern>/taskQuestionnaire</url-pattern>
 		<url-pattern>/logout</url-pattern>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>

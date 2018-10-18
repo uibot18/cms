@@ -98,7 +98,7 @@ public class DevUtil {
 		daoInsertMethod.append("PreparedStatement stmt=null;\n");
 		daoInsertMethod.append("ResultSet rs=null;\n");
 		daoInsertMethod.append("try {\n");
-		daoInsertMethod.append("con=preCon==null?DBConnection.getConnection():con;\n");
+		daoInsertMethod.append("con=preCon==null?DBConnection.getConnection():preCon;\n");
 		daoInsertMethod.append("stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);\n");
 		daoInsertMethod.append("int i=1;\n");
 
@@ -198,7 +198,7 @@ public class DevUtil {
 		daoFileData.append("Statement stmt=null;\n");
 		daoFileData.append("ResultSet rs=null;\n");
 		daoFileData.append("try {\n");
-		daoFileData.append("con=preCon==null?DBConnection.getConnection():con;\n");
+		daoFileData.append("con=preCon==null?DBConnection.getConnection():preCon;\n");
 		daoFileData.append("stmt=con.createStatement();\n");
 		daoFileData.append("rs=stmt.executeQuery( query );\n");
 		daoFileData.append("while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}\n");

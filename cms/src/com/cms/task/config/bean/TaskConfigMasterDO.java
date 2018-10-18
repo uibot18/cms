@@ -1,5 +1,8 @@
 package com.cms.task.config.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskConfigMasterDO { 
 
 	private int taskConfigId=0;
@@ -9,6 +12,8 @@ public class TaskConfigMasterDO {
 	private String department="";
 	private String designation="";
 	private String empId="";
+	private int ticketDuration=0;
+	private String ticketDurationUom="na";
 	private String configType="";
 	private int dailyEveryDay=0;
 	private boolean boolDailyEveryWeekDay;
@@ -30,11 +35,17 @@ public class TaskConfigMasterDO {
 	private String startTime="";
 	private int duration=0;
 	private String durationType="na";
+	private int taskExeUnit=0;
+	private String taskExeUnitUom="na";
+	private String refTaskConfigType="na";
+	private int refTaskConfigId=0;
 	private boolean boolDeleteStatus;
 	private String createdUser="";
 	private String createdDate="";
 	private String updateUser="";
 	private String updateDate="";
+	
+	List<TaskConfigEscalationChildDO> escalationChildList=new ArrayList<TaskConfigEscalationChildDO>();
 	
 	public int getTaskConfigId() {
 		return taskConfigId;
@@ -77,6 +88,18 @@ public class TaskConfigMasterDO {
 	}
 	public void setEmpId(String empId) {
 		this.empId = empId;
+	}
+	public int getTicketDuration() {
+		return ticketDuration;
+	}
+	public void setTicketDuration(int ticketDuration) {
+		this.ticketDuration = ticketDuration;
+	}
+	public String getTicketDurationUom() {
+		return ticketDurationUom;
+	}
+	public void setTicketDurationUom(String ticketDurationUom) {
+		this.ticketDurationUom = ticketDurationUom;
 	}
 	public String getConfigType() {
 		return configType;
@@ -204,6 +227,30 @@ public class TaskConfigMasterDO {
 	public void setDurationType(String durationType) {
 		this.durationType = durationType;
 	}
+	public int getTaskExeUnit() {
+		return taskExeUnit;
+	}
+	public void setTaskExeUnit(int taskExeUnit) {
+		this.taskExeUnit = taskExeUnit;
+	}
+	public String getTaskExeUnitUom() {
+		return taskExeUnitUom;
+	}
+	public void setTaskExeUnitUom(String taskExeUnitUom) {
+		this.taskExeUnitUom = taskExeUnitUom;
+	}
+	public String getRefTaskConfigType() {
+		return refTaskConfigType;
+	}
+	public void setRefTaskConfigType(String refTaskConfigType) {
+		this.refTaskConfigType = refTaskConfigType;
+	}
+	public int getRefTaskConfigId() {
+		return refTaskConfigId;
+	}
+	public void setRefTaskConfigId(int refTaskConfigId) {
+		this.refTaskConfigId = refTaskConfigId;
+	}
 	public boolean isBoolDeleteStatus() {
 		return boolDeleteStatus;
 	}
@@ -234,7 +281,12 @@ public class TaskConfigMasterDO {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+	public List<TaskConfigEscalationChildDO> getEscalationChildList() {
+		return escalationChildList;
+	}
+	public void setEscalationChildList(List<TaskConfigEscalationChildDO> escalationChildList) {
+		this.escalationChildList = escalationChildList;
+	}
 	@Override
 	public String toString() {
 		return "TaskConfigMasterDO [taskConfigId=" + taskConfigId + ", processId=" + processId + ", taskConfigName="
@@ -248,12 +300,11 @@ public class TaskConfigMasterDO {
 				+ ", yearlyEveryWeek=" + yearlyEveryWeek + ", yearlyEveryWeekWeek=" + yearlyEveryWeekWeek
 				+ ", yearlyEveryMonth=" + yearlyEveryMonth + ", holidayIds=" + holidayIds + ", endAfterNoOfRec="
 				+ endAfterNoOfRec + ", boolNoEndDate=" + boolNoEndDate + ", startTime=" + startTime + ", duration="
-				+ duration + ", durationType=" + durationType + ", boolDeleteStatus=" + boolDeleteStatus
-				+ ", createdUser=" + createdUser + ", createdDate=" + createdDate + ", updateUser=" + updateUser
-				+ ", updateDate=" + updateDate + "]";
+				+ duration + ", durationType=" + durationType + ", taskExeUnit=" + taskExeUnit + ", taskExeUnitUom="
+				+ taskExeUnitUom + ", refTaskConfigType=" + refTaskConfigType + ", refTaskConfigId=" + refTaskConfigId
+				+ ", boolDeleteStatus=" + boolDeleteStatus + ", createdUser=" + createdUser + ", createdDate="
+				+ createdDate + ", updateUser=" + updateUser + ", updateDate=" + updateDate + ", escalationChildList="
+				+ escalationChildList + "]";
 	}
-
 	
-
-
 }

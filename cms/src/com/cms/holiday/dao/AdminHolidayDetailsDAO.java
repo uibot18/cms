@@ -25,7 +25,7 @@ public class AdminHolidayDetailsDAO {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			int i=1;
 			stmt.setInt(i++, dto.getHolidayId() );
@@ -84,7 +84,7 @@ public class AdminHolidayDetailsDAO {
 		Statement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
 			rs=stmt.executeQuery( query );
 			while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}

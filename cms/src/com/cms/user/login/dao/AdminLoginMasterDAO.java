@@ -24,7 +24,7 @@ public class AdminLoginMasterDAO {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			int i=1;
 			stmt.setInt(i++, dto.getLoginKey() );
@@ -91,7 +91,7 @@ public class AdminLoginMasterDAO {
 		Statement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
 			rs=stmt.executeQuery( query );
 			while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}

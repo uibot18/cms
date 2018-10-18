@@ -64,7 +64,7 @@ public class CommonDocumentStoreDAO {
 		ResultSet rs=null;
 
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			int i=1;
 			stmt.setInt( i++, dto.getDocumentId() );

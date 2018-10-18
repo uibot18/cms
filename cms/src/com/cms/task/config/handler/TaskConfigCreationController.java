@@ -1,13 +1,13 @@
 package com.cms.task.config.handler;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
-import com.cms.common.master.CmnGroupName;
-import com.cms.common.master.dao.CommonMasterDAO;
+import com.cms.task.config.bean.TaskConfigEscalationChildDO;
 import com.cms.task.config.bean.TaskConfigMasterDO;
 import com.cms.task.config.dao.TaskConfigMasterDAO;
 
@@ -64,6 +64,8 @@ public class TaskConfigCreationController {
 		taskConfigDO.setDepartment( AppUtil.getNullToEmpty( request.getParameter("department")  ) );
 		taskConfigDO.setDesignation( AppUtil.getNullToEmpty( request.getParameter("designation")  ) );
 		taskConfigDO.setEmpId( AppUtil.getNullToEmpty( request.getParameter("empId")  )  );
+		taskConfigDO.setTicketDuration( AppUtil.getNullToInteger( request.getParameter("ticketDuration") ) );
+		taskConfigDO.setTicketDurationUom( AppUtil.getNullToEmpty( request.getParameter("ticketDurationUom"),"na" ) );
 
 		String configType = AppUtil.getNullToEmpty( request.getParameter("configType")  ) ;
 		taskConfigDO.setConfigType( configType  );
@@ -109,36 +111,52 @@ public class TaskConfigCreationController {
 		else if(configType.equalsIgnoreCase("holidays")) {
 			taskConfigDO.setHolidayIds( AppUtil.convertArrayToString(request.getParameterValues("holidayIds"), ",") );
 		}
-		else if(configType.equalsIgnoreCase("na")) {
 
-			boolean noEndDate= Boolean.parseBoolean( AppUtil.getNullToEmpty( request.getParameter("noEndDate")) );
-			taskConfigDO.setBoolNoEndDate(noEndDate);
-			if(noEndDate==false) {
-				taskConfigDO.setEndAfterNoOfRec( AppUtil.getNullToInteger( request.getParameter("endAfterNoOfRec") ) );
-			}
+		boolean noEndDate= Boolean.parseBoolean( AppUtil.getNullToEmpty( request.getParameter("noEndDate")) );
+		taskConfigDO.setBoolNoEndDate(noEndDate);
+		if(noEndDate==false) {
+			taskConfigDO.setEndAfterNoOfRec( AppUtil.getNullToInteger( request.getParameter("endAfterNoOfRec") ) );
 		}
 
-		String startType=AppUtil.getNullToEmpty( request.getParameter("startType") ); 
-		System.out.println("startType: "+startType);
-		if(startType.equals("time")) {
-			taskConfigDO.setStartTime( AppUtil.getNullToEmpty( request.getParameter("startTime"), "00:00:00") );
-		}else {
-			taskConfigDO.setDuration( AppUtil.getNullToInteger( request.getParameter("duration") ) );
-			taskConfigDO.setDurationType( AppUtil.getNullToEmpty( request.getParameter("durationType")) );
+		taskConfigDO.setStartTime( AppUtil.getNullToEmpty( request.getParameter("startTime"), "00:00:00") );
+		taskConfigDO.setDuration( AppUtil.getNullToInteger( request.getParameter("duration") ) );
+		taskConfigDO.setDurationType( AppUtil.getNullToEmpty( request.getParameter("durationType")) );
+		taskConfigDO.setTaskExeUnit( AppUtil.getNullToInteger( request.getParameter("taskExeUnit") ) );
+		taskConfigDO.setTaskExeUnitUom(AppUtil.getNullToEmpty( request.getParameter("taskExeUnitUom"), "na"));
+		String refTaskConfigType=AppUtil.getNullToEmpty( request.getParameter("refTaskConfigType"), "na");
+		taskConfigDO.setRefTaskConfigType( refTaskConfigType );
+		if(refTaskConfigType.equals("after")) {
+			taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId1") ) );
+		}else if(refTaskConfigType.equals("before")) {
+			taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId2") ) );
 		}
-
 		taskConfigDO.setCreatedUser(loginId);
 		taskConfigDO.setUpdateUser(loginId);
+		
+		List<TaskConfigEscalationChildDO> escChildList=new ArrayList<TaskConfigEscalationChildDO>();
+		int escRowCount=AppUtil.getNullToInteger( request.getParameter("esc_rowCount") );
+		for (int i = 1; i <= escRowCount; i++) {
+			TaskConfigEscalationChildDO escChildDO=new TaskConfigEscalationChildDO();
+			escChildDO.setDepartment( AppUtil.getNullToEmpty( request.getParameter("esc_department_"+i)  ) );
+			escChildDO.setDesignation( AppUtil.getNullToEmpty( request.getParameter("esc_designation_"+i)  ) );
+			escChildDO.setEmpId( AppUtil.getNullToEmpty( request.getParameter("esc_empId_"+i)  )  );
+			escChildDO.setTicketDuration( AppUtil.getNullToInteger( request.getParameter("esc_ticketDuration_"+i) ) );
+			escChildDO.setTicketDurationUom( AppUtil.getNullToEmpty( request.getParameter("esc_ticketDurationUom_"+i),"na" ) );
+			escChildDO.setCreatedUser(loginId);
+			escChildDO.setUpdateUser(loginId);
+			escChildList.add(escChildDO);
+		}
+		taskConfigDO.setEscalationChildList(escChildList);
 
 		return taskConfigDO;
 	}
 
-	public static String serviceOption( String parentIds, String selServiceIds ) {
-		String subQry=" AND cmn_group_id="+CmnGroupName.SERVICE.getGroupId() +" AND parent_id=0 and bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.isEmpty() ) { subQry=" AND parent_id in("+parentIds+")"; }
-		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+	public static String taskOption( String selTaskIds, String excludeTaskIds ) {
+		excludeTaskIds=AppUtil.getNullToEmpty(excludeTaskIds);
+		String subQry="";
+		if(excludeTaskIds.isEmpty()==false) { subQry+=" AND task_config_id NOT IN("+excludeTaskIds+") "; }
 
-		return AppUtil.formOption(map, selServiceIds);
+		return AppUtil.formOption( TaskConfigMasterDAO.getTaskNameMapBySubQry( null, subQry ), selTaskIds);
 	}
 
 }

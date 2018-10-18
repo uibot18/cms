@@ -191,7 +191,8 @@
 												<td><%=exe_order  %></td>
 												<td>
 													<a href="taskConfig?action=edit&taskConfigId=<%=task_config_id%>">Edit</a> &nbsp;&nbsp;
-													<a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a></td>
+													<a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp;
+													<a href="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>">Questionnaire</a> </td>
 											</tr>
 										<%sno++;
 										} %>

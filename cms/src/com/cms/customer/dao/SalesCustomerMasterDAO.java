@@ -57,7 +57,7 @@ public class SalesCustomerMasterDAO {
 		ResultSet rs=null;
 
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
 			rs=stmt.executeQuery( query );
 			while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}

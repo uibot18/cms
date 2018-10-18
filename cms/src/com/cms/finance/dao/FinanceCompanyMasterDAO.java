@@ -27,7 +27,7 @@ public class FinanceCompanyMasterDAO {
 		ResultSet rs=null;
 
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
 			rs=stmt.executeQuery( SELECT );
 			while(rs.next()) { dtos.add(constructDTO( rs, needChild) );	}

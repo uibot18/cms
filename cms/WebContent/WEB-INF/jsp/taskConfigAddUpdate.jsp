@@ -1,3 +1,5 @@
+<%@page import="com.cms.task.config.bean.TaskConfigEscalationChildDO"%>
+<%@page import="com.cms.task.config.handler.TaskConfigCreationController"%>
 <%@page import="com.cms.holiday.handler.HolidayTypeCreationController"%>
 <%@page import="java.util.LinkedHashMap"%>
 <%@page import="java.util.ArrayList"%>
@@ -67,8 +69,13 @@ monthMap.put("7", "july");
 monthMap.put("8", "augest");
 
 Map<String, String> durationMap=new LinkedHashMap<String, String>();
+durationMap.put("day", "Day");
 durationMap.put("hour", "Hour");
 durationMap.put("minute", "Minute");
+
+List<TaskConfigEscalationChildDO> escalationChildList = taskConfigDO.getEscalationChildList();
+if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscalationChildDO>(); }
+
 
 %>
 <!DOCTYPE html>
@@ -83,6 +90,14 @@ durationMap.put("minute", "Minute");
     <title>CMS-Service</title>
     <link rel="apple-touch-icon" href="./resource/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="./resource/app-assets/images/ico/favicon.ico">
+    
+    <style type="text/css">
+		.esc_row_style{
+		    border: 1px solid #cacfe7;
+    		padding: 4px;
+    		margin: 1px;
+		}    
+    </style>
   </head>
   <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
    <%@include file="header.jsp" %>
@@ -193,6 +208,10 @@ durationMap.put("minute", "Minute");
 													</div>
 												</div>
 											</div>
+											
+										</div>
+										
+										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
 													<label for="timesheetinput1">Department</label>
@@ -204,9 +223,6 @@ durationMap.put("minute", "Minute");
 													</div>
 												</div>
 											</div>
-										</div>
-										
-										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
 													<label for="timesheetinput1">Designation</label>
@@ -229,6 +245,102 @@ durationMap.put("minute", "Minute");
 													</div>
 												</div>
 											</div>
+													<div class="col-md-2">
+													<div class="form-group">
+														<label for="timesheetinput1">Ticket Duration</label>
+														<div class="position-relative ">
+															<input type="text" id="ticketDuration" class="form-control" placeholder="" name="ticketDuration" value="<%=taskConfigDO.getTicketDuration() %>"  >
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+													<label for="timesheetinput1">&nbsp;</label>
+														<div class="position-relative has-icon-left">
+															<select id="ticketDurationUom" class="form-control" placeholder="" name="ticketDurationUom" >
+										                  		<option value="na">--select--</option>
+										                  		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTicketDurationUom()) %>
+															</select>
+														</div>
+													</div>
+												</div>
+										</div>
+										
+										<hr>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<label><b>Escalation</b></label><button type="button" id="btn_escalationAdd">+</button>&nbsp;<button type="button" id="btn_escalationDelete">-</button>
+												<input type="hidden" name="esc_rowCount" id="esc_rowCount" value="<%=escalationChildList.size()%>">
+											</div>
+										</div>
+										<div id="escalationContainer">
+										
+										<%
+										int sno=1;
+										for(TaskConfigEscalationChildDO escalationChild : escalationChildList){
+											
+											%>
+											<div class="row esc_row esc_row_style">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="">Department</label>
+														<div class="position-relative has-icon-left">
+															<select id="esc_departmentName_<%=sno %>" class="form-control" placeholder="Department" name="esc_department_<%=sno %>" >
+							                            		<option></option>
+																<%=EmployeeCreationHandler.formDepartmentOption(""+escalationChild.getDepartment() )%>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="">Designation</label>
+														<div class="position-relative has-icon-left">
+															<select id="esc_designation_<%=sno %>" class="form-control" placeholder="Designation" name="esc_designation_<%=sno %>" >
+							                            		<option></option>
+																<%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="">Employee</label>
+														<div class="position-relative has-icon-left">
+															<select id="esc_empId_<%=sno %>" class="form-control" placeholder="Employee" name="esc_empId_<%=sno %>" >
+							                            		<option></option>
+																<%=EmployeeCreationHandler.formEmployeeOption(""+escalationChild.getEmpId() )%>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<label for="timesheetinput1">Ticket Duration</label>
+														<div class="position-relative ">
+															<input type="text" id="esc_ticketDuration_<%=sno %>" class="form-control esc_ticketDuration" placeholder="" name="esc_ticketDuration_<%=sno %>" value="<%=escalationChild.getTicketDuration() %>"  >
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+													<label for="timesheetinput1">&nbsp;</label>
+														<div class="position-relative has-icon-left">
+															<select id="esc_ticketDurationUom_<%=sno %>" class="form-control esc_ticketDurationUom" placeholder="" name="esc_ticketDurationUom_<%=sno %>" >
+										                  		<option value="na">--select--</option>
+										                  		<%=AppUtil.formOption(durationMap, ""+escalationChild.getTicketDurationUom()) %>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+										<%	
+										sno++;
+										}
+										
+										%>
 										</div>
 										
 										<hr>
@@ -593,13 +705,91 @@ durationMap.put("minute", "Minute");
 											</div>
 										</div>
 									
-									<div class="form-actions right">
-										<button type="submit" class="btn btn-primary">
-											<i class="fa fa-check-square-o"></i> Save
-										</button>
-										<button type="button" class="btn btn-danger mr-1" onclick="<%=formName %>reset()">
-											<i class="ft-x"></i> Reset
-										</button>
+										<hr>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<label class="form-check-label" for="configType_na"><b>No of days after the event execution in order</b></label>
+											</div>
+										</div>
+										<div class="" id="configType_div_na" style="margin-left: 30px;">
+											
+											
+											<div class="row">
+												<div class="col-md-2">
+													<div class="form-group">
+														<div class="position-relative ">
+															<input type="text" id="taskExeUnit" class="form-control" placeholder="" name="taskExeUnit" value="<%=taskConfigDO.getTaskExeUnit()%>"  >
+														</div>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<div class="position-relative ">
+															<select id="taskExeUnitUom" class="form-control" placeholder="" name="taskExeUnitUom" >
+							                            		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTaskExeUnitUom()) %>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<%
+											String refTaskConfigType=AppUtil.getNullToEmpty(taskConfigDO.getRefTaskConfigType());
+											int refTaskConfigId1=0, refTaskConfigId2=0;
+											if( refTaskConfigType.equals("after") ){ refTaskConfigId1=taskConfigDO.getRefTaskConfigId(); }
+											else if( refTaskConfigType.equals("before") ){ refTaskConfigId2=taskConfigDO.getRefTaskConfigId(); }
+											%>
+											
+											<div class="row" <%=refTaskConfigId1 %>>
+												<div class="col-md-2">
+													<div class="form-check">
+														<input class="form-check-input" type="radio" name="refTaskConfigType" id="refTaskConfigType_after" value="after" <%=refTaskConfigType.equals("after")?"checked":"" %>>
+														<label class="form-check-label" for="refTaskConfigType_after">After</label>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<div class="position-relative ">
+															<select id="refTaskConfigId1" class="form-control" placeholder="" name="refTaskConfigId1" >
+							                            		<option value="na">-- N/A--</option>
+																<%=TaskConfigCreationController.taskOption(""+refTaskConfigId1, ""+taskConfigDO.getTaskConfigId())%>
+															</select>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+											
+											<div class="row">
+												<div class="col-md-2">
+													<div class="form-check">
+														<input class="form-check-input" type="radio" name="refTaskConfigType" id="refTaskConfigType_before" value="before" <%=refTaskConfigType.equals("before")?"checked":"" %>>
+														<label class="form-check-label" for="refTaskConfigType_before">Before</label>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<div class="position-relative ">
+															<select id="refTaskConfigId2" class="form-control" placeholder="" name="refTaskConfigId2" >
+							                            		<option value="na">-- N/A--</option>
+																<%=TaskConfigCreationController.taskOption(""+refTaskConfigId2, ""+taskConfigDO.getTaskConfigId())%>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+										
+										<div class="form-actions right">
+											<button type="submit" class="btn btn-primary">
+												<i class="fa fa-check-square-o"></i> Save
+											</button>
+											<button type="button" class="btn btn-danger mr-1" onclick="<%=formName %>reset()">
+												<i class="ft-x"></i> Reset
+											</button>
+										</div>
 									</div>
 								</form>
 			                </div>
@@ -614,6 +804,66 @@ durationMap.put("minute", "Minute");
    <!-- Content End  -->
    
    <%@include file="footer.jsp" %>
+   
+   
+	<div class="row esc_row esc_row_style" id="<%=formName%>_emp_esc_row" style="display: none;">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="">Department</label>
+				<div class="position-relative has-icon-left">
+					<select id="" class="form-control esc_department" placeholder="Department" name="" >
+               			<option></option>
+						<%=EmployeeCreationHandler.formDepartmentOption(""+taskConfigDO.getDepartment() )%>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="">Designation</label>
+				<div class="position-relative has-icon-left">
+					<select id="" class="form-control esc_designation" placeholder="Designation" name="" >
+	                        		<option></option>
+						<%=EmployeeCreationHandler.formDesignationOption(""+taskConfigDO.getDesignation() )%>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="timesheetinput1">Employee</label>
+				<div class="position-relative has-icon-left">
+					<select id="" class="form-control esc_empId" placeholder="Employee" name="" >
+	                        		<option></option>
+						<%=EmployeeCreationHandler.formEmployeeOption(""+taskConfigDO.getEmpId() )%>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="form-group">
+				<label for="timesheetinput1">Ticket Duration</label>
+				<div class="position-relative ">
+					<input type="text" id="" class="form-control esc_ticketDuration" placeholder="" name="" value=""  >
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+			<label for="timesheetinput1">&nbsp;</label>
+				<div class="position-relative has-icon-left">
+					<select id="" class="form-control esc_ticketDurationUom" placeholder="" name="" >
+                  		<option value="na">--select--</option>
+                  		<option value="day">Day</option>
+                  		<option value="hour">Hour</option>
+                  		<option value="minute">Minute</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+   
+   
   </body>
 <script type="text/javascript">
 
@@ -626,6 +876,42 @@ $(document).ready( function(){
 		$('.configType_div').hide();
 		$('#configType_div_'+configType).show();
 	});
+	
+	$('#<%=formName %>').on('click','#btn_escalationAdd', function(){
+		$(this).css('pointer-events', 'none');
+		var sno=$('#<%=formName %> #esc_rowCount').val(); if(isNaN(sno) || sno==''){ sno=0;}
+		sno=parseInt(sno)+1;
+		var escRow=$('#<%=formName%>_emp_esc_row').clone();
+		$(escRow).removeAttr('style');
+		$(escRow).find('.esc_department').attr('name', 'esc_department_'+sno);
+		$(escRow).find('.esc_department').attr('id', 'esc_department_'+sno);
+		
+		$(escRow).find('.esc_designation').attr('name', 'esc_designation_'+sno);
+		$(escRow).find('.esc_designation').attr('id', 'esc_designation_'+sno);
+		
+		$(escRow).find('.esc_empId').attr('name', 'esc_empId_'+sno);
+		$(escRow).find('.esc_empId').attr('id', 'esc_empId_'+sno);
+		
+		$(escRow).find('.esc_ticketDuration').attr('name', 'esc_ticketDuration_'+sno);
+		$(escRow).find('.esc_ticketDuration').attr('id', 'esc_ticketDuration_'+sno);
+		
+		$(escRow).find('.esc_ticketDurationUom').attr('name', 'esc_ticketDurationUom_'+sno);
+		$(escRow).find('.esc_ticketDurationUom').attr('id', 'esc_ticketDurationUom_'+sno);
+		
+		$('#<%=formName %> #escalationContainer').append(escRow);
+		$('#<%=formName %> #esc_rowCount').val(sno);
+		$(this).css('pointer-events', '');
+	});
+	$('#<%=formName %>').on('click','#btn_escalationDelete', function(){
+		if($("#<%=formName %> .esc_row").length>0){
+			var sno=$('#<%=formName %> #esc_rowCount').val(); if(isNaN(sno) || sno==''){ sno=0;}
+			sno=parseInt(sno)-1;
+			$("#<%=formName %> .esc_row").last().remove();
+			$('#<%=formName %> #esc_rowCount').val(sno);
+		}
+		
+	});
+	
 });
 
 function <%=formName %>reset(){

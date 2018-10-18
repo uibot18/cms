@@ -24,7 +24,7 @@ public class CommonGroupMasterDAO {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			int i=1;
 			stmt.setInt(i++, dto.getCmnGroupId() );
@@ -83,7 +83,7 @@ public class CommonGroupMasterDAO {
 		Statement stmt=null;
 		ResultSet rs=null;
 		try {
-			con=preCon==null?DBConnection.getConnection():con;
+			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
 			rs=stmt.executeQuery( query );
 			while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}
