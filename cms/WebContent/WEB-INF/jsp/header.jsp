@@ -232,7 +232,7 @@
     
     <!-- Modal -->
 			<div class="modal fade text-left" id="CMS-POPUP-MODEL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-				<div class="modal-dialog modal-xl" role="document">
+				<!-- <div class="modal-dialog modal-xl" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="myModalLabel16">Basic Modal</h4>
@@ -260,5 +260,5 @@
 					<button type="button" class="btn btn-danger">Save</button>
 					</div>
 				</div>
-				</div>
+				</div> -->
 			</div>

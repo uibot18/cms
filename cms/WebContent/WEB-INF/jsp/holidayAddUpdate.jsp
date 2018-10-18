@@ -34,23 +34,20 @@ String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
 <form class="form" action="holiday?action=save" method="post" id="<%=formName%>">
 	<input type="hidden" name="holidayId" value="<%=holidayDO.getHolidayId()%>">
 	<div class="modal-header">
-		<h4 class="modal-title" id="myModalLabel16">Basic Modal</h4>
+		<h4 class="modal-title" id="myModalLabel16">Holiday Form</h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-success alert-dismissible mb-2" role="alert">
+		<!-- <div class="alert alert-success alert-dismissible mb-2" role="alert">
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 			<strong>Well done!</strong> You successfully read this
 			<a href="#" class="alert-link">important</a> alert message.
-		</div>
-		
-		
-		
-                 
+		</div> -->
+		                 
 	<div class="form-body">
 		
 		<div class="row">
@@ -122,8 +119,6 @@ String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
 <script type="text/javascript">
 
 $(document).ready( function(){
-	
-	
 	$('#<%=formName%>').submit(function(e){
 		var frm=$(this);
 		$.ajax({
