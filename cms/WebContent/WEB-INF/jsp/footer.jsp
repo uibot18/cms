@@ -39,12 +39,13 @@ $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
     
 });
 $("#CMS-POPUP-MODEL").on('shown.bs.modal', function () {
- 
-});
-$("#CMS-POPUP-MODEL").on('hide.bs.modal', function () {
 
 });
+$("#CMS-POPUP-MODEL").on('hide.bs.modal', function () {
+	alert('hide');
+});
 $("#CMS-POPUP-MODEL").on('hidden.bs.modal', function () {
+	alert('hidden');
 	$('#CMS-POPUP-MODEL').html('');
 });
 
