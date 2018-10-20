@@ -29,7 +29,7 @@ public class AdmEmployeeMasterDAO {
 			"values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW()) ";
 	private final static String UPDATE_LEDGER_ID="update admin_employee_master set ledger_id=? where emp_id=?";
 	
-	private final static String UPDATE=" update admin_employee_master set update_user=?, update_date=NOW() where emp_id=?";
+	private final static String UPDATE=" update admin_employee_master set reporting_to=?, department_id=?, designation_id=?, esi_no=?, epf_no=?, uan_no=?, bank_branch_id=?, bank_account_no=?, update_user=?, update_date=NOW() where emp_id=?";
 
 	public static ArrayList<AdmEmployeeMasterDO> getAdmEmployeeMasterList(Connection preCon, boolean needChild) {
 		String query=SELECT;
@@ -165,8 +165,16 @@ public class AdmEmployeeMasterDAO {
 			con=preCon==null?DBConnection.getConnection():preCon;
 			con.setAutoCommit(false);
 			stmt=con.prepareStatement(UPDATE);
-			stmt.setString(1,dto.getUpdateUser());
-			stmt.setInt(2,dto.getEmpId() );
+			stmt.setInt(1, dto.getReportingTo() );
+			stmt.setInt(2, dto.getDepartmentId() );
+			stmt.setInt(3, dto.getDesignationId() );
+			stmt.setString(4, dto.getEsiNo() );
+			stmt.setString(5, dto.getEpfNo() );
+			stmt.setString(6, dto.getUanNo() );
+			stmt.setInt(7, dto.getBankBranchId() );
+			stmt.setString(8, dto.getBankAccountNo() );
+			stmt.setString(9,dto.getUpdateUser());
+			stmt.setInt(10,dto.getEmpId() );
 			System.out.println("Ledger Update: "+stmt.toString());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { 

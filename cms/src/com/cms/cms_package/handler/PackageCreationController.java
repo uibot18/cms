@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
@@ -35,18 +36,18 @@ public class PackageCreationController {
 			//			insert
 			int serviceId =CommonMasterDAO.insert(null, serviceDO);
 			if(serviceId!=0) {
-				System.out.println("Service Inderted...Id:"+serviceId);
 				serviceDO=CommonMasterDAO.getCommonMasterByCmnMasterId(null, serviceId, false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Package Successfully Saved..!");
 			}else {
-				System.out.println("Failed to indert Service..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Package..!");
 			}
 		}else {
 			//			update
 			if(CommonMasterDAO.update(null, serviceDO)) {
-				System.out.println("Service Updated...Id:");
 				serviceDO=CommonMasterDAO.getCommonMasterByCmnMasterId(null, serviceDO.getCmnMasterId(), false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Package Successfully Saved..!");
 			}else {
-				System.out.println("Failed to Update Servise..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Package..!");
 			}
 		}
 		request.setAttribute("packageDO", serviceDO);

@@ -1,3 +1,4 @@
+<%@page import="com.application.util.PageUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.cms.holiday.handler.HolidayTypeCreationController"%>
@@ -40,13 +41,7 @@ String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
 		</button>
 	</div>
 	<div class="modal-body">
-		<!-- <div class="alert alert-success alert-dismissible mb-2" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-			<strong>Well done!</strong> You successfully read this
-			<a href="#" class="alert-link">important</a> alert message.
-		</div> -->
+	<%=PageUtil.getAlert(request) %>
 		                 
 	<div class="form-body">
 		
@@ -107,9 +102,9 @@ String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
 	</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn grey btn-secondary" data-dismiss="modal">Close</button>
-		<button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button>
-		<button type="submit" class="btn btn-danger">Save</button>
+		<button type="button" class="btn" data-dismiss="modal">Close</button>
+		<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
+		<button type="submit" class="btn btn-success">Save</button>
 	</div>
 	</form>
 </div>

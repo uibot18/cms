@@ -15,9 +15,9 @@ import com.cms.finance.bean.FinancePartyAddressDetailsDO;
 
 public class FinancePartyAddressDetailsDAO {
 
-	private final static String SELECT="select address_id, ledger_id, ref_type, ref_id, address_type_id, doo_no, street_name, road_name, area_name, land_mark, city, state, pincode, bool_delete_status, created_user, created_date, update_user, update_date " + 
+	private final static String SELECT="select address_id, ledger_id, ref_type, ref_id, address_type_id, door_no, street_name, road_name, area_name, land_mark, city, state, pincode, bool_delete_status, created_user, created_date, update_user, update_date " + 
 			"from finance_party_address_details ";
-	private final static String INSERT="insert into finance_party_address_details(address_id, ledger_id, ref_type, ref_id, address_type_id, doo_no, street_name, road_name, area_name, land_mark, city, state, pincode, bool_delete_status, created_user, created_date, update_user, update_date) " + 
+	private final static String INSERT="insert into finance_party_address_details(address_id, ledger_id, ref_type, ref_id, address_type_id, door_no, street_name, road_name, area_name, land_mark, city, state, pincode, bool_delete_status, created_user, created_date, update_user, update_date) " + 
 			"values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() )  ";
 	private final static String DELETE_BY_LEDGER_ID="delete from finance_party_address_details where ledger_id=?";
 

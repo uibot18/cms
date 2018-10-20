@@ -70,9 +70,14 @@
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+			                    	<li>
+			                    		<a  id="testId" class="" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="holiday?action=add"> 
+			                    			<b>+&nbsp;Add</b>
+										</a>
+			                    	</li>
+			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
 			                    </ul>
 			                </div>
 			            </div>
@@ -122,9 +127,7 @@
 										<button type="button" class="btn btn-danger mr-1" onclick="<%=formName%>reset()">
 											<i class="ft-x"></i> Reset
 										</button>
-										<button type="button" id="testId" class="btn btn-info " data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="holiday?action=add">
-				Launch Demo Modal
-			</button>
+										
 									</div>
 								</form>
 			                </div>

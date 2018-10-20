@@ -68,9 +68,14 @@
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
+			                        <li>
+			                    		<a  id="testId" class="" data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="service?action=add"> 
+			                    			<b>+&nbsp;Add</b>
+										</a>
+			                    	</li>
 			                    </ul>
 			                </div>
 			            </div>
@@ -149,7 +154,7 @@
 												<th scope="row"><%=sno %></th>
 												<td><%=service_name  %></td>
 												<td>
-													<a href="service?action=edit&serviceId=<%=cmn_master_id%>">Edit</a> &nbsp;&nbsp;
+													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="service?action=edit&serviceId=<%=cmn_master_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a href="service?action=delete&serviceId=<%=cmn_master_id%>">delete</a></td>
 											</tr>
 										<%sno++;

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.holiday.bean.AdminHolidayDetailsDO;
 import com.cms.holiday.bean.AdminHolidayTypeDO;
 import com.cms.holiday.dao.AdminHolidayDetailsDAO;
@@ -28,16 +29,20 @@ public class HolidayCreationController {
 			if(holidayeId!=0) {
 				System.out.println("Holiday Inderted...Id:"+holidayeId);
 				holidayDO=AdminHolidayDetailsDAO.getAdminHolidayDetailsByHolidayId(null, holidayeId, false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Holiday Successfully Saved..!");
 			}else {
 				System.out.println("Failed to indert holiday..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Holiday..!");
 			}
 		}else {
 //			update
 			if(AdminHolidayDetailsDAO.update(null, holidayDO)) {
 				System.out.println("Holiday Updated...Id:");
 				holidayDO=AdminHolidayDetailsDAO.getAdminHolidayDetailsByHolidayId(null, holidayDO.getHolidayId(), false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Holiday Successfully Saved..!");
 			}else {
 				System.out.println("Failed to Update holiday..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Holiday..!");
 			}
 		}
 		request.setAttribute("holidayDO", holidayDO);

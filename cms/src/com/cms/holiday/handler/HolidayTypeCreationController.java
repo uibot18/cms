@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.holiday.bean.AdminHolidayTypeDO;
 import com.cms.holiday.dao.AdminHolidayTypeDAO;
 
@@ -26,18 +27,18 @@ public class HolidayTypeCreationController {
 //			insert
 			int holidayTypeId =AdminHolidayTypeDAO.insert(null, holidayTypeDO);
 			if(holidayTypeId!=0) {
-				System.out.println("Holiday Type Inderted...Id:"+holidayTypeId);
 				holidayTypeDO=AdminHolidayTypeDAO.getAdminHolidayTypeByHolidayTypeId(null, holidayTypeId, false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Holiday Type Successfully Saved..!");
 			}else {
-				System.out.println("Failed to indert holiday Type..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Holiday Type..!");
 			}
 		}else {
 //			update
 			if(AdminHolidayTypeDAO.update(null, holidayTypeDO)) {
-				System.out.println("Holiday Type Updated...Id:");
 				holidayTypeDO=AdminHolidayTypeDAO.getAdminHolidayTypeByHolidayTypeId(null, holidayTypeDO.getHolidayTypeId(), false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Holiday Type Successfully Saved..!");
 			}else {
-				System.out.println("Failed to Update holiday Type..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Holiday Type..!");
 			}
 		}
 		request.setAttribute("holidayTypeDO", holidayTypeDO);

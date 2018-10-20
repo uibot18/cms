@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
@@ -38,10 +39,11 @@ public class TaskQuestionnaireCreationController {
 		if(TaskQuestionaireDetailsDAO.save( null,  taskQuestionaireList) ) {
 			System.out.println("Questionary Saves..!");
 			taskQuestionaireList=TaskQuestionaireDetailsDAO.getTaskQuestionaireDetails(null, taskConfigId, true);
+			request.setAttribute(PageAlertType.SUCCESS.getType(), "Questionnaire Successfully Saved..!");
 		}else {
-			System.out.println("Failed to Save Questionary..!");
+			request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Questionnaire..!");
 		}
-		
+
 		request.setAttribute("taskConfigId", ""+taskConfigId);
 		request.setAttribute("taskQuestionaireList", taskQuestionaireList);
 
@@ -68,7 +70,7 @@ public class TaskQuestionnaireCreationController {
 			qustDetDO.setBoolDeleteStatus( false );
 			qustDetDO.setCreatedUser( loginId );
 			qustDetDO.setUpdateUser( loginId );
-System.out.println("answerType:###### "+answerType);
+			System.out.println("answerType:###### "+answerType);
 
 			List<TaskQuestionaireChildDO> questChildList=new ArrayList<TaskQuestionaireChildDO>();
 

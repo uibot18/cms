@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
@@ -37,16 +38,17 @@ public class ProcessCreationController {
 			if(serviceId!=0) {
 				System.out.println("Process Inderted...Id:"+serviceId);
 				serviceDO=CommonMasterDAO.getCommonMasterByCmnMasterId(null, serviceId, false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Process Successfully Saved..!");
 			}else {
-				System.out.println("Failed to indert Process..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Process..!");
 			}
 		}else {
 			//			update
 			if(CommonMasterDAO.update(null, serviceDO)) {
-				System.out.println("Process Updated...Id:");
 				serviceDO=CommonMasterDAO.getCommonMasterByCmnMasterId(null, serviceDO.getCmnMasterId(), false);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Process Successfully Saved..!");
 			}else {
-				System.out.println("Failed to Update Process..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Process..!");
 			}
 		}
 		request.setAttribute("processDO", serviceDO);

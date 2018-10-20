@@ -36,7 +36,6 @@
    String taskConfigId=AppUtil.getNullToEmpty( requestMap.get("taskConfigId") );
    String questionnaireName=AppUtil.getNullToEmpty( requestMap.get("questionnaireName") );
    
-   
    String formName="qst_frm_"+Math.abs( new Random().nextInt(9999));
    %>
    <div class="app-content content">
@@ -70,15 +69,20 @@
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
+			                        <li>
+			                    		<a  id="testId" class="" data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="taskQuestionnaire?action=add"> 
+			                    			<b>+&nbsp;Add</b>
+										</a>
+			                    	</li>
 			                    </ul>
 			                </div>
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
-			                    <form id="<%=formName %>" class="form" action="service" method="post">
+			                    <form id="<%=formName %>" class="form" action="taskQuestionnaire" method="post">
 				                    <input type="hidden" name="action" value="search">
 									<div class="form-body">
 				                        
@@ -87,7 +91,7 @@
 						                        <div class="form-group">
 													<label for="timesheetinput1">Task Name</label>
 													<div class="position-relative has-icon-left">
-														<select id="taskConfigId" class="form-control" placeholder="Service Name" name="taskConfigId" >
+														<select id="taskConfigId" class="form-control" placeholder="Task Name" name="taskConfigId" >
 						                            		<option>-- Please Select--</option>
 															<%=TaskConfigCreationController.taskOption(taskConfigId, "") %>
 														</select>
@@ -144,7 +148,6 @@
 											<tr>
 												<th>#</th>
 												<th>Task Name</th>
-												<th>Task Name</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -161,7 +164,7 @@
 												<th scope="row"><%=sno %></th>
 												<td><%=task_config_name  %></td>
 												<td>
-													<a href="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>">Edit</a> &nbsp;&nbsp;
+													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a href="taskQuestionnaire?action=delete&taskConfigId=<%=task_config_id%>">delete</a></td>
 											</tr>
 										<%sno++;

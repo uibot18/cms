@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.dao.CommonMasterDAO;
 import com.cms.employee.bean.AdmEmployeeMasterDO;
@@ -39,25 +40,22 @@ public class EmployeeCreationHandler {
 	public static void saveEmployee(HttpServletRequest request, HttpServletResponse response) {
 
 		AdmEmployeeMasterDO employeeDO= constructDO( request, response );
-
 		System.out.println("Employee: "+employeeDO.getEmpId());
 		
 		if(employeeDO.getEmpId()==0) {
-			System.out.println("Insert Pocess..");
 			int empId=AdmEmployeeMasterDAO.insert(null, employeeDO);
 			if( empId!=0) {
-				System.out.println("Employee inserted..! employeeId:"+empId);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Detail Successfully Saved..!");
 				employeeDO=AdmEmployeeMasterDAO.getAdmEmployeeMasterByEmpId(null, empId, true);
 			}else {
-				System.out.println("Failed to insert Employee..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Details..!");
 			}
 		}else {
-			System.out.println("Update Pocess..");
 			if(AdmEmployeeMasterDAO.update(null, employeeDO)) {
-				System.out.println("Employee Updated..");
 				employeeDO=AdmEmployeeMasterDAO.getAdmEmployeeMasterByEmpId(null, employeeDO.getEmpId(), true);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Detail Successfully Saved..!");
 			}else {
-				System.out.println("Failed to Update Employee..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Details..!");
 			}
 		}
 

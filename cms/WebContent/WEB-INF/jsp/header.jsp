@@ -192,31 +192,19 @@
       				 	<li class=" nav-item"><a ><i class="ft-server"></i><span class="menu-title" data-i18n="">Holiday</span></a>
       				 		<ul class="menu-content">
       				 			<li><a class="menu-item" href="holidayType?action=search">Holiday Type Search</a></li>
-								<li><a class="menu-item" href="holidayType?action=add">Holiday Type Add</a></li>
 								<li><a class="menu-item" href="holiday?action=search">Holiday Search</a></li>
-								<li><a class="menu-item" href="holiday?action=add">Holiday Add</a></li>
       				 		</ul>
   				 		</li>
-						
 						<li><a class="menu-item" href="service?action=search">Service Search</a></li>
-						<li><a class="menu-item" href="service?action=add">Service Add</a></li>
 						<li><a class="menu-item" href="package?action=search">Package Search</a></li>
-						<li><a class="menu-item" href="package?action=add">Package Add</a></li>
 						<li><a class="menu-item" href="process?action=search">Process Search</a></li>
-						<li><a class="menu-item" href="process?action=add">Process Add</a></li>
-						
            			 </ul>
             	</li>
               <li><a class="menu-item" href="userRegistration">User Registration</a></li>
-              <li><a class="menu-item" href="customer?action=add">Customer Registration</a></li>
               <li><a class="menu-item" href="customer?action=search">Customer Search</a></li>
-              <li><a class="menu-item" href="employee?action=add">Employee Registration</a></li>
               <li><a class="menu-item" href="employee?action=search">Employee Search</a></li>
-              <li><a class="menu-item" href="taskConfig?action=add">Task Config Add</a></li>
               <li><a class="menu-item" href="taskConfig?action=search">Task Config Search</a></li>
-              <li><a class="menu-item" href="taskQuestionnaire?action=add">Task Questionnaire Add</a></li>
               <li><a class="menu-item" href="taskQuestionnaire?action=search">Task Questionnaire Search</a></li>
-              
             </ul>
           </li>
          

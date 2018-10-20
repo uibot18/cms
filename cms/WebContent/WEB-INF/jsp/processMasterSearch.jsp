@@ -71,15 +71,20 @@
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
+			                        <li>
+			                    		<a  id="testId" class="" data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="process?action=add"> 
+			                    			<b>+&nbsp;Add</b>
+										</a>
+			                    	</li>
 			                    </ul>
 			                </div>
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
-			                    <form id="<%=formName %>" class="form" action="package" method="post">
+			                    <form id="<%=formName %>" class="form" action="process" method="post">
 				                    <input type="hidden" name="action" value="search">
 									<div class="form-body">
 				                        
@@ -112,7 +117,7 @@
 						                        <div class="form-group row">
 						                        	<label class="col-md-3 label-control" >Process Name</label>
 						                        	<div class="col-md-9">
-						                            	<input type="text" id="packageName" class="form-control" placeholder="Process Name" name="processName" value="<%=packageName%>">
+						                            	<input type="text" id="packageName" class="form-control" placeholder="Process Name" name="processName" value="<%=processName%>">
 					                        		</div>
 						                        </div>
 					                        </div>
@@ -179,7 +184,7 @@
 												<td><%=package_name  %></td>
 												<td><%=process_name  %></td>
 												<td>
-													<a href="process?action=edit&processId=<%=package_id%>">Edit</a> &nbsp;&nbsp;
+													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="process?action=edit&processId=<%=package_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a href="process?action=delete&processId=<%=package_id%>">delete</a></td>
 											</tr>
 										<%sno++;
