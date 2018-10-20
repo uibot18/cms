@@ -75,6 +75,12 @@ public class CommonMasterDAO {
 		return dtoList;
 	}
 
+	public static List<CommonMasterDO> getCommonMasterBySubqry(Connection preCon, String subqry, boolean needChild) {
+		String query=SELECT +" where 0=0 "+subqry;
+		List<CommonMasterDO> dtoList =getCommonMaster(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<CommonMasterDO>(); }
+		return dtoList;
+	}
 	public static CommonMasterDO getCommonMasterByCmnMasterId(Connection preCon, int cmnMasterId, boolean needChild) {
 		String query=SELECT+" WHERE cmn_master_id="+cmnMasterId;
 		List<CommonMasterDO> dtoList =getCommonMaster(preCon, query, needChild);
