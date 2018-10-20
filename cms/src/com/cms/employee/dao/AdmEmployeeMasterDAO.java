@@ -260,4 +260,29 @@ public class AdmEmployeeMasterDAO {
 		return empMap;
 	}
 
+	public static Map<String, String> EmpNameMapBySubry(Connection preCon , String subqry) {
+		Map<String, String> empMap=new LinkedHashMap<>();
+		subqry=AppUtil.getNullToEmpty(subqry, "");
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		
+		String query=" SELECT a.emp_id, CONCAT(b.first_name,' ', b.middle_name, ' ', b.last_name) AS emp_name " + 
+				"FROM admin_employee_master a, finance_party_personal_details b "+ 
+				"WHERE a.ledger_id=b.ledger_id AND a.bool_delete_status=0 AND b.bool_delete_status=0 ";
+		if(!subqry.equalsIgnoreCase("")) {
+			query+=subqry;
+		}
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery( query  );
+			while(rs.next()) {
+				empMap.put(""+rs.getInt(1), ""+rs.getString(2) );
+			}
+
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return empMap;
+	}
 }

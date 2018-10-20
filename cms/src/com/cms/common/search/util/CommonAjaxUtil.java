@@ -3,7 +3,9 @@ package com.cms.common.search.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +16,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.application.util.AppUtil;
+import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
+import com.cms.employee.dao.AdmEmployeeMasterDAO;
 
 public class CommonAjaxUtil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,7 +54,7 @@ public class CommonAjaxUtil extends HttpServlet {
 		
 		String subqry="";
 		try {
-		response.setContentType("application/json");
+	/*	response.setContentType("application/json");*/
 		PrintWriter out=response.getWriter();
 		JSONObject result_json=new JSONObject();
 		if(type.equalsIgnoreCase("cmn_master")) {
@@ -74,11 +78,31 @@ public class CommonAjaxUtil extends HttpServlet {
 				
 			}
 		}
-		System.err.println(result_json.toString());
+		else if(type.equalsIgnoreCase("employee")) {
+			String department=AppUtil.getNullToEmpty(request.getParameter("department"), "0");
+			String designation=AppUtil.getNullToEmpty(request.getParameter("designation"),"0");
+			
+			 subqry= " and a.department_id ="+department+" AND a.designation_id="+designation+" ";
+			Map<String,String> emp_name_map=AdmEmployeeMasterDAO.EmpNameMapBySubry(null,subqry);
+			if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
+			result_json.put("option", AppUtil.getNullToEmpty( AppUtil.formOption(emp_name_map, "")));
+			
+		}
+		System.err.println("res:"+result_json.toString());
 		out.write(result_json.toString());
+		out.flush();
 		out.close();
 		}catch(Exception e) {
 			
 		}
+	}
+	
+	public static String commonmasteroptionbyparentId( String parentIds, String selServiceIds ) {
+		String subQry="";
+		if(!parentIds.isEmpty() && !parentIds.isEmpty() && !parentIds.equalsIgnoreCase("0")) { subQry=" AND parent_id in("+parentIds+")  AND bool_delete_status=0 "; }
+		Map<String, String> map=new HashMap<String, String>();  
+		if(!subQry.equalsIgnoreCase("")&&!parentIds.equalsIgnoreCase("0")) {map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);}
+		
+		return AppUtil.formOption(map, selServiceIds);
 	}
 }
