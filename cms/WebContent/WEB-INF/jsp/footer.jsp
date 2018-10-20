@@ -27,15 +27,18 @@
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
 	var url=$(e.relatedTarget).attr('data-url')
+	 //$('#CMS-POPUP-MODEL').load(url);
 	
-	$.ajax({
+	 $.ajax({
  	   url:url,
  	   data:'',
- 	   async:false,
+ 	   beforeSend:function(){
+ 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');console.log('loadig...');
+ 	   },
  	   success:function(data){
  		   $('#CMS-POPUP-MODEL').html(data);
  	   }
-    }); 
+    });  
     
 });
 $("#CMS-POPUP-MODEL").on('shown.bs.modal', function () {
