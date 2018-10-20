@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
+import com.application.util.PageAlertType;
 import com.cms.task.config.bean.TaskConfigEscalationChildDO;
 import com.cms.task.config.bean.TaskConfigMasterDO;
 import com.cms.task.config.dao.TaskConfigMasterDAO;
@@ -35,17 +36,18 @@ public class TaskConfigCreationController {
 			//			insert
 			int taskConfigId =TaskConfigMasterDAO.insert(null, taskConfigDO);
 			if(taskConfigId!=0) {
-				System.out.println("Service Inderted...Id:"+taskConfigId);
 				taskConfigDO=TaskConfigMasterDAO.getTaskConfigMasterByTaskConfigId(null, taskConfigId, true);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Configuration Successfully Saved..!");
 			}else {
-				System.out.println("Failed to indert Task Config..!");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Configuration..!");
 			}
 		}else {
 			//			update
 			if(TaskConfigMasterDAO.update(null, taskConfigDO)) {
 				taskConfigDO=TaskConfigMasterDAO.getTaskConfigMasterByTaskConfigId(null, taskConfigDO.getTaskConfigId(), true);
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Configuration Successfully Saved..!");
 			}else {
-				System.out.println("Failed to Update Task Config..");
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Configuration..!");
 			}
 		}
 		request.setAttribute("taskConfigDO", taskConfigDO);
@@ -111,6 +113,17 @@ public class TaskConfigCreationController {
 		else if(configType.equalsIgnoreCase("holidays")) {
 			taskConfigDO.setHolidayIds( AppUtil.convertArrayToString(request.getParameterValues("holidayIds"), ",") );
 		}
+		else if(configType.equalsIgnoreCase("event")) {
+			taskConfigDO.setTaskExeUnit( AppUtil.getNullToInteger( request.getParameter("taskExeUnit") ) );
+			taskConfigDO.setTaskExeUnitUom(AppUtil.getNullToEmpty( request.getParameter("taskExeUnitUom"), "na"));
+			String refTaskConfigType=AppUtil.getNullToEmpty( request.getParameter("refTaskConfigType"), "na");
+			taskConfigDO.setRefTaskConfigType( refTaskConfigType );
+			if(refTaskConfigType.equals("after")) {
+				taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId1") ) );
+			}else if(refTaskConfigType.equals("before")) {
+				taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId2") ) );
+			}
+		}
 
 		boolean noEndDate= Boolean.parseBoolean( AppUtil.getNullToEmpty( request.getParameter("noEndDate")) );
 		taskConfigDO.setBoolNoEndDate(noEndDate);
@@ -121,15 +134,7 @@ public class TaskConfigCreationController {
 		taskConfigDO.setStartTime( AppUtil.getNullToEmpty( request.getParameter("startTime"), "00:00:00") );
 		taskConfigDO.setDuration( AppUtil.getNullToInteger( request.getParameter("duration") ) );
 		taskConfigDO.setDurationType( AppUtil.getNullToEmpty( request.getParameter("durationType")) );
-		taskConfigDO.setTaskExeUnit( AppUtil.getNullToInteger( request.getParameter("taskExeUnit") ) );
-		taskConfigDO.setTaskExeUnitUom(AppUtil.getNullToEmpty( request.getParameter("taskExeUnitUom"), "na"));
-		String refTaskConfigType=AppUtil.getNullToEmpty( request.getParameter("refTaskConfigType"), "na");
-		taskConfigDO.setRefTaskConfigType( refTaskConfigType );
-		if(refTaskConfigType.equals("after")) {
-			taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId1") ) );
-		}else if(refTaskConfigType.equals("before")) {
-			taskConfigDO.setRefTaskConfigId( AppUtil.getNullToInteger( request.getParameter("refTaskConfigId2") ) );
-		}
+		
 		taskConfigDO.setCreatedUser(loginId);
 		taskConfigDO.setUpdateUser(loginId);
 		

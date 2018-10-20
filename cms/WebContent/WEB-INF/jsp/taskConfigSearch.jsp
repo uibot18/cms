@@ -72,9 +72,14 @@
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
 			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
+			                        <li>
+			                    		<a  id="testId" class="" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskConfig?action=add"> 
+			                    			<b>+&nbsp;Add</b>
+										</a>
+			                    	</li>
 			                    </ul>
 			                </div>
 			            </div>
@@ -190,9 +195,9 @@
 												<td><%=task_config_name  %></td>
 												<td><%=exe_order  %></td>
 												<td>
-													<a href="taskConfig?action=edit&taskConfigId=<%=task_config_id%>">Edit</a> &nbsp;&nbsp;
+													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskConfig?action=edit&taskConfigId=<%=task_config_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp;
-													<a href="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>">Questionnaire</a> </td>
+													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>" href="#">Questionnaire</a> </td>
 											</tr>
 										<%sno++;
 										} %>
