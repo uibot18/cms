@@ -124,7 +124,9 @@ $(document).ready( function(){
 		$.ajax({
 		 	   url:$(frm).attr('action'),
 		 	   data:$(frm).serialize(),
-		 	   async:false,
+		 	   beforeSend:function(){
+		 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+		 	   },
 		 	   success:function(data){
 		 		   $('#CMS-POPUP-MODEL').html(data);
 		 	   }

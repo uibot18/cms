@@ -33,7 +33,7 @@ $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
  	   url:url,
  	   data:'',
  	   beforeSend:function(){
- 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');console.log('loadig...');
+ 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
  	   },
  	   success:function(data){
  		   $('#CMS-POPUP-MODEL').html(data);
@@ -45,11 +45,11 @@ $("#CMS-POPUP-MODEL").on('shown.bs.modal', function () {
 
 });
 $("#CMS-POPUP-MODEL").on('hide.bs.modal', function () {
-	alert('hide');
+	
 });
 $("#CMS-POPUP-MODEL").on('hidden.bs.modal', function () {
-	alert('hidden');
 	$('#CMS-POPUP-MODEL').html('');
+	location.reload();
 });
 
 </script>
