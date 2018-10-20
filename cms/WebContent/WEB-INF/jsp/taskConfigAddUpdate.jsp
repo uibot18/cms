@@ -917,5 +917,41 @@ $(document).ready( function(){
 function <%=formName %>reset(){
 	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');
 }
+
+$('#<%=formName %>').on('change', '#serviceName', function(){
+	var service_name_value=$('#serviceName').val();
+	console.log(service_name_value);
+	$('#packageName option:selected').remove();
+	$('#packageName').find('option').remove();
+	$('#packageName').append('<option ></option>');
+	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+service_name_value,function(data){
+		
+		$.each(data.result,function(index,item){
+			console.log(item.id+":::"+item.value);
+			$('#packageName').append('<option value='+item.id+'>'+item.value+'</option>');
+		});
+		
+	});
+});
+
+
+$('#<%=formName %>').on('change', '#packageName', function(){
+	var package_name_value=$('#packageName').val();
+	console.log(package_name_value);
+	$('#processName option:selected').remove();
+	$('#processName').find('option').remove();
+	$('#processName').append('<option ></option>');
+	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+package_name_value,function(data){
+		
+		$.each(data.result,function(index,item){
+			console.log(item.id+":::"+item.value);
+			$('#processName').append('<option value='+item.id+'>'+item.value+'</option>');
+		});
+		
+	});
+});
+
+
+
 </script>
 </html>

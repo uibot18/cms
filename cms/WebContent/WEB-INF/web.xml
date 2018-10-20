@@ -112,7 +112,14 @@
 		<servlet-name>taskQuestionnaireController</servlet-name>
 		<url-pattern>/taskQuestionnaire</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<servlet-name>commonajaxutil</servlet-name>
+		<servlet-class>com.cms.common.search.util.CommonAjaxUtil</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>commonajaxutil</servlet-name>
+		<url-pattern>/commonajax</url-pattern>
+	</servlet-mapping>
 	<filter>
 		<filter-name>cmsFilter</filter-name>
 		<filter-class>com.cms.web.filter.CMSFilter</filter-class>
