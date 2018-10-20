@@ -1,3 +1,5 @@
+<%@page import="com.cms.employee.dao.AdmEmployeeMasterDAO"%>
+<%@page import="com.cms.common.search.util.CommonAjaxUtil"%>
 <%@page import="com.cms.task.config.bean.TaskConfigEscalationChildDO"%>
 <%@page import="com.cms.task.config.handler.TaskConfigCreationController"%>
 <%@page import="com.cms.holiday.handler.HolidayTypeCreationController"%>
@@ -76,7 +78,12 @@ durationMap.put("minute", "Minute");
 List<TaskConfigEscalationChildDO> escalationChildList = taskConfigDO.getEscalationChildList();
 if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscalationChildDO>(); }
 
-
+Map<String,String> emp_name_map=null;
+if(!taskConfigDO.getDepartment().equalsIgnoreCase("0") && !taskConfigDO.getDesignation().equalsIgnoreCase("0") && !taskConfigDO.getDepartment().equalsIgnoreCase("") && !taskConfigDO.getDesignation().equalsIgnoreCase("")){
+String subqry="  and a.department_id ="+taskConfigDO.getDepartment()+" AND a.designation_id="+taskConfigDO.getDesignation()+" ";
+ emp_name_map=AdmEmployeeMasterDAO.EmpNameMapBySubry(null,subqry);
+ }
+if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 %>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -167,7 +174,7 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 													<div class="position-relative has-icon-left">
 														<select id="packageName" class="form-control" placeholder="Package Name" name="packageName" >
 						                            		<option></option>
-															<%=PackageCreationController.packageOption("", ""+packageDO.getCmnMasterId() ) %>
+															<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+serviceDO.getCmnMasterId(), ""+packageDO.getCmnMasterId()) %>
 														</select>
 													</div>
 												</div>
@@ -178,7 +185,7 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 													<div class="position-relative has-icon-left">
 														<select id="processName" class="form-control" placeholder="Process Name" name="processName" >
 						                            		<option></option>
-															<%=ProcessCreationController.processOption("", ""+processDO.getCmnMasterId() ) %>
+															<%=CommonAjaxUtil.commonmasteroptionbyparentId( ""+packageDO.getCmnMasterId(),""+processDO.getCmnMasterId() ) %>
 														</select>
 													</div>
 												</div>
@@ -229,7 +236,7 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 													<div class="position-relative has-icon-left">
 														<select id="designation" class="form-control" placeholder="Designation" name="designation" >
 						                            		<option></option>
-															<%=EmployeeCreationHandler.formDesignationOption(""+taskConfigDO.getDesignation() )%>
+																<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+taskConfigDO.getDepartment(), ""+taskConfigDO.getDesignation()) %>
 														</select>
 													</div>
 												</div>
@@ -240,7 +247,8 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 													<div class="position-relative has-icon-left">
 														<select id="empId" class="form-control" placeholder="Employee" name="empId" >
 						                            		<option></option>
-															<%=EmployeeCreationHandler.formEmployeeOption(""+taskConfigDO.getEmpId() )%>
+															
+															<%=AppUtil.formOption(emp_name_map, ""+taskConfigDO.getEmpId()) %>
 														</select>
 													</div>
 												</div>
@@ -280,6 +288,12 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 										int sno=1;
 										for(TaskConfigEscalationChildDO escalationChild : escalationChildList){
 											
+											Map<String,String> esc_emp_name_map=null;
+											if(!escalationChild.getDepartment().equalsIgnoreCase("0") && !escalationChild.getDesignation().equalsIgnoreCase("0") && !escalationChild.getDepartment().equalsIgnoreCase("") && !escalationChild.getDesignation().equalsIgnoreCase("")){
+											String subqry="  and a.department_id ="+escalationChild.getDepartment()+" AND a.designation_id="+escalationChild.getDesignation()+" ";
+											esc_emp_name_map=AdmEmployeeMasterDAO.EmpNameMapBySubry(null,subqry);
+											 }
+											if(esc_emp_name_map==null) { esc_emp_name_map=new HashMap<String, String>(); }
 											%>
 											<div class="row esc_row esc_row_style">
 												<div class="col-md-4">
@@ -299,7 +313,8 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 														<div class="position-relative has-icon-left">
 															<select id="esc_designation_<%=sno %>" class="form-control" placeholder="Designation" name="esc_designation_<%=sno %>" >
 							                            		<option></option>
-																<%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%>
+																<%-- <%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%> --%>
+																<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+escalationChild.getDepartment(), ""+escalationChild.getDesignation()) %>
 															</select>
 														</div>
 													</div>
@@ -310,7 +325,8 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 														<div class="position-relative has-icon-left">
 															<select id="esc_empId_<%=sno %>" class="form-control" placeholder="Employee" name="esc_empId_<%=sno %>" >
 							                            		<option></option>
-																<%=EmployeeCreationHandler.formEmployeeOption(""+escalationChild.getEmpId() )%>
+																
+																<%=AppUtil.formOption(esc_emp_name_map, ""+taskConfigDO.getEmpId()) %>
 															</select>
 														</div>
 													</div>
@@ -418,7 +434,7 @@ if(escalationChildList==null){ escalationChildList=new ArrayList<TaskConfigEscal
 											%>
 											<div class="col-md-3">
 												<div class="form-check">
-													<input type="checkbox" name="weeklyWeekDay" class="form-check-input" value="<%=day%>" id="weeklyWeekDay_<%=day%>"  <%=chk%> >
+													<input type="checkbox" name="weeklyWeekDay" class="form-check-input weeklydays" value="<%=day%>" id="weeklyWeekDay_<%=day%>"  <%=chk%> >
 													<label class="form-check-label" for="defaultCheck3"><%=dayEntry.getValue() %></label>
 												</div>
 											</div>
@@ -875,6 +891,31 @@ $(document).ready( function(){
 		var configType=$(this).val();
 		$('.configType_div').hide();
 		$('#configType_div_'+configType).show();
+		
+
+		$('#dailyEveryDay').attr("val","0"); $('#dailyEveryDay').val("0");
+		$('#weeklyEveryWeek').attr("val","0");$('#weeklyEveryWeek').val("0");
+		$('.weeklydays').prop("checked",false);
+		
+		$('#monthlyEveryMonthDay').attr("val","0");$('#monthlyEveryMonthDay').val("0");
+		$('#monthlyEveryMonth1').attr("val","0");$('#monthlyEveryMonth1').val("0");
+		$('#monthlyEveryMonth2').attr("val","0");$('#monthlyEveryMonth2').val("0");
+		
+		
+		$('#monthlyEveryWeek option:selected').removeAttr("selected");	$('#monthlyEveryWeek option:selected').prop("selected",false);
+		$('#monthlyEveryWeekWeekday option:selected').removeAttr("selected");	$('#monthlyEveryWeekWeekday option:selected').prop("selected",false);
+		
+		$('#yearlyEveryYear').attr("val","0");$('#yearlyEveryYear').val("0");
+		
+		$('#yearlyEveryWeek option:selected').removeAttr("selected");	$('#yearlyEveryWeek option:selected').prop("selected",false);
+		$('#yearlyEveryWeekWeek option:selected').removeAttr("selected");	$('#yearlyEveryWeekWeek option:selected').prop("selected",false);
+		$('#yearlyEveryMonth option:selected').removeAttr("selected");	$('#yearlyEveryMonth option:selected').prop("selected",false);
+		
+		
+		$('#holidayIds option:selected').removeAttr("selected");	$('#holidayIds option:selected').prop("selected",false);
+		
+		
+		
 	});
 	
 	$('#<%=formName %>').on('click','#btn_escalationAdd', function(){
@@ -924,8 +965,10 @@ $('#<%=formName %>').on('change', '#serviceName', function(){
 	$('#packageName option:selected').remove();
 	$('#packageName').find('option').remove();
 	$('#packageName').append('<option ></option>');
+	$('#processName option:selected').remove();
+	$('#processName').find('option').remove();
+	$('#processName').append('<option ></option>');
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+service_name_value,function(data){
-		
 		$.each(data.result,function(index,item){
 			console.log(item.id+":::"+item.value);
 			$('#packageName').append('<option value='+item.id+'>'+item.value+'</option>');
@@ -942,13 +985,144 @@ $('#<%=formName %>').on('change', '#packageName', function(){
 	$('#processName').find('option').remove();
 	$('#processName').append('<option ></option>');
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+package_name_value,function(data){
-		
 		$.each(data.result,function(index,item){
-			console.log(item.id+":::"+item.value);
 			$('#processName').append('<option value='+item.id+'>'+item.value+'</option>');
 		});
 		
 	});
+});
+
+
+$('#<%=formName %>').on('change', '#departmentName', function(){
+	var depart_name_value=$('#departmentName').val();
+	
+	$('#designation option:selected').remove();
+	$('#designation').find('option').remove();
+	$('#designation').append('<option ></option>');
+	
+	$('#empId option:selected').remove();
+	$('#empId').find('option').remove();
+	$('#empId').append('<option ></option>');
+	
+	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+depart_name_value,function(data){
+		
+		$.each(data.result,function(index,item){
+			console.log(item.id+":::"+item.value);
+			$('#designation').append('<option value='+item.id+'>'+item.value+'</option>');
+		});
+		
+	});
+});
+
+
+$('#<%=formName %>').on('change', '#designation', function(){
+	var designation_value=$('#designation').val();
+	var department_value=$('#departmentName').val();
+	
+	$('#empId option:selected').remove();
+	$('#empId').find('option').remove();
+	$('#empId').append('<option ></option>');
+	$.getJSON('commonajax?action=ajax&type=employee&department='+department_value+'&designation='+designation_value,function(data){
+		
+		$('#<%=formName%> #empId').append(data.option);
+	
+		
+	});
+});
+
+
+$('#<%=formName %>').on('change', '.esc_department', function(){
+	
+	var depart_id=this.id;
+	var des_id=depart_id.replace('esc_department_','esc_designation_');
+	var emp_id=depart_id.replace('esc_department_','esc_empId_');
+	var department_value=$('#'+depart_id).val();
+	
+	$('#'+des_id+' option:selected').remove();
+	$('#'+des_id).find('option').remove();
+	$('#'+des_id).append('<option ></option>');
+	$('#'+emp_id+' option:selected').remove();
+	$('#'+emp_id).find('option').remove();
+	$('#'+emp_id).append('<option ></option>');
+	
+	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+department_value,function(data){
+		$.each(data.result,function(index,item){
+			$('#'+des_id).append('<option value='+item.id+'>'+item.value+'</option>');
+		});
+		
+	});
+});
+
+
+$('#<%=formName %>').on('change', '.esc_designation', function(){
+	var des_id=this.id;
+	var dep_id=des_id.replace('esc_designation_','esc_department_');
+	var emp_id=des_id.replace('esc_designation_','esc_empId_');
+	var designation_value=$('#'+des_id).val();
+	var department_value=$('#'+dep_id).val();
+	
+	$('#'+emp_id+' option:selected').remove();
+	$('#'+emp_id).find('option').remove();
+	$('#'+emp_id).append('<option ></option>');
+	
+	$.getJSON('commonajax?action=ajax&type=employee&department='+department_value+'&designation='+designation_value,function(data){
+		
+		$('#<%=formName%> #'+emp_id).append(data.option);
+	
+		
+	});
+	});
+
+
+$('#<%=formName%> input[type=radio][name=refTaskConfigType]').change(function(){
+	if(this.value=='before'){
+		$('#refTaskConfigId1 option:selected').removeAttr("selected");	$('#refTaskConfigId1 option:selected').prop("selected",false);
+	}else if(this.value=='after'){
+		$('#refTaskConfigId2 option:selected').removeAttr("selected");	$('#refTaskConfigId2 option:selected').prop("selected",false);
+	}
+});
+
+
+
+$('#<%=formName%> input[type=radio][name=noEndDate]').change(function(){
+	if(this.value=='true'){
+		$('#endAfterNoOfRec').attr("val","0");	$('#endAfterNoOfRec').val("0");
+	}else if(this.value=='false'){
+		
+	}
+});
+
+
+$('#<%=formName%> input[type=radio][name=dailyEveryWeekDay]').change(function(){
+	if(this.value=='true'){
+		$('#dailyEveryDay').attr("val","0");	$('#dailyEveryDay').val("0");
+	}else if(this.value=='false'){
+		
+	}
+});
+
+
+$('#<%=formName%> input[type=radio][name=monthlyDaySpecfic]').change(function(){
+	if(this.value=='true'){
+		$('#monthlyEveryMonthDay').attr("val","0");	$('#monthlyEveryMonthDay').val("0");
+		$('#monthlyEveryMonth1').attr("val","0");	$('#monthlyEveryMonth1').val("0");
+	}else if(this.value=='false'){
+		$('#monthlyEveryWeek option:selected').removeAttr("selected");	$('#monthlyEveryWeek option:selected').prop("selected",false);
+		$('#monthlyEveryWeekWeekday option:selected').removeAttr("selected");	$('#monthlyEveryWeekWeekday option:selected').prop("selected",false);
+		$('#monthlyEveryMonth2').attr("val","0");	$('#monthlyEveryMonth2').val("0");
+	}
+});
+
+
+$('#<%=formName%> input[type=radio][name=yearlyYearSpecific]').change(function(){
+	if(this.value=='true'){
+		$('#yearlyEveryWeekWeek option:selected').removeAttr("selected");	$('#yearlyEveryWeekWeek option:selected').prop("selected",false);
+		$('#yearlyEveryWeek option:selected').removeAttr("selected");	$('#yearlyEveryWeek option:selected').prop("selected",false);
+		$('#yearlyEveryMonth option:selected').removeAttr("selected");	$('#yearlyEveryMonth option:selected').prop("selected",false);
+	}else if(this.value=='false'){
+		
+		$('#yearlyEveryYear').attr("val","0");	$('#yearlyEveryYear').val("0");
+	}
 });
 
 
