@@ -288,6 +288,12 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 										int sno=1;
 										for(TaskConfigEscalationChildDO escalationChild : escalationChildList){
 											
+											Map<String,String> esc_emp_name_map=null;
+											if(!escalationChild.getDepartment().equalsIgnoreCase("0") && !escalationChild.getDesignation().equalsIgnoreCase("0") && !escalationChild.getDepartment().equalsIgnoreCase("") && !escalationChild.getDesignation().equalsIgnoreCase("")){
+											String subqry="  and a.department_id ="+escalationChild.getDepartment()+" AND a.designation_id="+escalationChild.getDesignation()+" ";
+											esc_emp_name_map=AdmEmployeeMasterDAO.EmpNameMapBySubry(null,subqry);
+											 }
+											if(esc_emp_name_map==null) { esc_emp_name_map=new HashMap<String, String>(); }
 											%>
 											<div class="row esc_row esc_row_style">
 												<div class="col-md-4">
@@ -307,7 +313,8 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 														<div class="position-relative has-icon-left">
 															<select id="esc_designation_<%=sno %>" class="form-control" placeholder="Designation" name="esc_designation_<%=sno %>" >
 							                            		<option></option>
-																<%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%>
+																<%-- <%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%> --%>
+																<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+escalationChild.getDepartment(), ""+escalationChild.getDesignation()) %>
 															</select>
 														</div>
 													</div>
@@ -318,7 +325,8 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 														<div class="position-relative has-icon-left">
 															<select id="esc_empId_<%=sno %>" class="form-control" placeholder="Employee" name="esc_empId_<%=sno %>" >
 							                            		<option></option>
-																<%=EmployeeCreationHandler.formEmployeeOption(""+escalationChild.getEmpId() )%>
+																
+																<%=AppUtil.formOption(esc_emp_name_map, ""+taskConfigDO.getEmpId()) %>
 															</select>
 														</div>
 													</div>
