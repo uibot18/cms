@@ -253,7 +253,7 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 								<div class="form-group">
 									<label for="">Department</label>
 									<div class="position-relative has-icon-left">
-										<select id="esc_departmentName_<%=sno %>" class="form-control" placeholder="Department" name="esc_department_<%=sno %>" >
+										<select id="esc_department_<%=sno %>" class="form-control esc_department" placeholder="Department" name="esc_department_<%=sno %>" >
 		                            		<option></option>
 											<%=EmployeeCreationHandler.formDepartmentOption(""+escalationChild.getDepartment() )%>
 										</select>
@@ -264,7 +264,7 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 								<div class="form-group">
 									<label for="">Designation</label>
 									<div class="position-relative has-icon-left">
-										<select id="esc_designation_<%=sno %>" class="form-control" placeholder="Designation" name="esc_designation_<%=sno %>" >
+										<select id="esc_designation_<%=sno %>" class="form-control esc_designation" placeholder="Designation" name="esc_designation_<%=sno %>" >
 		                            		<option></option>
 											<%-- <%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%> --%>
 											<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+escalationChild.getDepartment(), ""+escalationChild.getDesignation()) %>
