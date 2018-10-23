@@ -168,7 +168,7 @@ if(registeredList==null){ registeredList=new ArrayList(); }
 												<td>-</td>
 											</tr>
 										<%
-											}
+										sno++;}
 										}else{
 											
 										}

@@ -16,8 +16,8 @@ public class DBConnection {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");  
-//			con=DriverManager.getConnection( "jdbc:mysql://aatmia.com:3306/projectsdb","projectdbuser","db@2018");
-			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","password");
+			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb","root","password");
+//			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","password");
 			System.out.println("Connection created..!");
 		} catch (Exception e) {
 			e.printStackTrace();

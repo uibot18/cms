@@ -87,7 +87,7 @@ String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
 				<div class="form-group">
 					<label for="timesheetinput1">Holiday Type</label>
 					<div class="position-relative has-icon-left">
-						<select id="holidayType" class="form-control" placeholder="Holiday Type" name="holidayType">
+						<select id="holidayType" class="form-control" placeholder="Holiday Type" name="holidayType" required="required">
 									<option></option>
 									<%=HolidayTypeCreationController.formHolidayTypeOption(""+holidayDO.getHolidayTypeId())%>
 							</select>
