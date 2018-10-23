@@ -17,7 +17,8 @@
     <link rel="stylesheet" type="text/css" href="./resource/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/pages/chat-application.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/pages/dashboard-analytics.min.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   
     
     <!-- END Custom CSS-->
 

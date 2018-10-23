@@ -92,8 +92,29 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 	    border: 1px solid #cacfe7;
    		padding: 4px;
    		margin: 1px;
-	}    
+	} 
+	.form-control{
+	font-size: .975rem !important;
+    line-height: 1.45 !important;
+    height: 2rem ;
+    padding: .95rem 1.2rem;
+    border-radius: .21rem !important;
+    padding-right: 1rem !important;
+    padding-left: 1.7rem !important;
+}  
+.col-md-4, .col-md-8{
+float: left;
+} 
+select.form-control:not([size]):not([multiple]) {
+    height: 2rem ;
+}
+.btn-sm {
+    font-size: .875rem;
+    padding: .25rem .5rem;
+    border-radius: .21rem;
+}
 </style>
+
 <div class="modal-dialog modal-xl" role="document" style="margin-left: 20%;width: 78%;">
 	<div class="modal-content">
 		<form class="form" action="taskConfig?action=save" method="post" id="<%=formName%>">
@@ -108,122 +129,126 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
 				<div class="form-body">
-					<div class="row">
+					<%-- <div class="form-group">
+						<label class="col-md-3 label-control" for="projectinput5">Service Name</label>
+						<div class="col-md-9">
+	                       <select id="serviceName" class="form-control" placeholder="Service Name" name="serviceName" >
+                           		<option></option>
+								<%=ServiceCreationController.serviceOption("", ""+serviceDO.getCmnMasterId() ) %>
+							</select>
+	                    </div>
+                    </div> --%>
+				
+					<div class="row mb-2">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Service Name</label>
-								<div class="position-relative has-icon-left">
-									<select id="serviceName" class="form-control" placeholder="Service Name" name="serviceName" >
-	                            		<option></option>
-										<%=ServiceCreationController.serviceOption("", ""+serviceDO.getCmnMasterId() ) %>
-									</select>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Service Name</label>
+						<div class="col-md-8">
+	                       <select id="serviceName" class="form-control" placeholder="Service Name" name="serviceName" >
+                           		<option></option>
+								<%=ServiceCreationController.serviceOption("", ""+serviceDO.getCmnMasterId() ) %>
+							</select>
+	                    </div>
+                    </div>
 						</div>
 						
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Package Name</label>
-								<div class="position-relative has-icon-left">
-									<select id="packageName" class="form-control" placeholder="Package Name" name="packageName" >
-	                            		<option></option>
-										<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+serviceDO.getCmnMasterId(), ""+packageDO.getCmnMasterId()) %>
-									</select>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Package Name</label>
+						<div class="col-md-8">
+	                       <select id="packageName" class="form-control" placeholder="Package Name" name="packageName" >
+                           		<option></option>
+								<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+serviceDO.getCmnMasterId(), ""+packageDO.getCmnMasterId()) %>
+							</select>
+	                    </div>
+                    </div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Process Name</label>
-								<div class="position-relative has-icon-left">
-									<select id="processName" class="form-control" placeholder="Process Name" name="processName" >
-	                            		<option></option>
-										<%=CommonAjaxUtil.commonmasteroptionbyparentId( ""+packageDO.getCmnMasterId(),""+processDO.getCmnMasterId() ) %>
-									</select>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Process Name</label>
+						<div class="col-md-8">
+	                       <select id="processName" class="form-control" placeholder="Process Name" name="processName" >
+                           		<option></option>
+								<%=CommonAjaxUtil.commonmasteroptionbyparentId( ""+packageDO.getCmnMasterId(),""+processDO.getCmnMasterId() ) %>
+							</select>
+	                    </div>
+                    </div>
 						</div>
 					</div>
 					
-					<div class="row">
+					<div class="row mb-2">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Task Config Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="taskConfigName" class="form-control" placeholder="Task Config Name" name="taskConfigName" value="<%=AppUtil.getNullToEmpty( taskConfigDO.getTaskConfigName() )%>" required="required">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Task Config Name</label>
+						<div class="col-md-8">
+	                       <input type="text" id="taskConfigName" class="form-control" placeholder="Task Config Name" name="taskConfigName" value="<%=AppUtil.getNullToEmpty( taskConfigDO.getTaskConfigName() )%>" required="required">
+	                    </div>
+                    </div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Execution Order</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="executionOrder" class="form-control" placeholder="Execution Order" name="executionOrder" value="<%=taskConfigDO.getExeOrder()%>" required="required">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Execution Order</label>
+						<div class="col-md-8">
+	                       <input type="text" id="executionOrder" class="form-control" placeholder="Execution Order" name="executionOrder" value="<%=taskConfigDO.getExeOrder()%>" required="required">
+	                    </div>
+                    </div>
 						</div>
 						
 					</div>
 					
-					<div class="row">
+					<div class="row mb-2">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Department</label>
-								<div class="position-relative has-icon-left">
-									<select id="departmentName" class="form-control" placeholder="Department" name="department" >
-	                            		<option></option>
-										<%=EmployeeCreationHandler.formDepartmentOption(""+taskConfigDO.getDepartment() )%>
-									</select>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Department</label>
+						<div class="col-md-8">
+	                       <select id="departmentName" class="form-control" placeholder="Department" name="department" >
+                           		<option></option>
+								<%=EmployeeCreationHandler.formDepartmentOption(""+taskConfigDO.getDepartment() )%>
+							</select>
+	                    </div>
+                    </div>
+						</div>
+						<div class="col-md-4">
+							
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Designation</label>
+						<div class="col-md-8">
+	                       <select id="designation" class="form-control" placeholder="Designation" name="designation" >
+                           		<option></option>
+									<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+taskConfigDO.getDepartment(), ""+taskConfigDO.getDesignation()) %>
+							</select>
+	                    </div>
+                    </div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="timesheetinput1">Designation</label>
-								<div class="position-relative has-icon-left">
-									<select id="designation" class="form-control" placeholder="Designation" name="designation" >
-	                            		<option></option>
-											<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+taskConfigDO.getDepartment(), ""+taskConfigDO.getDesignation()) %>
-									</select>
-								</div>
-							</div>
+						<label class="col-md-4 label-control" for="projectinput5">Employee</label>
+						<div class="col-md-8">
+                       <select id="empId" class="form-control" placeholder="Employee" name="empId" >
+                          		<option></option>
+							
+							<%=AppUtil.formOption(emp_name_map, ""+taskConfigDO.getEmpId()) %>
+						</select>
+	                    </div>
+                    </div>
 						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput1">Employee</label>
-								<div class="position-relative has-icon-left">
-									<select id="empId" class="form-control" placeholder="Employee" name="empId" >
-	                            		<option></option>
-										
-										<%=AppUtil.formOption(emp_name_map, ""+taskConfigDO.getEmpId()) %>
-									</select>
-								</div>
-							</div>
 						</div>
-								<div class="col-md-2">
+						<div class="row mb-2">
+								<div class="col-md-4">
 								<div class="form-group">
-									<label for="timesheetinput1">Ticket Duration</label>
-									<div class="position-relative ">
-										<input type="text" id="ticketDuration" class="form-control" placeholder="" name="ticketDuration" value="<%=taskConfigDO.getTicketDuration() %>"  >
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
+						<label class="col-md-4 label-control" for="projectinput5">Ticket Duration</label>
+						<div class="col-md-4">
+                       <input type="text" id="ticketDuration" class="form-control" placeholder="" name="ticketDuration" value="<%=taskConfigDO.getTicketDuration() %>"  >
+	                    </div>
+	                    <div class="col-md-4">
 								<div class="form-group">
-								<label for="timesheetinput1">&nbsp;</label>
-									<div class="position-relative has-icon-left">
-										<select id="ticketDurationUom" class="form-control" placeholder="" name="ticketDurationUom" >
-					                  		<option value="na">--select--</option>
-					                  		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTicketDurationUom()) %>
-										</select>
-									</div>
-								</div>
+                       <select id="ticketDurationUom" class="form-control" placeholder="" name="ticketDurationUom" >
+	                  		<option value="na">--select--</option>
+	                  		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTicketDurationUom()) %>
+						</select>
+                    </div>
+							</div>
+                    </div>
 							</div>
 					</div>
 					
@@ -231,7 +256,9 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 					
 					<div class="row">
 						<div class="col-md-12">
-							<label><b>Escalation</b></label><button type="button" id="btn_escalationAdd">+</button>&nbsp;<button type="button" id="btn_escalationDelete">-</button>
+							<label class="mr-1"><b>Escalation :</b></label>
+							<button type="button" class="btn btn-icon btn-success btn-sm" id="btn_escalationAdd"><i class="fa fa-plus"></i></button>
+							<button type="button" class="btn btn-icon btn-danger mr-1 btn-sm" id="btn_escalationDelete"><i class="fa fa-minus"></i></button>
 							<input type="hidden" name="esc_rowCount" id="esc_rowCount" value="<%=escalationChildList.size()%>">
 						</div>
 					</div>
@@ -722,7 +749,7 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 					
 					
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-md-1">
 							<label class="form-check-label" for="startType_time">Starts At</label>
 						</div>
 						
@@ -736,7 +763,7 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 						
 					</div>
 					<div class="row">
-						<div class="col-md-2">
+						<div class="col-md-1">
 							<label class="form-check-label" for="startType_duration">Duration</label>
 						</div>
 						<div class="col-md-2">
@@ -747,7 +774,7 @@ if(emp_name_map==null) { emp_name_map=new HashMap<String, String>(); }
 							</div>
 						</div>
 						
-						<div class="col-md-2">
+						<div class="col-md-1">
 							<div class="form-group">
 								<div class="position-relative ">
 									<select id="durationType" class="form-control" placeholder="" name="durationType" >

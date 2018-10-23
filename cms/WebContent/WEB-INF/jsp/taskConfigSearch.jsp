@@ -23,6 +23,22 @@
     <title>CMS-</title>
     <link rel="apple-touch-icon" href="./resource/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="./resource/app-assets/images/ico/favicon.ico">
+    <style type="text/css">
+    
+    .form-control{
+	font-size: .975rem !important;
+    line-height: 1.45 !important;
+    height: 2rem ;
+    padding: .95rem 1.2rem;
+    border-radius: .21rem !important;
+    padding-right: 1rem !important;
+    padding-left: 1.7rem !important;
+}  
+    
+    select.form-control:not([size]):not([multiple]) {
+    height: 2rem !important;
+}
+    </style>
   </head>
   <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
    <%@include file="header.jsp" %>
