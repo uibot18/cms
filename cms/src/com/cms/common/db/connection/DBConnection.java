@@ -16,7 +16,9 @@ public class DBConnection {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");  
-			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb","root","password");
+//			13.127.156.166
+//			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","P@ssw0rd");
+			con=DriverManager.getConnection( "jdbc:mysql://13.127.156.166:3306/projectsdb_new","root","P@ss@2018");
 //			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","password");
 			System.out.println("Connection created..!");
 		} catch (Exception e) {

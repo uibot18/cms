@@ -17,12 +17,14 @@
 <script src="./resource/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/vendors/js/extensions/fullcalendar.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js" type="text/javascript"></script>
+<!-- <script src="./resource/js/jquery-confirm.js" type="text/javascript"></script> -->
 <script src="./resource/app-assets/js/core/app-menu.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/core/app.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/scripts/customizer.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/vendors/js/jquery.sharrre.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/scripts/pages/dashboard-analytics.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/scripts/extensions/fullcalendar.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {

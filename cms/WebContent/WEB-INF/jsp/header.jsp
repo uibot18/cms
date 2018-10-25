@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/vendors/css/charts/chartist-plugin-tooltip.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/plugins/calendars/fullcalendar.min.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/vendors/css/calendars/fullcalendar.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/jquery-confirm.css"> -->
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/vendors/css/ui/prism.min.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/app.min.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/core/menu/menu-types/vertical-menu.min.css">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/pages/chat-application.css">
     <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/pages/dashboard-analytics.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
    
     
     <!-- END Custom CSS-->
