@@ -254,6 +254,126 @@ select.form-control:not([size]):not([multiple]) {
 					
 					<hr>
 					
+					
+					<!-- ----------------display---------------- -->
+					
+					
+					<div class="row mb-2">
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Service Name <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Package Name <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Process Name <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                      <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Task Config Name <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Execution Order <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Department <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                      <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Designation <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Employee<b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Ticket Duration<b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                      <b>nmaeee</b>
+	                    </div>
+                    </div>
+						</div>
+					</div>
+					
+					<div class="row mb-2">
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Daily <b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>10 Days</b>
+	                    </div>
+                    </div>
+						</div>
+						</div>
+						<div class="row mb-2">
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Starts at<b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                       <b>10</b>
+	                    </div>
+                    </div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+						<label class="col-md-4 label-control" for="projectinput5">Duration<b class="float-right">:</b></label>
+						<div class="col-md-8">
+	                      <b>10 days</b>
+	                    </div>
+                    </div>
+						</div>
+					</div>
+					
+					<!-- ----------------display---------------- -->
+					
+					
+					
+					
 					<div class="row">
 						<div class="col-md-12">
 							<label class="mr-1"><b>Escalation :</b></label>
