@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
@@ -195,6 +197,28 @@ public class SalesCustomerMasterDAO {
 		} catch (Exception e) { e.printStackTrace(); }
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
+	}
+	
+	public static Map<String, String> loadCustomerMap(Connection preCon, String customerIds){
+		Map<String, String> customerMap=new HashMap<String, String>();
+		customerIds=AppUtil.getNullToEmpty(customerIds,"0");
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+
+		String query="SELECT customer_id, first_name FROM sales_customer_master_view where 0=0 ";
+		if(!customerIds.equals("0")) { query+=" AND customer_id in("+customerIds+")"; }
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+			while(rs.next()) {
+				customerMap.put(""+rs.getInt(1), ""+rs.getString(2));
+			}
+
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return customerMap;
 	}
 
 }

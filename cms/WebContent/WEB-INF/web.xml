@@ -6,7 +6,7 @@
 	<display-name>cms</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
-<welcome-file>index.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>home</servlet-name>
@@ -113,6 +113,15 @@
 		<url-pattern>/taskQuestionnaire</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>customerBookingController</servlet-name>
+		<servlet-class>com.cms.booking.controller.SalesCustomerBookingController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>customerBookingController</servlet-name>
+		<url-pattern>/customerBooking</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>commonajaxutil</servlet-name>
 		<servlet-class>com.cms.common.search.util.CommonAjaxUtil</servlet-class>
 	</servlet>
@@ -137,6 +146,7 @@
 		<url-pattern>/process</url-pattern>
 		<url-pattern>/taskConfig</url-pattern>
 		<url-pattern>/taskQuestionnaire</url-pattern>
+		<url-pattern>/customerBooking</url-pattern>
 		<url-pattern>/logout</url-pattern>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>

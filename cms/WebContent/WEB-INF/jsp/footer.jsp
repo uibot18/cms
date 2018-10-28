@@ -24,6 +24,10 @@
 <script src="./resource/app-assets/vendors/js/jquery.sharrre.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/scripts/pages/dashboard-analytics.min.js" type="text/javascript"></script>
 <script src="./resource/app-assets/js/scripts/extensions/fullcalendar.min.js" type="text/javascript"></script>
+<script src="./resource/app-assets/js/scripts/pickers/dateTime/pick-a-datetime.min.js" type="text/javascript"></script>
+<script src="./resource/app-assets/vendors/js/pickers/daterange/daterangepicker.js" type="text/javascript"></script>
+
+
 
 <script type="text/javascript">
 

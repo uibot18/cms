@@ -25,20 +25,24 @@ public class HolidaySearchController {
 
 	private static String constructQuery(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
 
-		String holidayType=AppUtil.getNullToEmpty( requestMap.get("holidayType") );
-		String holidayName=AppUtil.getNullToEmpty( requestMap.get("holidayName") );
-		String holidayDate=AppUtil.getNullToEmpty( requestMap.get("holidayDate") );
-		holidayDate=AppDateUtil.convertToDBDate(holidayDate, false, false);
+		String customerName=AppUtil.getNullToEmpty( requestMap.get("customerName") );
+		String contactPerson=AppUtil.getNullToEmpty( requestMap.get("contactPerson") );
+		String serviceName=AppUtil.getNullToEmpty( requestMap.get("serviceName") );
+		String packageName=AppUtil.getNullToEmpty( requestMap.get("packageName") );
+		
+		/*holidayDate=AppDateUtil.convertToDBDate(holidayDate, false, false);*/
 		
 
-		String query=" SELECT a.holiday_id, a.holiday_type_id, b.holiday_type, a.holiday_sub_type, a.holiday_name, a.holiday " + 
-				"FROM admin_holiday_details a, admin_holiday_type b "+
-				" WHERE a.holiday_type_id=b.holiday_type_id AND a.bool_delete_status=0 AND b.bool_delete_status=0 ";
+		String query=" SELECT a.sale_id, a.sale_date, c.first_name, IFNULL(c.off_email1, c.off_email2) email, IFNULL(c.off_mobile1, c.off_mobile2) AS mobile " + 
+				"FROM sales_customer_booking_form a, sales_customer_package_details b, sales_customer_master_view c " + 
+				"WHERE a.sale_id=b.sales_id AND a.bool_delete_status=0 AND b.bool_delete_status=0 " + 
+				"AND a.customer_id=c.customer_id ";
 
-		if( !holidayType.isEmpty() ) { query+=" AND a.holiday_type_id ="+holidayType; }
-		if( !holidayName.isEmpty() ) { query+=" AND a.holiday_name like'%"+holidayName+"%' "; }
-		if( !holidayDate.isEmpty() ) { query+=" AND a.holiday='"+holidayDate+"' "; }
-
+		if( !customerName.isEmpty() ) { query+=" AND c.first_name like '%"+customerName+"%' "; }
+		//if( !contactPerson.isEmpty() ) { query+=" AND c.first_name like '%"+contactPerson+"%' "; }
+		if( !serviceName.isEmpty() && !serviceName.equals("0") ) { query+=" AND b.package_id in( SELECT cmn_master_id FROM common_master WHERE parent_id="+serviceName+" )  "; }
+		if( !packageName.isEmpty() && !packageName.equals("0") ) { query+=" AND b.package_id in( "+packageName+" )  "; }
+		query+=" GROUP BY a.sale_id ";
 		return query;
 	}
 
@@ -46,13 +50,15 @@ public class HolidaySearchController {
 
 		Map<String, String> requestMap=new HashMap<String, String>();
 
-		String holidayType=AppUtil.getNullToEmpty( request.getParameter("holidayType") );
-		String holidayName=AppUtil.getNullToEmpty( request.getParameter("holidayName") );
-		String holidayDate=AppUtil.getNullToEmpty( request.getParameter("holidayDate") );
+		String customerName=AppUtil.getNullToEmpty( request.getParameter("customerName") );
+		String contactPerson=AppUtil.getNullToEmpty( request.getParameter("contactPerson") );
+		String serviceName=AppUtil.getNullToEmpty( request.getParameter("serviceName") );
+		String packageName=AppUtil.getNullToEmpty( request.getParameter("packageName") );
 
-		requestMap.put("holidayType", holidayType);
-		requestMap.put("holidayName", holidayName);
-		requestMap.put("holidayDate", holidayDate);
+		requestMap.put("customerName", customerName);
+		requestMap.put("contactPerson", contactPerson);
+		requestMap.put("serviceName", serviceName);
+		requestMap.put("packageName", packageName);
 
 		return requestMap;
 	}

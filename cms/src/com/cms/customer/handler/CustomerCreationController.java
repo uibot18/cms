@@ -1,6 +1,8 @@
 package com.cms.customer.handler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -203,6 +205,14 @@ public class CustomerCreationController {
 		if(customerDO==null) { customerDO=new SalesCustomerMasterDO(); }
 
 		request.setAttribute("customerDO", customerDO);
+	}
+	
+	public static String customerOption(String selValues) {
+		
+		Map<String, String> customerMap =SalesCustomerMasterDAO.loadCustomerMap(null, "");
+		if(customerMap==null) { customerMap=new HashMap<String, String>(); }
+		return AppUtil.formOption(customerMap, selValues);
+
 	}
 
 }

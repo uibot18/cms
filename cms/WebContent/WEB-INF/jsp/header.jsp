@@ -208,6 +208,7 @@
               <li><a class="menu-item" href="employee?action=search">Employee Search</a></li>
               <li><a class="menu-item" href="taskConfig?action=search">Task Config Search</a></li>
               <li><a class="menu-item" href="taskQuestionnaire?action=search">Task Questionnaire Search</a></li>
+              <li><a class="menu-item" href="customerBooking?action=search">Customer Bokking Search</a></li>
             </ul>
           </li>
          
