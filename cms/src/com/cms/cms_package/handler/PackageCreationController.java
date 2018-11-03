@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
@@ -76,6 +78,23 @@ public class PackageCreationController {
 		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
 		
 		return AppUtil.formOption(map, selPackageIds);
+	}
+	
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int serviceId=AppUtil.getNullToInteger( request.getParameter("packageId")  );
+		CommonMasterDO cmnMstDO =new CommonMasterDO();
+		cmnMstDO.setBoolDeleteStatus(true);
+		cmnMstDO.setUpdateUser(loginId);
+		cmnMstDO.setCmnMasterId(serviceId);
+		AjaxModel model=new AjaxModel();
+		
+		if(CommonMasterDAO.deleteupdate(null, cmnMstDO)) {
+			model.setMessage(" Package Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete Package");model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
 	}
 	
 }

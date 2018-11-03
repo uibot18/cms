@@ -40,6 +40,9 @@ public class ServiceController extends HttpServlet {
 			ServiceCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/serviceMasterAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("delete")){
+			ServiceCreationController.doDelete(request, response);
+		}
 	}
 
 }

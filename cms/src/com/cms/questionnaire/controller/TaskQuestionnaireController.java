@@ -36,6 +36,9 @@ public class TaskQuestionnaireController extends HttpServlet {
 			TaskQuestionnaireCreationController.doSave(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/taskQuestionaireMasterAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("delete")){
+			TaskQuestionnaireCreationController.doDelete(request, response);
+		}
 	}
 
 }

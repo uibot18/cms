@@ -42,6 +42,9 @@ public class SalesCustomerBookingController extends HttpServlet {
 		else if(action.equalsIgnoreCase("loadPackRow")){
 			SalesCustomerBookingCreationHandler.doPackageLoad(request, response);
 		}
+		else if(action.equalsIgnoreCase("delete")){
+			SalesCustomerBookingCreationHandler.doDelete(request, response);
+		}
 	}
 
 }

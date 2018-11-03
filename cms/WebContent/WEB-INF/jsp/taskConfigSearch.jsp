@@ -176,6 +176,7 @@
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
+			                 <form id="<%=formName %>_tble" class="form" action="#" method="post">
 			                	<div class="table-responsive">
 									<table class="table">
 										<thead class="bg-primary white">
@@ -212,7 +213,7 @@
 												<td><%=exe_order  %></td>
 												<td>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskConfig?action=edit&taskConfigId=<%=task_config_id%>" href="#">Edit</a> &nbsp;&nbsp;
-													<a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp;
+													<a class='<%=formName %>_delete' href="javascript:;" ahref="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp;
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>" href="#">Questionnaire</a> </td>
 											</tr>
 										<%sno++;
@@ -221,6 +222,7 @@
 										</tbody>
 									</table>
 								</div> 
+								</form>
 			                </div>
 			            </div>
 			        </div>
@@ -249,6 +251,23 @@ function <%=formName %>reset(){
 	$('#<%=formName %> #processName').val('');$('#<%=formName %> #processName').attr('value', '');
 }
 
+
+$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
+	
+	if(confirm("Do You Want Remove this ?")==true){
+	var params=$(this).attr("ahref");
+	var trobj=$(this);
+	$.getJSON(params,function(data){
+		if(data.errorExists=='true'){
+		}
+		else{
+			$(trobj).closest("tr").remove();
+		}
+		alert(data.message);
+	});
+	
+	}
+	});
 </script>
 
 </html>

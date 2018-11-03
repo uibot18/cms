@@ -17,7 +17,7 @@ public class TaskQuestionaireDetailsDAO {
 	private static final String SELECT="select   questionaire_id, task_config_id, questionaire_name, answer_type, description, bool_delete_status, created_user, created_date, update_user, update_date from task_questionaire_details ";
 	private static final String INSERT="insert into task_questionaire_details( questionaire_id, task_config_id, questionaire_name, answer_type, description, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
 	private static final String UPDATE="update  task_questionaire_details set  task_config_id=?, questionaire_name=?, answer_type=?, description=?, bool_delete_status=?, update_user=?, update_date=NOW() WHERE questionaire_id=? ";
-
+	private static final String DELETE_UPDATE="update  task_questionaire_details set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE task_config_id=? ";
 	public static int insert(Connection preCon, TaskQuestionaireDetailsDO dto) {
 		int insertId=0;
 		Connection con=null;
@@ -78,7 +78,22 @@ public class TaskQuestionaireDetailsDAO {
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
 	}
-
+	public static boolean deleteupdate(Connection preCon, TaskQuestionaireDetailsDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getTaskConfigId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 	public static List<TaskQuestionaireDetailsDO> getTaskQuestionaireDetails(Connection preCon, boolean needChild) {
 		String query=SELECT;
 		List<TaskQuestionaireDetailsDO> dtoList =getTaskQuestionaireDetails(preCon, query, needChild);

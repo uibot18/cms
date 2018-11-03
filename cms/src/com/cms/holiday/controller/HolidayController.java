@@ -40,6 +40,9 @@ public class HolidayController extends HttpServlet {
 			HolidayCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/holidayAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("delete")){
+			HolidayCreationController.doDelete(request, response);
+		}
 	}
 
 }

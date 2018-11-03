@@ -21,7 +21,7 @@ public class CommonMasterDAO {
 	private static final String SELECT="select   cmn_master_id, cmn_group_id, parent_id, cmn_master_name, level_no, bool_delete_status, created_user, created_date, update_user, update_date from common_master ";
 	private static final String INSERT="insert into common_master( cmn_master_id, cmn_group_id, parent_id, cmn_master_name, level_no, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW()) ";
 	private static final String UPDATE="update  common_master set  cmn_group_id=?, parent_id=?, cmn_master_name=?, level_no=?,  update_user=?, update_date=NOW() WHERE cmn_master_id=? ";
-
+	private static final String DELETE_UPDATE="update  common_master set  bool_delete_status=?,  update_user=?, update_date=NOW() WHERE cmn_master_id=? ";
 	public static int insert(Connection preCon, CommonMasterDO dto) {
 		int insertId=0;
 		Connection con=null;
@@ -68,6 +68,23 @@ public class CommonMasterDAO {
 		return false;
 	}
 
+	public static boolean deleteupdate(Connection preCon, CommonMasterDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getCmnMasterId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
+	
 	public static List<CommonMasterDO> getCommonMaster(Connection preCon, boolean needChild) {
 		String query=SELECT;
 		List<CommonMasterDO> dtoList =getCommonMaster(preCon, query, needChild);

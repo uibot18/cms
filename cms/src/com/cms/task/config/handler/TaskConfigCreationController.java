@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.task.config.bean.TaskConfigEscalationChildDO;
@@ -164,4 +166,21 @@ public class TaskConfigCreationController {
 		return AppUtil.formOption( TaskConfigMasterDAO.getTaskNameMapBySubQry( null, subQry ), selTaskIds);
 	}
 
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int taskConfigId=AppUtil.getNullToInteger( request.getParameter("taskConfigId")  );
+		TaskConfigMasterDO taskConfigDO=new TaskConfigMasterDO();
+		
+		taskConfigDO.setBoolDeleteStatus(true);
+		taskConfigDO.setUpdateUser(loginId);
+		taskConfigDO.setTaskConfigId(taskConfigId);
+		
+		AjaxModel model=new AjaxModel();
+		if(TaskConfigMasterDAO.deleteupdate(null, taskConfigDO)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+	}
 }

@@ -32,7 +32,7 @@
    
    String holidayType=AppUtil.getNullToEmpty( requestMap.get("holidayType") );
    
-   String formName="hlydyTyp_frm+"+Math.abs( new Random().nextInt(9999));
+   String formName="hlydyTyp_frm_"+Math.abs( new Random().nextInt(9999));
    %>
    <div class="app-content content">
       <div class="content-wrapper">
@@ -113,7 +113,7 @@
 			    <div class="col-md-12 col-sm-12">
 			        <div id="with-header" class="card">
 			            <div class="card-header">
-			                <h4 class="card-title">Employee List</h4>
+			                <h4 class="card-title">Holiday List</h4>
 			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 			                <div class="heading-elements">
 			                    <ul class="list-inline mb-0">
@@ -125,6 +125,7 @@
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
+			                <form id="<%=formName %>_tble" class="form" action="#" method="post">
 			                	<div class="table-responsive">
 									<table class="table">
 										<thead class="bg-primary white">
@@ -149,7 +150,7 @@
 												<td><%=holiday_type  %></td>
 												<td>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="holidayType?action=edit&holidayTypeId=<%=holiday_type_id%>">Edit</a> &nbsp;&nbsp;
-													<a href="holidayType?action=delete&holidayTypeId=<%=holiday_type_id%>">delete</a></td>
+													<a class='<%=formName %>_delete tt' href="javascript:;" ahref="holidayType?action=delete&holidayTypeId=<%=holiday_type_id%>">delete</a></td>
 											</tr>
 										<%sno++;
 										} %>
@@ -157,6 +158,7 @@
 										</tbody>
 									</table>
 								</div> 
+								</form>
 			                </div>
 			            </div>
 			        </div>
@@ -178,10 +180,25 @@ $(document).ready(function(){
 	
 });
 
-function <%=formName %>reset(){
+ function <%=formName %>reset(){
 	$('#<%=formName %> #holidayType').val('');$('#<%=formName %> #holidayType').attr('value', '');
-}
+} 
 
+$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
+	if(confirm("Do You Want Remove this ?")==true){
+	var params=$(this).attr("ahref");
+	var trobj=$(this);
+	$.getJSON(params,function(data){
+		if(data.errorExists=='true'){
+		}
+		else{
+			$(trobj).closest("tr").remove();
+		}
+		alert(data.message);
+	});
+	
+	}
+	});
 </script>
 
 </html>

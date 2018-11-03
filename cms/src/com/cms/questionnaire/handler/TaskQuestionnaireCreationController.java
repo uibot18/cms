@@ -7,10 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
-import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
 import com.cms.questionnaire.bean.TaskQuestionaireChildDO;
 import com.cms.questionnaire.bean.TaskQuestionaireDetailsDO;
@@ -103,4 +104,23 @@ public class TaskQuestionnaireCreationController {
 		return AppUtil.formOption(map, selServiceIds);
 	}
 
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int taskConfigId=AppUtil.getNullToInteger( request.getParameter("taskConfigId")  );
+
+		TaskQuestionaireDetailsDO taskQuestionaireDo=new TaskQuestionaireDetailsDO();
+		taskQuestionaireDo.setUpdateUser(loginId);
+		taskQuestionaireDo.setBoolDeleteStatus(true);
+		taskQuestionaireDo.setTaskConfigId(taskConfigId);
+		AjaxModel model=new AjaxModel();
+		if(TaskQuestionaireDetailsDAO.deleteupdate(null, taskQuestionaireDo)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");model.setErrorExists(true);
+		}
+		
+	
+		
+		AjaxUtil.sendResponse(request, response, model);
+	}
 }

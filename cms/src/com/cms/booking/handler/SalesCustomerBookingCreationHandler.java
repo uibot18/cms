@@ -17,6 +17,7 @@ import com.cms.cms_package.handler.PackageCreationController;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
 import com.cms.service.handler.ServiceCreationController;
+import com.cms.task.config.dao.TaskConfigMasterDAO;
 import com.cms.user.login.LoginDetail;
 import com.cms.user.login.util.LoginUtil;
 
@@ -152,4 +153,21 @@ public class SalesCustomerBookingCreationHandler {
 		AjaxUtil.sendResponse(request, response, model);
 	}
 	
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int saleId=AppUtil.getNullToInteger( request.getParameter("saleId")  );
+		SalesCustomerBookingFormDO bookingDO=new SalesCustomerBookingFormDO(); 
+		bookingDO.setCreatedUser(loginId);
+		bookingDO.setBoolDeleteStatus(true);
+		bookingDO.setSaleId(saleId);
+		AjaxModel model=new AjaxModel();
+		
+		if(SalesCustomerBookingFormDAO.deleteupdate(null, bookingDO)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");
+			model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+	}
 }
