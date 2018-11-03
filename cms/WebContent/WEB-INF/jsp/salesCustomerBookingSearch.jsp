@@ -251,7 +251,7 @@ $('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 	var params=$(this).attr("ahref");
 	var trobj=$(this);
 	$.getJSON(params,function(data){
-		if(data.errorExists=='true'){
+		if(data.errorExists==true){
 		}
 		else{
 			$(trobj).closest("tr").remove();
