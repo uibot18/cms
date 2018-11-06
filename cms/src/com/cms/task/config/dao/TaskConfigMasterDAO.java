@@ -147,6 +147,13 @@ public class TaskConfigMasterDAO {
 		if( dtoList==null ) { dtoList=new ArrayList<TaskConfigMasterDO>(); }
 		return dtoList;
 	}
+	
+	public static List<TaskConfigMasterDO> getTaskConfigMasterByProcessId(Connection preCon, int processsId, boolean needChild) {
+		String query=SELECT+" WHERE process_id="+processsId;
+		List<TaskConfigMasterDO> dtoList =getTaskConfigMaster(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<TaskConfigMasterDO>(); }
+		return dtoList;
+	}
 
 	public static TaskConfigMasterDO getTaskConfigMasterByTaskConfigId(Connection preCon, int taskConfigId, boolean needChild) {
 		String query=SELECT+" WHERE task_config_id="+taskConfigId;

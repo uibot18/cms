@@ -73,8 +73,23 @@ public class ServiceCreationController {
 	}
 
 	public static String serviceOption( String parentIds, String selServiceIds ) {
+		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
 		String subQry=" AND cmn_group_id="+CmnGroupName.SERVICE.getGroupId() +" AND parent_id=0 AND bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.isEmpty() ) { subQry=" AND parent_id in("+parentIds+")"; }
+		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
+		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		
+		return AppUtil.formOption(map, selServiceIds);
+	}
+	public static String customerserviceOption( String parentIds, String selServiceIds, int salesId ) {
+		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
+		String subQry=" AND cmn_group_id="+CmnGroupName.SERVICE.getGroupId() +" AND parent_id=0 AND bool_delete_status=0 ";
+		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
+		
+		subQry+=" AND cmn_master_id IN( " + 
+				"	SELECT  parent_id FROM sales_customer_package_details a, common_master b " + 
+				"	WHERE a.package_id=b.cmn_master_id AND a.bool_delete_status=0 AND sales_id=" +salesId +
+				")";
+		
 		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
 		
 		return AppUtil.formOption(map, selServiceIds);

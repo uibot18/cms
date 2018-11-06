@@ -1,17 +1,20 @@
 package com.cms.common.test;
 
-import org.json.JSONObject;
-
-import com.application.util.AjaxModel;
+import com.application.util.AppUtil;
+import com.cms.task.dao.TaskProcessMasterDAO;
 
 public class Test{
 	public static void main(String[] args)  {
-//		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "sales_customer_booking_form");
-//		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "sales_customer_package_details");
-
-		JSONObject object=new JSONObject(new AjaxModel());
+//		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_process_child");
 		
-		System.out.println(object);
+		System.out.println(TaskProcessMasterDAO.getTaskProcessMasterByProcessMasterId(null, 6, true));
 		
 	}
+	
+	
+	
+}
+class AA implements Cloneable{
+	public int a;
+	
 }

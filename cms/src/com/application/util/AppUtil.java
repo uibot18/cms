@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.cms.common.master.bean.CommonMasterDO;
+
 public class AppUtil {
 
 	public static int getNullToInteger(String intStr ) {
@@ -73,6 +75,16 @@ public class AppUtil {
 			if( !retVal.isEmpty() ) { retVal=retVal.substring(1); }
 		}
 		return retVal;
+	}
+	
+	public static String getCommonMasterValueById(int commonMasterId) {
+		
+		CommonMasterDO cmnDO =CommonData.commonMasterData.get(""+commonMasterId);
+		if(cmnDO!=null) {
+			return getNullToEmpty( cmnDO.getCmnMasterName() );
+		}
+		return "";
+		
 	}
 	
 }

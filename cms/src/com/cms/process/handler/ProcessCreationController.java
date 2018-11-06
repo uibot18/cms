@@ -72,8 +72,9 @@ public class ProcessCreationController {
 	}
 
 	public static String processOption( String parentIds, String selServiceIds ) {
+		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
 		String subQry=" AND cmn_group_id="+CmnGroupName.PROCESS.getGroupId() +" AND bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.isEmpty() ) { subQry=" AND parent_id in("+parentIds+")"; }
+		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
 		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
 		
 		return AppUtil.formOption(map, selServiceIds);

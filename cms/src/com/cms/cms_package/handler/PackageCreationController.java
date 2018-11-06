@@ -71,8 +71,24 @@ public class PackageCreationController {
 	}
 
 	public static String packageOption( String parentIds, String selPackageIds ) {
+		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
 		String subQry=" AND cmn_group_id="+CmnGroupName.PACKAGE.getGroupId() +" AND  bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry=" AND parent_id in("+parentIds+")"; }
+		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
+		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		
+		return AppUtil.formOption(map, selPackageIds);
+	}
+	public static String customerpackageOption( String parentIds, String selPackageIds , int salesId) {
+		
+		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
+		String subQry=" AND cmn_group_id="+CmnGroupName.PACKAGE.getGroupId() +" AND  bool_delete_status=0 ";
+		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
+		
+		subQry+=" AND cmn_master_id IN( " + 
+				"	SELECT  b.cmn_master_id FROM sales_customer_package_details a, common_master b " + 
+				"	WHERE a.package_id=b.cmn_master_id AND a.bool_delete_status=0 AND sales_id=" +salesId +
+				")";
+		
 		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
 		
 		return AppUtil.formOption(map, selPackageIds);

@@ -209,6 +209,7 @@
               <li><a class="menu-item" href="taskConfig?action=search">Task Config Search</a></li>
               <li><a class="menu-item" href="taskQuestionnaire?action=search">Task Questionnaire Search</a></li>
               <li><a class="menu-item" href="customerBooking?action=search">Customer Bokking Search</a></li>
+              <li><a class="menu-item" href="task?action=search">Task Search</a></li>
             </ul>
           </li>
          

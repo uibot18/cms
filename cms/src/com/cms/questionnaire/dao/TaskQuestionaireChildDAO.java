@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.util.AppDateUtil;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 import com.cms.questionnaire.bean.TaskQuestionaireChildDO;
@@ -131,9 +132,9 @@ public class TaskQuestionaireChildDAO {
 			dto.setOption(rs.getString(i++));
 			dto.setBoolDeleteStatus(rs.getBoolean(i++));
 			dto.setCreatedUser(rs.getString(i++));
-			dto.setCreatedDate(rs.getString(i++));
+			dto.setCreatedDate( AppDateUtil.convertToAppDate(rs.getString(i++), false, true) );
 			dto.setUpdateUser(rs.getString(i++));
-			dto.setUpdateDate(rs.getString(i++));
+			dto.setUpdateDate( AppDateUtil.convertToAppDate(rs.getString(i++), false, true) );
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;

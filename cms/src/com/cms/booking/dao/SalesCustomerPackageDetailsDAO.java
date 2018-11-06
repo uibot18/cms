@@ -110,6 +110,15 @@ public class SalesCustomerPackageDetailsDAO {
 		if( dtoList==null ) { dtoList=new ArrayList<SalesCustomerPackageDetailsDO>(); }
 		return dtoList;
 	}
+	
+	
+	public static List<SalesCustomerPackageDetailsDO> getSalesCustomerPackageDetailsBySubQry(Connection preCon, String subQry, boolean needChild) {
+		String query=SELECT+" WHERE 0=0 "+subQry;
+		System.out.println("query: "+query);
+		List<SalesCustomerPackageDetailsDO> dtoList =getSalesCustomerPackageDetails(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<SalesCustomerPackageDetailsDO>(); }
+		return dtoList;
+	}
 
 	public static SalesCustomerPackageDetailsDO getSalesCustomerPackageDetailsBySalesPackageId(Connection preCon, int salesPackageId, boolean needChild) {
 		String query=SELECT+" WHERE sales_package_id="+salesPackageId;
