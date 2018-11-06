@@ -30,7 +30,7 @@ public class SalesCustomerMasterDAO {
 			"values(?, ?, ?, ?, NOW(), ?, NOW() ) ";
 	private final static String UPDATE_LEDGER_ID="update sales_customer_master set ledger_id=? where customer_id=?";
 	private final static String UPDATE="update sales_customer_master set update_user=?, update_date=NOW() where customer_id=?";
-
+	private static final String DELETE_UPDATE="update  sales_customer_master set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE customer_id=? ";
 
 	public static ArrayList<SalesCustomerMasterDO> getSalesCustomerMasterAll(Connection preCon, boolean needChild) {
 		String query=SELECT;
@@ -114,7 +114,22 @@ public class SalesCustomerMasterDAO {
 		return customerId;
 
 	}
-
+	public static boolean deleteupdate(Connection preCon, SalesCustomerMasterDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.isBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getCustomerId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 	public static boolean updateLedgerId(Connection preCon, int customerId, int ledgerId) {
 
 		Connection con=null;

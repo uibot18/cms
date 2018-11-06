@@ -12,15 +12,13 @@ import com.application.util.AppDateUtil;
 import com.cms.booking.bean.SalesCustomerBookingFormDO;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
-import com.sun.management.jmx.TraceNotification;
-import com.sun.org.apache.regexp.internal.recompile;
 
 public class SalesCustomerBookingFormDAO {
 
 	private static final String SELECT="select   sale_id, sale_date, customer_id, description, bool_delete_status, created_user, created_date, update_user, update_date from sales_customer_booking_form ";
 	private static final String INSERT="insert into sales_customer_booking_form( sale_id, sale_date, customer_id, description, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
 	private static final String UPDATE="update  sales_customer_booking_form set  sale_date=?, customer_id=?, description=?, bool_delete_status=?, created_user=?, created_date=NOW(), update_user=?, update_date=NOW() WHERE sale_id=? ";
-
+	private static final String DELETE_UPDATE="update  sales_customer_booking_form set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE sale_id=? ";
 	public static int insert(Connection preCon, SalesCustomerBookingFormDO dto) {
 		int saleId=0;
 		Connection con=null;
@@ -81,7 +79,22 @@ public class SalesCustomerBookingFormDAO {
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
 	}
-
+	public static boolean deleteupdate(Connection preCon, SalesCustomerBookingFormDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getSaleId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 	public static List<SalesCustomerBookingFormDO> getSalesCustomerBookingForm(Connection preCon, boolean needChild) {
 		String query=SELECT;
 		List<SalesCustomerBookingFormDO> dtoList =getSalesCustomerBookingForm(preCon, query, needChild);

@@ -20,7 +20,7 @@ public class TaskConfigMasterDAO {
 	private static final String SELECT="select   task_config_id, process_id, task_config_name, exe_order, department, designation, emp_id, ticket_duration, ticket_duration_uom, config_type, daily_every_day, bool_daily_every_week_day, weekly_every_week, weekly_week_day, monthly_every_month, monthly_every_month_day, monthly_every_week, monthly_every_week_weekday, yearly_every_year, yearly_every_week, yearly_every_week_week, yearly_every_month, holiday_ids, end_after_no_of_rec, bool_no_end_date, start_time, duration, duration_type, task_exe_unit, task_exe_unit_uom, ref_task_config_type, ref_task_config_id, bool_delete_status, created_user, created_date, update_user, update_date, bool_monthly_day_specific, bool_yearly_year_specific from task_config_master ";
 	private static final String INSERT="insert into task_config_master( task_config_id, process_id, task_config_name, exe_order, department, designation, emp_id, ticket_duration, ticket_duration_uom, config_type, daily_every_day, bool_daily_every_week_day, weekly_every_week, weekly_week_day, monthly_every_month, monthly_every_month_day, monthly_every_week, monthly_every_week_weekday, yearly_every_year, yearly_every_week, yearly_every_week_week, yearly_every_month, holiday_ids, end_after_no_of_rec, bool_no_end_date, start_time, duration, duration_type, task_exe_unit, task_exe_unit_uom, ref_task_config_type, ref_task_config_id, bool_delete_status, created_user, created_date, bool_monthly_day_specific, bool_yearly_year_specific )  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ? ) ";
 	private static final String UPDATE="update  task_config_master set  process_id=?, task_config_name=?, exe_order=?, department=?, designation=?, emp_id=?, ticket_duration=?, ticket_duration_uom=?, config_type=?, daily_every_day=?, bool_daily_every_week_day=?, weekly_every_week=?, weekly_week_day=?, monthly_every_month=?, monthly_every_month_day=?, monthly_every_week=?, monthly_every_week_weekday=?, yearly_every_year=?, yearly_every_week=?, yearly_every_week_week=?, yearly_every_month=?, holiday_ids=?, end_after_no_of_rec=?, bool_no_end_date=?, start_time=?, duration=?, duration_type=?, task_exe_unit=?, task_exe_unit_uom=?, ref_task_config_type=?, ref_task_config_id=?,  update_user=?, update_date=NOW(), bool_monthly_day_specific=?, bool_yearly_year_specific=? WHERE task_config_id=? ";
-
+	private static final String DELETE_UPDATE="update  task_config_master set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE task_config_id=? ";
 	public static int insert(Connection preCon, TaskConfigMasterDO dto) {
 		int insertId=0;
 		Connection con=null;
@@ -141,6 +141,22 @@ public class TaskConfigMasterDAO {
 		return false;
 	}
 
+	public static boolean deleteupdate(Connection preCon, TaskConfigMasterDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.isBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getTaskConfigId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 	public static List<TaskConfigMasterDO> getTaskConfigMaster(Connection preCon, boolean needChild) {
 		String query=SELECT;
 		List<TaskConfigMasterDO> dtoList =getTaskConfigMaster(preCon, query, needChild);

@@ -40,6 +40,9 @@ public class ProcessController extends HttpServlet {
 			ProcessCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/processMasterAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("delete")){
+			ProcessCreationController.doDelete(request, response);
+		}
 	}
 
 }

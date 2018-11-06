@@ -3,12 +3,12 @@ package com.cms.holiday.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.holiday.bean.AdminHolidayDetailsDO;
-import com.cms.holiday.bean.AdminHolidayTypeDO;
 import com.cms.holiday.dao.AdminHolidayDetailsDAO;
-import com.cms.holiday.dao.AdminHolidayTypeDAO;
 
 public class HolidayCreationController {
 
@@ -63,6 +63,21 @@ public class HolidayCreationController {
 		holidayDO.setUpdateUser(loginId);
 		return holidayDO;
 	}
-	
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int holidayId=AppUtil.getNullToInteger( request.getParameter("holidayId")  );
+		AdminHolidayDetailsDO holidayDO=new AdminHolidayDetailsDO();
+		holidayDO.setBoolDeleteStatus(true);
+		holidayDO.setUpdateUser(loginId);
+		holidayDO.setHolidayId(holidayId);
+		
+		AjaxModel model=new AjaxModel();
+		if(AdminHolidayDetailsDAO.deleteupdate(null, holidayDO)) {
+			model.setMessage(" Holiday Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete Holiday");model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+	}
 	
 }

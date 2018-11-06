@@ -25,7 +25,6 @@ public class EmployeeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String action=AppUtil.getNullToEmpty( request.getParameter("action") );
-		System.out.println(action);
 		
 		if(action.equalsIgnoreCase("search")) {
 			EmployeeSearchHandler.doSearch(request, response);
@@ -44,6 +43,9 @@ public class EmployeeController extends HttpServlet {
 		}
 		else if(action.equalsIgnoreCase("loadBranch")) {
 			EmployeeCreationHandler.loadBranch( request, response );
+		}
+		else if(action.equalsIgnoreCase("delete")) {
+			EmployeeCreationHandler.doEmployeeDelete(request, response);
 		}
 		
 		

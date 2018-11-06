@@ -30,6 +30,7 @@ public class AdmEmployeeMasterDAO {
 	private final static String UPDATE_LEDGER_ID="update admin_employee_master set ledger_id=? where emp_id=?";
 	
 	private final static String UPDATE=" update admin_employee_master set reporting_to=?, department_id=?, designation_id=?, esi_no=?, epf_no=?, uan_no=?, bank_branch_id=?, bank_account_no=?, update_user=?, update_date=NOW() where emp_id=?";
+	private static final String DELETE_UPDATE="update  admin_employee_master set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE emp_id=? ";
 
 	public static ArrayList<AdmEmployeeMasterDO> getAdmEmployeeMasterList(Connection preCon, boolean needChild) {
 		String query=SELECT;
@@ -214,6 +215,22 @@ public class AdmEmployeeMasterDAO {
 			if(rowAffect!=0) { return true; }
 
 		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
+	public static boolean deleteupdate(Connection preCon, AdmEmployeeMasterDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.isBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getEmpId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
 	}

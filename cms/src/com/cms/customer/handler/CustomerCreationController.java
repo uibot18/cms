@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
@@ -215,4 +217,21 @@ public class CustomerCreationController {
 
 	}
 
+	public static void doCustomerDelete(HttpServletRequest request, HttpServletResponse response) {
+
+		int customerId=AppUtil.getNullToInteger( request.getParameter("customerId") );
+		String loginid="Admin";
+		SalesCustomerMasterDO customerDO =new SalesCustomerMasterDO();
+		customerDO.setCustomerId(customerId);
+		customerDO.setUpdateUser(loginid);
+		customerDO.setBoolDeleteStatus(true);
+		AjaxModel model=new AjaxModel();
+		if(SalesCustomerMasterDAO.deleteupdate(null, customerDO)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+		
+	}
 }

@@ -18,6 +18,7 @@ public class AdminHolidayDetailsDAO {
 	private static final String SELECT="select   holiday_id, holiday_type_id, holiday_name, holiday_sub_type, holiday, bool_delete_status, created_user, created_date, update_user, update_date from admin_holiday_details ";
 	private static final String INSERT="insert into admin_holiday_details( holiday_id, holiday_type_id, holiday_name, holiday_sub_type, holiday, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
 	private static final String UPDATE="update  admin_holiday_details set  holiday_type_id=?, holiday_name=?, holiday_sub_type=?, holiday=?,  update_user=?, update_date=NOW() WHERE holiday_id=? ";
+	private static final String DELETE_UPDATE="update  admin_holiday_details set  bool_delete_status=?,  update_user=?, update_date=NOW() WHERE holiday_id=? ";
 
 	public static int insert(Connection preCon, AdminHolidayDetailsDO dto) {
 		int insertId=0;
@@ -64,6 +65,22 @@ public class AdminHolidayDetailsDAO {
 		return false;
 	}
 
+	public static boolean deleteupdate(Connection preCon, AdminHolidayDetailsDO dto) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_UPDATE);
+			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
+			stmt.setString(i++,dto.getUpdateUser());
+			stmt.setInt(i++,dto.getHolidayId());
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 	public static List<AdminHolidayDetailsDO> getAdminHolidayDetails(Connection preCon, boolean needChild) {
 		String query=SELECT;
 		List<AdminHolidayDetailsDO> dtoList =getAdminHolidayDetails(preCon, query, needChild);

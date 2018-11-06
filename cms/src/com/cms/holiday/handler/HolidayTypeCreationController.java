@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.holiday.bean.AdminHolidayTypeDO;
@@ -61,6 +63,25 @@ public class HolidayTypeCreationController {
 		holidayTypeIds=AppUtil.getNullToEmpty(holidayTypeIds);
 		Map<String, String> holidayTypeMap=AdminHolidayTypeDAO .getHolidayTypeMap(null);
 		return AppUtil.formOption(holidayTypeMap, holidayTypeIds);
+	}
+	
+	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		String loginId="Admin";
+		int holidayTypeId=AppUtil.getNullToInteger( request.getParameter("holidayTypeId")  );
+		
+		AdminHolidayTypeDO holidayTypeDO=new AdminHolidayTypeDO();
+		holidayTypeDO.setBoolDeleteStatus(true);
+		holidayTypeDO.setUpdateUser(loginId);
+		holidayTypeDO.setHolidayTypeId(holidayTypeId);
+		AjaxModel model=new AjaxModel();
+		if(AdminHolidayTypeDAO.deleteupdate(null, holidayTypeDO)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");model.setErrorExists(true);
+		}
+		
+		
+		AjaxUtil.sendResponse(request, response, model);
 	}
 	
 }

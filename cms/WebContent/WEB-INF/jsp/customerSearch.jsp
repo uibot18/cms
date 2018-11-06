@@ -213,6 +213,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
+			                <form id="<%=formName %>_tble" class="form" action="#" method="post">
 			                	<div class="table-responsive">
 									<table class="table">
 										<thead class="bg-primary white">
@@ -251,7 +252,9 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 												<td><%=web_site %></td>
 												<td>
 													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="customer?action=edit&customerId=<%=customer_id%>" href="#">Edit</a> &nbsp;&nbsp;
-													<a href="customer?action=view&customerId=<%=customer_id%>">View</a></td>
+													<a href="customer?action=view&customerId=<%=customer_id%>">View</a>
+													<a class='<%=formName %>_delete' href="javascript:;" ahref="customer?action=delete&customerId=<%=customer_id%>">Delete</a>
+													</td>
 											</tr>
 										<%sno++;
 										} %>
@@ -261,6 +264,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 										</tbody>
 									</table>
 								</div> 
+								</form>
 			                </div>
 			            </div>
 			        </div>
@@ -291,5 +295,21 @@ function <%=formName %>reset(){
 
 
 
+$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
+	
+	if(confirm("Do You Want Remove this ?")==true){
+	var params=$(this).attr("ahref");
+	var trobj=$(this);
+	$.getJSON(params,function(data){
+		if(data.errorExists==true){
+		}
+		else{
+			$(trobj).closest("tr").remove();
+		}
+		alert(data.message);
+	});
+	
+	}
+	});
 </script>
 </html>

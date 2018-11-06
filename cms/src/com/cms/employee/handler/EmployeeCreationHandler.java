@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
@@ -234,5 +235,21 @@ public class EmployeeCreationHandler {
 		pw.close();
 	}
 	
-	//public static List<E>
+	public static void doEmployeeDelete( HttpServletRequest request, HttpServletResponse response ) {
+		int employeeId=AppUtil.getNullToInteger(request.getParameter("employeeId"));
+		String loginId="Admin";
+		AdmEmployeeMasterDO employeeDO =new AdmEmployeeMasterDO();
+		employeeDO.setEmpId(employeeId);
+		employeeDO.setUpdateUser(loginId);
+		employeeDO.setBoolDeleteStatus(true);
+		
+		AjaxModel model=new AjaxModel();
+		if(AdmEmployeeMasterDAO.deleteupdate(null, employeeDO)) {
+			model.setMessage(" Deleted Successfully");
+		}else {
+			model.setMessage(" Unable to Delete");model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+	}
+	
 }

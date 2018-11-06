@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.application.util.AppUtil;
 import com.cms.cms_package.handler.PackageCreationController;
 import com.cms.cms_package.handler.PackageSearchController;
-import com.cms.service.handler.ServiceCreationController;
-import com.cms.service.handler.ServiceSearchController;
 public class PackageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,6 +39,9 @@ public class PackageController extends HttpServlet {
 		else if(action.equalsIgnoreCase("edit")){
 			PackageCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/packageMasterAddUpdate.jsp").forward(request, response);
+		}
+		else if(action.equalsIgnoreCase("delete")){
+			PackageCreationController.doDelete(request, response);
 		}
 	}
 

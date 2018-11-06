@@ -140,6 +140,7 @@
 			            </div>
 			            <div class="card-content collapse show">
 			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
+			                 <form id="<%=formName %>_tble" class="form" action="#" method="post">
 			                	<div class="table-responsive">
 									<table class="table">
 										<thead class="bg-primary white">
@@ -170,7 +171,7 @@
 												<td><%=package_name  %></td>
 												<td>
 													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="package?action=edit&packageId=<%=package_id%>" href="#">Edit</a> &nbsp;&nbsp;
-													<a href="package?action=delete&packageId=<%=package_id%>">delete</a></td>
+													<a class='<%=formName %>_delete' href="javascript:;" ahref="package?action=delete&packageId=<%=package_id%>">delete</a></td>
 											</tr>
 										<%sno++;
 										} %>
@@ -178,6 +179,7 @@
 										</tbody>
 									</table>
 								</div> 
+								</form>
 			                </div>
 			            </div>
 			        </div>
@@ -206,6 +208,22 @@ function <%=formName %>reset(){
 	$('#<%=formName %> #holidayDate').val('');$('#<%=formName %> #holidayDate').attr('value', '');
 }
 
+$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
+	
+	if(confirm("Do You Want Remove this ?")==true){
+	var params=$(this).attr("ahref");
+	var trobj=$(this);
+	$.getJSON(params,function(data){
+		if(data.errorExists==true){
+		}
+		else{
+			$(trobj).closest("tr").remove();
+		}
+		alert(data.message);
+	});
+	
+	}
+	});
 </script>
 
 </html>
