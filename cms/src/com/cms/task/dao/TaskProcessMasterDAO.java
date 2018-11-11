@@ -62,6 +62,7 @@ public class TaskProcessMasterDAO {
 
 			}else { System.out.println("Process Master Insertion Failed"); con.rollback(); return 0; }
 			con.commit();
+			generateTask(null, processMasterId);
 		} catch (Exception e) { e.printStackTrace(); }
 		finally { DBUtil.close( preCon==null?con:null); }
 		return processMasterId;
@@ -99,6 +100,7 @@ public class TaskProcessMasterDAO {
 				if(!TaskProcessChildDAO.insert(con, taskProMstDO.getTaskProcessChildList(), taskProMstDO.getProcessMasterId() )) { System.out.println("Unable to Update"); con.rollback(); return false; }
 			}else { System.out.println("Unable to Update"); con.rollback(); return false; }
 			con.commit();
+			generateTask(null, taskProMstDO.getProcessMasterId());
 			return true;
 		} catch (Exception e) { e.printStackTrace(); } 
 		finally { DBUtil.close( preCon==null?con:null  ); }
@@ -151,6 +153,23 @@ public class TaskProcessMasterDAO {
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
+	}
+
+	public static boolean generateTask(Connection preCon, int taskProcessMasterId ) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement("CALL task_config_det_by_id("+taskProcessMasterId+",0,0,0,0,0,1,@a);");
+			int row=stmt.executeUpdate();
+
+			return true;
+
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return false;
 	}
 
 }

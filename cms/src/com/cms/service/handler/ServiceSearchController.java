@@ -29,7 +29,7 @@ public class ServiceSearchController {
 
 
 		String query="SELECT cmn_master_id, cmn_group_id, parent_id, cmn_master_name AS service_name, level_no " + 
-				"FROM common_master WHERE cmn_group_id="+CmnGroupName.SERVICE.getGroupId()+" ";
+				"FROM common_master WHERE cmn_group_id="+CmnGroupName.SERVICE.getGroupId()+" AND bool_delete_status=0 ";
 
 		if( !serviceName.isEmpty() ) { query+=" AND cmn_master_name like'%"+serviceName+"%' "; }
 
