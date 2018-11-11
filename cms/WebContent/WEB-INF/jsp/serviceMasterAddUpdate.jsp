@@ -30,7 +30,7 @@ label.invalid{
     <div class="modal-content">
     	<form id="<%=formName%>" action="service?action=save" method="post">
         <div class="modal-header">
-            <h4 class="modal-title">Service Creation123</h4>
+            <h4 class="modal-title">Service Creation</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body">
