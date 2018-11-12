@@ -87,7 +87,6 @@
 	                                <table class="table table-bordered text-center">
 	                                    <thead>
 	                                        <tr>
-	                                        <tr>
 	                                            <th scope="col">#</th>
 	                                            <th scope="col">Service Name</th>
 	                                            <th scope="col">Action</th>
@@ -150,7 +149,6 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
 });
 
 function <%=formName %>reset(){

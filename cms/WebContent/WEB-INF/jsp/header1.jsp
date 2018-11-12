@@ -1,5 +1,7 @@
 <!-- Topbar header - style you can find in pages.scss -->
 <link href="./static/dist/css/style.min.css" rel="stylesheet">
+<link href="./static/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./static/assets/libs/select2/dist/css/select2.min.css">
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header">

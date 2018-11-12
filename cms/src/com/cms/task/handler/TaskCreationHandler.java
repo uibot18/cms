@@ -190,20 +190,20 @@ public class TaskCreationHandler {
 
 
 
-	public static String generateChildTable(HttpServletRequest request, TaskProcessMasterDO processMstDO ) {
+	public static String generateChildTable(HttpServletRequest request, String formName, TaskProcessMasterDO processMstDO ) {
 		StringBuffer mastTable=new StringBuffer();
 		List<TaskProcessChildDO> childList=processMstDO.getTaskProcessChildList();
 		if(childList==null) { childList=new ArrayList<TaskProcessChildDO>(); }
 		int sno=1;
 		for (TaskProcessChildDO childDO : childList) {
-			mastTable.append( generateChildRow(request, processMstDO, childDO, sno, processMstDO.getTaskType()) );
+			mastTable.append( generateChildRow(request, formName, processMstDO, childDO, sno, processMstDO.getTaskType()) );
 			sno++;
 		}
 		return mastTable.toString();
 	}
 
 
-	private static String generateChildRow(HttpServletRequest request, TaskProcessMasterDO processMstDO, TaskProcessChildDO childDO, int sno, String taskType ) {
+	private static String generateChildRow(HttpServletRequest request, String formName, TaskProcessMasterDO processMstDO, TaskProcessChildDO childDO, int sno, String taskType ) {
 		if(childDO==null) { childDO=new TaskProcessChildDO(); }
 
 		StringBuffer row=new StringBuffer();
@@ -216,29 +216,29 @@ public class TaskCreationHandler {
 			row.append("</td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<select id='serviceName_"+sno+"' class='form-control input-sm serviceName' placeholder='Service Name' name='serviceName_"+sno+"'>");
+			row.append("<select id='"+formName+"_serviceName_"+sno+"' class='form-control input-sm select2 serviceName' placeholder='Service Name' name='serviceName_"+sno+"'>");
 			row.append("<option>-- please Select --</option>"+ServiceCreationController.serviceOption("", ""+childDO.getServiceId()));
 			row.append("</select>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<select id='packageName_"+sno+"' class='form-control input-sm packageName' placeholder='Package Name' name='packageName_"+sno+"'>");
+			row.append("<select id='"+formName+"_packageName_"+sno+"' class='form-control input-sm select2 packageName' placeholder='Package Name' name='packageName_"+sno+"'>");
 			row.append("<option>-- please Select --</option>"+PackageCreationController.packageOption(""+childDO.getServiceId(), ""+childDO.getPackageId()));
 			row.append("</select>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<select id='processName_"+sno+"' class='form-control input-sm processName' placeholder='Process Name' name='processName_"+sno+"'>");
+			row.append("<select id='"+formName+"_processName_"+sno+"' class='form-control input-sm select2 processName' placeholder='Process Name' name='processName_"+sno+"'>");
 			row.append("<option>-- please Select --</option>"+ProcessCreationController.processOption(""+childDO.getPackageId(), ""+childDO.getProcessId()));
 			row.append("</select>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm wef' placeholder='W.E.F' name='wef_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
+			row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm date_picker wef' placeholder='W.E.F' name='wef_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm endsOn' placeholder='Booking Date' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
+			row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm date_picker endsOn' placeholder='Booking Date' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
 			row.append("</div></td>	");
 
 			row.append("<td><div class='form-check'>");
@@ -259,27 +259,27 @@ public class TaskCreationHandler {
 			row.append("</td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='hidden' id='serviceName_"+sno+"' class='serviceName' value='"+childDO.getServiceId()+"' name='serviceName_"+sno+"'>");
+			row.append("<input type='hidden' id='"+formName+"_serviceName_"+sno+"' class='serviceName' value='"+childDO.getServiceId()+"' name='serviceName_"+sno+"'>");
 			row.append("<label>"+AppUtil.getCommonMasterValueById(childDO.getServiceId())+"</label>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='hidden' id='packageName_"+sno+"' class='packageName' value='"+childDO.getPackageId()+"' name='packageName_"+sno+"'>");
+			row.append("<input type='hidden' id='"+formName+"_packageName_"+sno+"' class='packageName' value='"+childDO.getPackageId()+"' name='packageName_"+sno+"'>");
 			row.append("<label>"+AppUtil.getCommonMasterValueById(childDO.getPackageId())+"</label>");
 			row.append("</div></td>");
 			
 			row.append("<td><div class='form-group'>");
-			row.append("<select id='processName_"+sno+"' class='form-control input-sm processName' placeholder='Process Name' name='processName_"+sno+"'>");
+			row.append("<select id='"+formName+"_processName_"+sno+"' class='form-control input-sm select2 processName' placeholder='Process Name' name='processName_"+sno+"'>");
 			row.append("<option>-- please Select --</option>"+ProcessCreationController.processOption(""+childDO.getPackageId(), ""+childDO.getProcessId()));
 			row.append("</select>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm wef' placeholder='W.E.F' name='wef_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
+			row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm date_picker wef' placeholder='W.E.F' name='wef_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
 			row.append("</div></td>");
 
 			row.append("<td><div class='form-group'>");
-			row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm endsOn' placeholder='Booking Date' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
+			row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm date_picker endsOn' placeholder='Booking Date' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
 			row.append("</div></td>	");
 
 			row.append("<td><div class='form-check'>");
@@ -301,8 +301,9 @@ public class TaskCreationHandler {
 	public static void doLoadProcessRow(HttpServletRequest request, HttpServletResponse response) {
 		int sno=AppUtil.getNullToInteger(request.getParameter("sno"));
 		String tasktype=AppUtil.getNullToEmpty( request.getParameter("taskType"));
+		String formName=AppUtil.getNullToEmpty( request.getParameter("formName"));
 		AjaxModel model=new AjaxModel();
-		model.setData( generateChildRow(request, null, new TaskProcessChildDO(), sno, tasktype ) );
+		model.setData( generateChildRow(request, formName, null, new TaskProcessChildDO(), sno, tasktype ) );
 		AjaxUtil.sendResponse(request, response, model);
 	}
 
@@ -326,6 +327,7 @@ public class TaskCreationHandler {
 		
 		int customerId = AppUtil.getNullToInteger( request.getParameter("customerId") );
 		int salesId = AppUtil.getNullToInteger( request.getParameter("salesId") );
+		String formName = AppUtil.getNullToEmpty( request.getParameter("formName") );
 		
 		String subQry=" AND sales_id IN( " + 
 				"	SELECT sale_id FROM sales_customer_booking_form " + 
@@ -356,7 +358,7 @@ public class TaskCreationHandler {
 			processDO.setTaskType( TaskType.Customer.getType() );
 			processDO.setTaskProcessChildList(processChildList);
 			
-			model.setData( generateChildTable(request, processDO) );
+			model.setData( generateChildTable(request, formName, processDO) );
 			
 		}else {
 			model.setErrorExists(true);

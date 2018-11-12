@@ -8,6 +8,8 @@
     
 <script src="./static/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="./static/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
 
 <!-- Bootstrap tether Core JavaScript -->
 <script src="./static/assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -26,34 +28,46 @@
 <!--Custom JavaScript -->
 <script src="./static/dist/js/custom.min.js"></script>
 
+<script src="./static/assets/libs/select2/dist/js/select2.full.min.js"></script>
+<script src="./static/assets/libs/select2/dist/js/select2.min.js"></script>
+<script src="./static/dist/js/pages/forms/select2/select2.init.js"></script>
+
 <script type="text/javascript">
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
-	var url=$(e.relatedTarget).attr('data-url')
-	 //$('#CMS-POPUP-MODEL').load(url);
-	
-	 $.ajax({
- 	   url:url,
- 	   data:'',
- 	   beforeSend:function(){
- 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
- 	   },
- 	   success:function(data){
- 		   $('#CMS-POPUP-MODEL').html(data);
- 	   }
-    });  
+	var target=$(e.relatedTarget).attr('data-target');
+	if(target=='#CMS-POPUP-MODEL'){
+		var url=$(e.relatedTarget).attr('data-url');
+		 //$('#CMS-POPUP-MODEL').load(url);
+		
+		 $.ajax({
+	 	   url:url,
+	 	   data:'',
+	 	   beforeSend:function(){
+	 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+	 	   },
+	 	   success:function(data){
+	 		   $('#CMS-POPUP-MODEL').html(data);
+	 	   }
+	    }); 
+	}
     
 });
 $("#CMS-POPUP-MODEL").on('shown.bs.modal', function () {
-
 });
 $("#CMS-POPUP-MODEL").on('hide.bs.modal', function () {
-	
 });
 $("#CMS-POPUP-MODEL").on('hidden.bs.modal', function () {
 	$('#CMS-POPUP-MODEL').html('');
 	location.reload();
 });
+
+/* $('#eleId').datepicker({
+	autoclose:true,
+	todayBtn:'linked',
+	todayHighlight:true,
+	format:'dd/mm/yyyy'
+}); */
 
 </script>
  
