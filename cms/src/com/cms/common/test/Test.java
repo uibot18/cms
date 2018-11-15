@@ -11,9 +11,20 @@ public class Test{
 	public static void main(String[] args)  {
 //		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_process_child");
 		
-		gwnerateTask(null, 1);
-		
+		Integer i=10;
+		getData(i);
+		System.out.println("i="+i);
 	}
+	
+	
+private static void getData(Integer i) {
+	i++;
+	System.out.println("i:ssss"+i);
+}
+	
+	
+	
+	
 	
 	public static boolean gwnerateTask(Connection preCon, int taskProcessMasterId ) {
 		Connection con=null;

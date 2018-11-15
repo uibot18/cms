@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 import com.cms.task.config.bean.TaskConfigEscalationChildDO;
-import com.mysql.jdbc.Statement;
 
 public class TaskConfigEscalationChildDAO {
 

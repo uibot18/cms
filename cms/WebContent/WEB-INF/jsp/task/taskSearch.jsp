@@ -70,7 +70,7 @@
 	                            		General Task
 	                            	</button>
                             	</h4>
-                                <form id="<%=formName %>" class="form p-t-20" action="service?action=search" method="post">
+                                <form id="<%=formName %>" class="form p-t-20" action="task?action=search" method="post">
                                 	<div class="row">
                                 		<div class="col-sm-4">
                                 			<div class="form-group row">

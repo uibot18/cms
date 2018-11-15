@@ -1,7 +1,9 @@
 package com.cms.task.handler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +18,14 @@ import com.cms.booking.bean.SalesCustomerPackageDetailsDO;
 import com.cms.booking.dao.SalesCustomerPackageDetailsDAO;
 import com.cms.cms_package.handler.PackageCreationController;
 import com.cms.common.master.bean.CommonMasterDO;
+import com.cms.employee.dao.AdmEmployeeMasterDAO;
 import com.cms.process.handler.ProcessCreationController;
 import com.cms.service.handler.ServiceCreationController;
 import com.cms.task.bean.TaskMasterDO;
 import com.cms.task.bean.TaskProcessChildDO;
 import com.cms.task.bean.TaskProcessMasterDO;
 import com.cms.task.config.bean.TaskConfigMasterDO;
+import com.cms.task.config.dao.TaskConfigMasterDAO;
 import com.cms.task.dao.TaskProcessMasterDAO;
 import com.cms.user.login.LoginDetail;
 import com.cms.user.login.util.LoginUtil;
@@ -44,7 +48,8 @@ public class TaskCreationHandler {
 
 	public static void doProcessSave(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			String URI="WEB-INF/jsp/task/taskAddUpdate.jsp";
+			
+			String URI="WEB-INF/jsp/task/taskPreview.jsp"; 
 			TaskProcessMasterDO taskProMstDO=constructDO(request, response);
 
 			System.out.println("taskConfigDO: "+taskProMstDO);
@@ -57,6 +62,7 @@ public class TaskCreationHandler {
 					request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Detail Successfully Saved..!");
 				}else {
 					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Detail..!");
+					URI="WEB-INF/jsp/task/taskAddUpdate.jsp"; 
 				}
 			}else {
 				//			update
@@ -65,6 +71,7 @@ public class TaskCreationHandler {
 					request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Detail Successfully Saved..!");
 				}else {
 					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Detail..!");
+					URI="WEB-INF/jsp/task/taskAddUpdate.jsp"; 
 				}
 			}
 			request.setAttribute("taskProMstDO", taskProMstDO);
@@ -182,13 +189,8 @@ public class TaskCreationHandler {
 
 		}
 
-
 		return taskList;
 	}
-
-
-
-
 
 	public static String generateChildTable(HttpServletRequest request, String formName, TaskProcessMasterDO processMstDO ) {
 		StringBuffer mastTable=new StringBuffer();
@@ -267,7 +269,7 @@ public class TaskCreationHandler {
 			row.append("<input type='hidden' id='"+formName+"_packageName_"+sno+"' class='packageName' value='"+childDO.getPackageId()+"' name='packageName_"+sno+"'>");
 			row.append("<label>"+AppUtil.getCommonMasterValueById(childDO.getPackageId())+"</label>");
 			row.append("</div></td>");
-			
+
 			row.append("<td><div class='form-group'>");
 			row.append("<select id='"+formName+"_processName_"+sno+"' class='form-control input-sm select2 processName' placeholder='Process Name' name='processName_"+sno+"'>");
 			row.append("<option>-- please Select --</option>"+ProcessCreationController.processOption(""+childDO.getPackageId(), ""+childDO.getProcessId()));
@@ -292,10 +294,6 @@ public class TaskCreationHandler {
 			row.append("</tr>");
 
 		}
-
-
-
-
 		return row.toString();
 	}
 	public static void doLoadProcessRow(HttpServletRequest request, HttpServletResponse response) {
@@ -307,64 +305,115 @@ public class TaskCreationHandler {
 		AjaxUtil.sendResponse(request, response, model);
 	}
 
-	public static String generateTaskPreviewTable(HttpServletRequest request, TaskProcessMasterDO taskProMstDO ) {
+	public static String generateTaskPreviewTableDisp(HttpServletRequest request, TaskProcessMasterDO taskProMstDO ) {
 
+		Map<String, String> empMap=AdmEmployeeMasterDAO.loadAllEmpNameMap(null, "");
+		if(empMap==null) { empMap=new HashMap<String, String>(); }
+		
+		String subQuery=" AND task_config_id IN( " + 
+				"SELECT c.task_config_id FROM task_process_master a, task_process_child b,  task_master c " + 
+				"WHERE a.process_master_id=b.process_master_id AND b.process_child_id=c.process_child_id " + 
+				"AND a.bool_delete_status=0 AND b.bool_delete_status=0 AND c.bool_delete_status=0 " + 
+				")";
+		Map<String, String> taskConfigNameMap=TaskConfigMasterDAO.getTaskNameMapBySubQry(null, subQuery);
+		if( taskConfigNameMap==null ) { taskConfigNameMap=new HashMap<String, String>(); }
+		
 		StringBuffer table=new StringBuffer();
 
-		
-		
+		List<TaskProcessChildDO> processChildList = taskProMstDO.getTaskProcessChildList();
+		if(processChildList!=null) {
+			int sno=1;
+			for(TaskProcessChildDO childDO : processChildList) {
+				generateTaskPreviewRowDisp(request, taskProMstDO, childDO, sno, empMap, taskConfigNameMap);
+				sno++;
+			}
+		}
 		return table.toString();
 	}
 
-	private static String generateTaskPreviewRow(HttpServletRequest request, TaskMasterDO taskDTO, int sno) {
+	private static String generateTaskPreviewRowDisp(HttpServletRequest request, TaskProcessMasterDO taskProMstDO, TaskProcessChildDO taskProcChildDO, int sno, Map<String, String> empMap, Map<String, String> taskConfigNameMap) {
 		StringBuffer row=new StringBuffer();
+		
+		row.append("<tr>");
+		row.append("<td>"+sno+"</td>");
+		row.append("<td colspan='4'><span>"+AppUtil.getCommonMasterValueById( taskProcChildDO.getProcessId() )+"</span></td>");
+		row.append("</tr>");
+		row.append("<tr>");
+		row.append("<td colspan='5'>");
+		row.append("<table><tbody>");
+		List<TaskMasterDO> taskList=taskProcChildDO.getTaskList();
+		if(taskList!=null) {
+			int childRow=1;
+			for(TaskMasterDO taskDO : taskList) {
+				row.append( generateTaskPreviewDetDiap(request, taskProMstDO, taskProcChildDO, taskDO, sno, childRow, empMap, taskConfigNameMap) );
+				childRow++;
+			}
+		}
+		row.append("</tbody></table>");
+		row.append("</td>");
+		row.append("</tr>");
 
 		return row.toString();
 	}
 
+	private static Object generateTaskPreviewDetDiap(HttpServletRequest request, TaskProcessMasterDO taskProMstDO, TaskProcessChildDO taskProcChildDO, TaskMasterDO taskDO, int sNo1, int sNo2, Map<String, String> empMap, Map<String, String> taskConfigNameMap) {
+		StringBuffer childRow=new StringBuffer();
+
+		childRow.append("<tr>");
+		childRow.append("<td>"+sNo1+"."+sNo2+"</td>");
+		childRow.append("<td><label>"+taskDO.getTaskDateFrom()+"</label></td>");
+		childRow.append("<td><label>"+taskDO.getTaskDateTo()+"</label></td>");
+		childRow.append("<td><label>"+AppUtil.getNullToEmpty( taskConfigNameMap.get(""+taskDO.getTaskConfigId()) )+"</label></td>");
+		childRow.append("<td><label>"+AppUtil.getNullToEmpty( empMap.get(""+taskDO.getAssignedTo()) )+"</label></td>");
+		childRow.append("</td>");
+		childRow.append("</tr>");
+
+		return childRow.toString();
+	}
+
 	public static void generateCustomerTaskTable(HttpServletRequest request, HttpServletResponse response) {
 		AjaxModel model=new AjaxModel();
-		
+
 		int customerId = AppUtil.getNullToInteger( request.getParameter("customerId") );
 		int salesId = AppUtil.getNullToInteger( request.getParameter("salesId") );
 		String formName = AppUtil.getNullToEmpty( request.getParameter("formName") );
-		
+
 		String subQry=" AND sales_id IN( " + 
 				"	SELECT sale_id FROM sales_customer_booking_form " + 
 				"	WHERE bool_delete_status=0 AND customer_id="+customerId
 				+ " AND sale_id=" + salesId+")";
-		
+
 		List<SalesCustomerPackageDetailsDO> customerPackageList = SalesCustomerPackageDetailsDAO.getSalesCustomerPackageDetailsBySubQry(null, subQry, false);
 		if(customerPackageList!=null && customerPackageList.size()>0) {
-			
+
 			List<TaskProcessChildDO> processChildList=new ArrayList<TaskProcessChildDO>();
-			
+
 			for (SalesCustomerPackageDetailsDO custPackDO : customerPackageList) {
 				TaskProcessChildDO processChildDO=new TaskProcessChildDO();
-				
+
 				CommonMasterDO cmnDO=CommonData.commonMasterData.get(""+custPackDO.getPackageId() );
 				if(cmnDO!=null) {
 					processChildDO.setServiceId( cmnDO.getParentId() );
 					processChildDO.setPackageId( cmnDO.getCmnMasterId() );
 					processChildDO.setProcessStartsOn( custPackDO.getProcessStartsFrom() );
 					processChildDO.setProcessEndsOn( custPackDO.getProcessEndsOn() );
-					
+
 					processChildList.add( processChildDO );
 				}
 			}
-			
+
 			TaskProcessMasterDO processDO=new TaskProcessMasterDO();
 			processDO.setSalesId(salesId);
 			processDO.setTaskType( TaskType.Customer.getType() );
 			processDO.setTaskProcessChildList(processChildList);
-			
+
 			model.setData( generateChildTable(request, formName, processDO) );
-			
+
 		}else {
 			model.setErrorExists(true);
 			model.setMessage("Booking Not found..!");
 		}
-		
+
 		AjaxUtil.sendResponse(request, response, model);
 	}
 

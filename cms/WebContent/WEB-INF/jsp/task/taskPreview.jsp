@@ -1,140 +1,124 @@
 <%@page import="com.cms.task.handler.TaskCreationHandler"%>
-<%@page import="com.cms.booking.dao.SalesCustomerBookingFormDAO"%>
-<%@page import="com.cms.task.bean.TaskProcessMasterDO"%>
+<%@page import="com.cms.task.handler.TaskType"%>
 <%@page import="com.cms.customer.handler.CustomerCreationController"%>
-<%@page import="com.cms.booking.handler.SalesCustomerBookingCreationHandler"%>
+<%@page import="com.cms.booking.dao.SalesCustomerBookingFormDAO"%>
 <%@page import="com.cms.booking.bean.SalesCustomerBookingFormDO"%>
+<%@page import="com.cms.task.bean.TaskProcessMasterDO"%>
 <%@page import="com.application.util.PageUtil"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
-<%@page import="com.cms.holiday.handler.HolidayTypeCreationController"%>
-<%@page import="com.cms.holiday.bean.AdminHolidayDetailsDO"%>
-<%@page import="java.util.Random"%>
-<%@page import="com.cms.holiday.bean.AdminHolidayTypeDO"%>
 <%@page import="com.application.util.AppUtil"%>
-<%@page import="com.cms.common.master.bean.CommonDocumentStoreDO"%>
-<%@page import="com.cms.finance.bean.FinancePartyContactDetailsDO"%>
-<%@page import="com.cms.finance.bean.FinancePartyAddressDetailsDO"%>
-<%@page import="com.cms.finance.bean.FinancePartyPersonalDetailsDO"%>
-<%@page import="com.cms.finance.bean.FinanceLedgerMasterDO"%>
-<%@page import="com.cms.customer.bean.SalesCustomerMasterDO"%>
+<%@page import="java.util.Random"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.cms.user.login.bean.LoginMasterBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
 <%
-
-
 TaskProcessMasterDO taskProMstDO=(TaskProcessMasterDO)request.getAttribute("taskProMstDO");
 if( taskProMstDO==null ){ taskProMstDO=new  TaskProcessMasterDO(); } 
 
 String formName="task_frm_"+Math.abs( new Random().nextInt(9999) );
-
 %>
 <style>
-.table td, .table th {
-	padding:5px;
+.form-control.invalid{
+	border-color: #f62d51 !important;
 }
+label.invalid{
+	color: #f62d51 !important;
+}
+.form-control.valid{
+	border-color: #36bea6 !important;
+}
+
 </style>
-<div class="modal-dialog modal-xl" role="document" style="margin-left: 20%;">
-<div class="modal-content">
-<form class="form" action="task?action=previewSave" method="post" id="<%=formName%>">
-	<input type="hidden" name="processMasterId" value="<%=taskProMstDO.getProcessMasterId()%>">
-	<input type="hidden" name="processMasterStatus" value="<%=taskProMstDO.getProcessMasterStatus()%>">
-	<div class="modal-header">
-		<h4 class="modal-title" id="myModalLabel16">Task Form</h4>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<div class="modal-body">
-	<%=PageUtil.getAlert(request) %>
-		                 
-	<div class="form-body">
-		<div class="row">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    	<form id="<%=formName%>" action="task?action=processSave" method="post">
+        <div class="modal-header">
+            <h4 class="modal-title">Service Creation</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+        <%=PageUtil.getAlert(request) %>
+			<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-				<%
-					int childSize=taskProMstDO.getTaskProcessChildList().size();
-					//if(childSize==0){ childSize=1; }
-				%>
-					<input type="hidden" id="rowCount" value="<%=childSize%>">
 					<table class="table">
-						<thead class="bg-primary white">
+						<thead class="bg-primary" style="color: white;">
 							<tr>
-								<th align="center"><div style="width: 30px;"><button type="button" id="process_addRow">+</button></div></th>
-								<th>Service Name</th>
-								<th>Package Name</th>
-								<th>Process Name</th>
-								<th>W.E.F</th>
-								<th>Ends On</th>
-								<th>Override</th>
-								<th>Action</th>
+								<th align="center"><div style="width: 30px;">S.No</div></th>
+								<th>Task Start Date</th>
+								<th>Task End Date</th>
+								<th>Task Name</th>
+								<th>Assigned To</th>
 							</tr>
 						</thead>
 						<tbody id="process_container">
-							<%=TaskCreationHandler.generateTaskPreviewTable(request, taskProMstDO) %>
+							<%=TaskCreationHandler.generateTaskPreviewTableDisp(request, taskProMstDO) %>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		
-	</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn" data-dismiss="modal">Close</button>
-		<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
-		<button type="submit" class="btn btn-success">Save</button>
-	</div>
-	</form>
+			
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            <!-- <button type="submit" class="btn btn-danger waves-effect waves-light">Save</button> -->
+        </div>
+        </form>
+    </div>
 </div>
-</div>
-
 
 <script type="text/javascript">
 
 $(document).ready( function(){
-	$('#<%=formName%>').submit(function(e){
-		var frm=$(this);
-		$.ajax({
-		 	   url:$(frm).attr('action'),
-		 	   data:$(frm).serialize(),
-		 	   beforeSend:function(){
-		 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
-		 	   },
-		 	   success:function(data){
-		 		   $('#CMS-POPUP-MODEL').html(data);
-		 	   }
-		    }); 
-		e.preventDefault();
-	});
-	
-	$('#<%=formName%>').on('click', '#process_addRow', function(){
-		
-		var sno=parseInt($('#<%=formName%> #rowCount').val()); if(isNaN(sno)){ sno=1;}
-		sno++;
-		$.getJSON('task?action=loadProcessRow&taskType=general&sno='+sno,function(response){
-			
-			if(response.data!=null && typeof(response)!='undefined'){
-				$('#<%=formName%> #process_container').append(response.data);
-				$('#<%=formName%> #rowCount').val(sno);
+	init();
+	try{		
+		$('#<%=formName%>').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+				serviceName: { required: true }
+			},
+			messages: {
+				serviceName: { required: 'Service Name is required' }
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-POPUP-MODEL').html(data);
+					}
+				}); 
 			}
 		});
-	});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
 	
-	$('#<%=formName%>').on('click', '.del_row', function(){
-		var id=$(this).attr('id');
-		var sno=id.replace('del_row_', '');
-		$('#<%=formName%> #row_'+sno).remove();
-	});
 	
 });
 
 function <%=formName %>reset(){
-	$('#<%=formName %> #holidayType').val('');$('#<%=formName %> #holidayType').attr('value', '');
+	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');
+}
+
+function init(){
+	$('.select2').select2();
+	$('.date_picker').datepicker({
+		autoclose:true,
+		todayBtn:'linked',
+		todayHighlight:true,
+		format:'dd/mm/yyyy'
+	}); 
 }
 </script>
 </html>
