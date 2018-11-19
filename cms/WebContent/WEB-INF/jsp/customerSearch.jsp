@@ -9,7 +9,27 @@
 <%@page import="com.cms.user.login.bean.LoginMasterBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/images/favicon.png">
+    <title>ui-bot</title>
+</head>
+<body>
+    
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
 <%
 Map<String, String> requestMap= (Map<String,String>)request.getAttribute( SearchEnum.REQUEST_MAP.getKeyName() );
 if(requestMap==null){ requestMap=new HashMap<String, String>(); }
@@ -29,195 +49,139 @@ String panOrGst=AppUtil.getNullToEmpty( requestMap.get("panOrGst") );
 
 String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 %>
-<!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <title>Admin User Request</title>
-    <link rel="apple-touch-icon" href="./resource/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="./resource/app-assets/images/ico/favicon.ico">
-  </head>
-  <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="2-columns">
-   <%@include file="header.jsp" %>
+
+
    
-   <!-- Content Start -->
-   
-   <div class="app-content content">
-      <div class="content-wrapper">
-        <div class="content-wrapper-before"></div>
-        <div class="content-header row">
-          <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">Customer</h3>
-          </div>
-          <div class="content-header-right col-md-8 col-12">
-            <div class="breadcrumbs-top float-md-right">
-              <div class="breadcrumb-wrapper mr-1">
-                <!-- <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a>
-                  </li>
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a>
-                  </li>
-                  <li class="breadcrumb-item active">Customer add
-                  </li>
-                </ol> -->
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content-body">
-			<section class="row">
-			    <div class="col-md-12 col-sm-12">
-			        <div id="with-header" class="card">
-			            <div class="card-header">
-			                <h4 class="card-title">Customer Search</h4>
-			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-			                <div class="heading-elements">
-			                    <ul class="list-inline mb-0">
-			                        <!-- <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li> -->
-			                        <li>
-			                    		<a  id="testId" class="" data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="customer?action=add"> 
-			                    			<b>+&nbsp;Add</b>
-										</a>
-			                    	</li>
-			                    </ul>
-			                </div>
-			            </div>
-			            <div class="card-content collapse show">
-			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
-			                    <form id="<%=formName %>" class="form" action="customer" method="post">
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <div id="main-wrapper">
+        <%@include file="header1.jsp" %>
+        <!-- Page wrapper  -->
+        
+        <div class="page-wrapper">
+            
+            <!-- Container fluid  -->
+            
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                            	<h4 class="card-title">CUSTOMER SEARCH
+                            		<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="customer?action=add" class="btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            		<i class="fa fa-plus"></i> 
+	                            		ADD
+	                            	</button>
+                            	</h4>
+                                 <form id="<%=formName %>" class="form" action="customer" method="post">
 			                    <input type="hidden" name="action" value="search">
-							<div class="form-body">
-								<div class="row">
-	                    			<div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control">Customer Name</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="customerName" class="form-control" placeholder="Customer Name" name="customerName" value="<%=customerName%>">
-				                            </div>
-				                        </div>
-				                    </div>
-				                    <div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >Contact Person Name</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="contactPersonName" class="form-control" placeholder="Contact Person Name" name="contactPersonName" value="<%=contactPersonName%>">
-			                        		</div>
-				                        </div>
-			                        </div>
-		                        </div>
-		                        
-		                        <div class="row">
-	                    			<div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >City</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="city" class="form-control" placeholder="City" name="city" value="<%=city%>">
-				                            </div>
-				                        </div>
-				                    </div>
-				                    <div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >Email</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="email" class="form-control" placeholder="Email" name="email" value="<%=city%>">
-			                        		</div>
-				                        </div>
-			                        </div>
-		                        </div>
-		                        
-		                        <div class="row">
-	                    			<div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >State</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="state" class="form-control" placeholder="State" name="state" value="<%=state%>">
-				                            </div>
-				                        </div>
-				                    </div>
-				                    <div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >Mobile</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="mobile" class="form-control" placeholder="Mobile" name="mobile" value="<%=mobile%>">
-			                        		</div>
-				                        </div>
-			                        </div>
-		                        </div>
-		                        
-		                        <div class="row">
-	                    			<div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >Pin Code</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="pinCode" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>">
-				                            </div>
-				                        </div>
-				                    </div>
-				                    <div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >Web Site</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="webSite" class="form-control" placeholder="Web Site" name="webSite" value="<%=webSite%>">
-			                        		</div>
-				                        </div>
-			                        </div>
-		                        </div>
-		                        
-		                        <div class="row">
-	                    			<div class="col-md-6">
-				                        <div class="form-group row">
-				                        	<label class="col-md-3 label-control" >PAN/GST</label>
-				                        	<div class="col-md-9">
-				                            	<input type="text" id="panOrGst" class="form-control" placeholder="PAN/GST" name="panOrGst" value="<%=panOrGst%>">
-				                            </div>
-				                        </div>
-				                    </div>
-		                        </div>
-								
-							</div>
-							<div class="form-actions right">
-								<button type="submit" class="btn btn-primary">
-									<i class="fa fa-check-square-o"></i> Search
-								</button>
-								<button type="button" class="btn btn-danger mr-1" onclick="<%=formName%>reset()">
-									<i class="ft-x"></i> Reset
-								</button>
-							</div>
-						</form>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</section>
-			
-			<section class="row">
-			    <div class="col-md-12 col-sm-12">
-			        <div id="with-header" class="card">
-			            <div class="card-header">
-			                <h4 class="card-title">Added Admin User</h4>
-			                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-			                <div class="heading-elements">
-			                    <ul class="list-inline mb-0">
-			                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-			                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-			                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-			                    </ul>
-			                </div>
-			            </div>
-			            <div class="card-content collapse show">
-			                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
-			                <form id="<%=formName %>_tble" class="form" action="#" method="post">
-			                	<div class="table-responsive">
-									<table class="table">
-										<thead class="bg-primary white">
-											<tr>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="customerName" class="form-control" placeholder="Customer Name" name="customerName" value="<%=customerName%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Contact Person Name</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="contactPersonName" class="form-control" placeholder="Contact Person Name" name="contactPersonName" value="<%=contactPersonName%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	
+                                	
+                                	
+                                	
+                  <div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="city" class="form-control" placeholder="City" name="city" value="<%=city%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Email</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="email" class="form-control" placeholder="Email" name="email" value="<%=email%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">State</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="state" class="form-control" placeholder="State" name="state" value="<%=state%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Mobile</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="mobile" class="form-control" placeholder="Mobile" name="mobile" value="<%=mobile%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="pinCode" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Web Site</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="webSite" class="form-control" placeholder="Web Site" name="webSite" value="<%=webSite%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">PAN/GST</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="panOrGst" class="form-control" placeholder="PAN/GST" name="panOrGst" value="<%=panOrGst%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                  <button type="button" class="btn btn-dark m-t-10 float-right" onclick="<%=formName %>reset()">Reset</button>
+                                    <button type="submit" class="btn btn-success m-r-10 m-t-10 float-right">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+   
+   
+   
+   
+   <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Added  User</h4>
+                            </div>
+                            <form id="<%=formName %>_tble" class="form" action="#" method="post">
+	                            <div class="table-responsive">
+	                                <table class="table table-bordered text-center">
+	                                    <thead>
+	                                        <tr>
 												<th>#</th>
 												<th>Customer Name</th>
 												<th>Contact Person</th>
@@ -226,9 +190,9 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 												<th>Web Site</th>
 												<th>Action</th>
 											</tr>
-										</thead>
-										<tbody>
-										<%
+	                                    </thead>
+	                                    <tbody>
+	                                    <%
 										List<Map<String, Object>> resultList=(List<Map<String, Object>>)resultMap.get( SearchEnum.RESULT_LIST.getKeyName() );
 										if(resultList==null){ resultList= new ArrayList<Map<String, Object>>();  }
 										int sno=1;
@@ -258,26 +222,24 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 											</tr>
 										<%sno++;
 										} %>
-										
-											
-											
-										</tbody>
-									</table>
-								</div> 
-								</form>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			</section>
-			
+	                                    </tbody>
+	                                </table>
+	                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- End Container fluid  -->
+            <%@include file="footer1.jsp"%>
         </div>
-      </div>
+        <!-- End Page wrapper  -->
     </div>
+    <!-- End Wrapper -->
+    <div class="chat-windows"></div>
    
-   <!-- Content End  -->
-   
-   <%@include file="footer.jsp" %>
+		
   </body>
 <script type="text/javascript">
 
