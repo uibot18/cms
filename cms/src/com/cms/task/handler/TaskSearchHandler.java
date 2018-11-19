@@ -31,12 +31,20 @@ public class TaskSearchHandler {
 
 		String query="SELECT a.process_master_id, a.task_type, a.sales_id, a.process_master_status, a.created_date, d.customer_id, d.first_name, d.sale_date " + 
 				"FROM task_process_master a " + 
-				"LEFT JOIN ( SELECT b.sale_id, b.sale_date, b.customer_id, c.first_name FROM sales_customer_booking_form b, sales_customer_master_view c " + 
+				"LEFT JOIN ( SELECT b.sale_id, b.sale_date, b.customer_id, c.first_name "
+				+ "FROM sales_customer_booking_form b, sales_customer_master_view c " + 
 				"WHERE b.customer_id = c.customer_id ) AS d ON d.sale_id = a.sales_id " ;
 
-		if( !serviceName.isEmpty() && !serviceName.equals("0") ) { query+=" AND d.cmn_master_id="+serviceName+" "; }
-		if( !packageName.isEmpty() && !packageName.equals("0")  ) { query+=" AND c.cmn_master_id="+packageName+" "; }
-		if( !processName.isEmpty()  && !processName.equals("0") ) { query+=" AND b.cmn_master_id="+processName+" "; }
+		
+		if( !serviceName.isEmpty() && !serviceName.equals("0") ) { 
+			query+=" AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE service_id="+serviceName+" ) "; 
+		}
+		if( !packageName.isEmpty() && !packageName.equals("0")  ) {
+			query+=" AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE package_id="+packageName+" ) "; 
+		}
+		if( !processName.isEmpty()  && !processName.equals("0") ) { 
+			query+="AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE process_id="+processName+" ) "; 
+		}
 
 		return query;
 	}

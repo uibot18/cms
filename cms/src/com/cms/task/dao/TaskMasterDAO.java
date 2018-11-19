@@ -142,6 +142,13 @@ public class TaskMasterDAO {
 		if( dtoList==null ) { dtoList=new ArrayList<TaskMasterDO>(); }
 		return dtoList;
 	}
+	
+	public static List<TaskMasterDO> getTaskMasterByProcessChildId(Connection preCon, int processChildId, boolean needChild) {
+		String query=SELECT+" WHERE process_child_id="+processChildId;
+		List<TaskMasterDO> dtoList =getTaskMaster(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<TaskMasterDO>(); }
+		return dtoList;
+	}
 
 	public static TaskMasterDO getTaskMasterByTaskId(Connection preCon, int taskId, boolean needChild) {
 		String query=SELECT+" WHERE task_id="+taskId;

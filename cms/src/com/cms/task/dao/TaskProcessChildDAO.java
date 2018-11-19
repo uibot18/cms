@@ -165,6 +165,7 @@ public class TaskProcessChildDAO {
 			dto.setCreatedDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
 			dto.setUpdateUser(rs.getString(i++));
 			dto.setUpdateDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
+			if(needChild) { dto.setTaskList( TaskMasterDAO.getTaskMasterByProcessChildId(con, dto.getProcessChildId(), needChild) ); }
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
