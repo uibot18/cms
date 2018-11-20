@@ -30,7 +30,7 @@ import com.cms.task.dao.TaskProcessMasterDAO;
 import com.cms.user.login.LoginDetail;
 import com.cms.user.login.util.LoginUtil;
 
-public class TaskCreationHandler {
+public class TaskProcessCreationHandler {
 
 	public static void doAdd(HttpServletRequest request, HttpServletResponse response) {
 		TaskProcessMasterDO taskProMstDO=new TaskProcessMasterDO();

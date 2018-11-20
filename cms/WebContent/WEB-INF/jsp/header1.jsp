@@ -265,6 +265,7 @@
                 <li class="sidebar-item"> <a class="sidebar-link" href="taskConfig?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Configuration</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="taskQuestionnaire?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Questionnaire</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="customerBooking?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer Booking</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link" href="taskProcess?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Process</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="task?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task</span></a></li>
                 
             </ul>

@@ -1,4 +1,4 @@
-<%@page import="com.cms.task.handler.TaskCreationHandler"%>
+<%@page import="com.cms.task.handler.TaskProcessCreationHandler"%>
 <%@page import="com.cms.task.handler.TaskType"%>
 <%@page import="com.cms.customer.handler.CustomerCreationController"%>
 <%@page import="com.cms.booking.dao.SalesCustomerBookingFormDAO"%>
@@ -36,7 +36,7 @@ label.invalid{
 </style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-    	<form id="<%=formName%>" action="task?action=processSave" method="post">
+    	<form id="<%=formName%>" action="taskProcess?action=processSave" method="post">
         <div class="modal-header">
             <h4 class="modal-title">Service Creation</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -102,7 +102,7 @@ label.invalid{
 							</tr>
 						</thead>
 						<tbody id="process_container">
-							<%=TaskCreationHandler.generateChildTable(request, formName, taskProMstDO) %>
+							<%=TaskProcessCreationHandler.generateChildTable(request, formName, taskProMstDO) %>
 						</tbody>
 					</table>
 				</div>
@@ -159,7 +159,7 @@ $('#<%=formName%>').on('click', '#process_addRow', function(){
 		var sno=parseInt($('#<%=formName%> #rowCount').val()); if(isNaN(sno)){ sno=1;}
 		sno++;
 		var param='action=loadProcessRow&taskType=general&formName=<%=formName%>&sno='+sno;
-		$.getJSON('task?'+param,function(response){
+		$.getJSON('taskProcess?'+param,function(response){
 			
 			if(response.data!=null && typeof(response)!='undefined'){
 				$('#<%=formName%> #process_container').append(response.data);
@@ -181,7 +181,7 @@ $('#<%=formName%>').on('click', '#process_addRow', function(){
 		var customerId=$('#<%=formName%> #customerName').val();
 		var param='?action=loadCustomerTask&customerId='+customerId+'&salesId='+salesId+'&formName=<%=formName%>';
 		$('#<%=formName%> #process_container').html('');
-		$.getJSON('task'+param, function(data){
+		$.getJSON('taskProcess'+param, function(data){
 			if(data.errorExists!=true){
 				$('#<%=formName%> #process_container').html(data.data);
 				init();

@@ -70,7 +70,7 @@
 	                            		General Task
 	                            	</button>
                             	</h4>
-                                <form id="<%=formName %>" class="form p-t-20" action="task?action=search" method="post">
+                                <form id="<%=formName %>" class="form p-t-20" action="taskProcess?action=search" method="post">
                                 	<div class="row">
                                 		<div class="col-sm-4">
                                 			<div class="form-group row">
@@ -117,12 +117,13 @@
                             <div class="card-body">
                                 <h4 class="card-title">Employee List</h4>
                             </div>
-                            <form id="<%=formName %>_tble" class="form" action="#" method="post">
+                            <form id="<%=formName %>_tble" class="form" action="taskProcess?action=approveTaskProcess" method="post">
 	                            <div class="table-responsive">
 	                                <table class="table table-bordered text-center">
 	                                    <thead>
 	                                        <tr>
 	                                            <th scope="col">#</th>
+	                                            <th><label class=""><input type="checkbox" id="<%=formName %>processIdAll"></label> </th>
 												<th scope="col">Customer</th>
 												<th scope="col">Create On</th>
 												<th scope="col">Status</th>
@@ -147,12 +148,14 @@
 											String customer_name=AppUtil.getNullToEmpty( (String)searchData.get("COL#7") );
 										%>
 											<tr>
-												<th scope="row"><%=sno %></th>
-												<td><%=customer_name  %></td>
-												<td><%=package_name  %></td>
-												<td><%=process_name  %></td>
-												<td><%=task_config_name  %></td>
-												<td><%=exe_order  %></td>
+												<td scope="row"><%=sno %></td>
+												<td>
+												<label class=""><input type="checkbox" name="processIds" class="<%=formName %>processIds" value="<%=process_master_id%>"></label> </td>
+												<td><%=customer_name %></td>
+												<td><%=package_name %></td>
+												<td><%=process_name %></td>
+												<td><%=task_config_name %></td>
+												<td><%=exe_order %></td>
 												<td>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=edit&processMasterId=<%=process_master_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<%-- <a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp; --%>
@@ -163,6 +166,7 @@
 	                                    </tbody>
 	                                </table>
 	                            </div>
+	                            <button type="submit" id="<%=formName %>_btn_approve" class="btn btn-success m-r-10 m-t-10 float-right" style="display: none;">Approve</button>
                             </form>
                         </div>
                     </div>
@@ -180,6 +184,41 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	<%-- try{		
+		$('#<%=formName%>_tble').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+				processIds: { required: true }
+			},
+			messages: {
+				processIds: { required: 'Please Select' }
+			},
+			submitHandler: function(form) {
+				/* $.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-POPUP-MODEL').html(data);
+					}
+				});  */
+				alert("1");
+				$(form).submit();
+				alert("2");
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	} --%>
+	
+	
 	
 	$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 		if(confirm("Do You Want Remove this ?")==true){
@@ -195,7 +234,40 @@ $(document).ready(function(){
 			});
 		}
 	});
+	
+	$('#<%=formName %>_tble').on('click', '#<%=formName %>processIdAll', function(){
+		if($(this).is(':checked')){
+			$('.<%=formName %>processIds').prop('checked', true);
+		}else{
+			$('.<%=formName %>processIds').prop('checked', false);
+		}
+		<%=formName%>_approvelBtnDiaplay();
+	});
+	
+	$('#<%=formName %>_tble').on('click', '.<%=formName %>processIds', function(){
+		var total=$('.<%=formName %>processIds').length;
+		var checked=$('.<%=formName %>processIds:checked').length;
+		
+		if(total!=0){
+			if(checked==total){
+				$('#<%=formName %>processIdAll').prop('checked', true);
+			}else{
+				$('#<%=formName %>processIdAll').prop('checked', false);
+			}
+		}
+		<%=formName%>_approvelBtnDiaplay();
+	});
+	
+	
 });
+
+function <%=formName%>_approvelBtnDiaplay(){
+	if($('.<%=formName %>processIds:checked').length > 0){
+		$('#<%=formName %>_btn_approve').show();
+	}else{
+		$('#<%=formName %>_btn_approve').hide();
+	}
+}
 
 function <%=formName %>reset(){
 	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');

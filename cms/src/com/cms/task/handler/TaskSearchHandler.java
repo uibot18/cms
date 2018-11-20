@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
 import com.cms.common.search.SearchEnum;
 import com.cms.common.search.util.SearchUtil;
@@ -24,26 +25,54 @@ public class TaskSearchHandler {
 
 	private static String constructQuery(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
 
-		String serviceName=AppUtil.getNullToEmpty( requestMap.get("serviceName") );
-		String packageName=AppUtil.getNullToEmpty( requestMap.get("packageName") );
-		String processName=AppUtil.getNullToEmpty( requestMap.get("processName") );
+		String customerName=AppUtil.getNullToEmpty( requestMap.get("customerName") );
+		String taskName=AppUtil.getNullToEmpty( requestMap.get("taskName") );
+		String taskCode=AppUtil.getNullToEmpty( requestMap.get("taskCode") );
+		String taskStatus=AppUtil.getNullToEmpty( requestMap.get("taskStatus") );
+		String assignedTo=AppUtil.getNullToEmpty( requestMap.get("assignedTo") );
+		String taskType=AppUtil.getNullToEmpty( requestMap.get("taskType") );
+		String taskDateFrom=AppUtil.getNullToEmpty( requestMap.get("taskDateFrom") );
+		String taskDateTo=AppUtil.getNullToEmpty( requestMap.get("taskDateTo") );
+
+		taskDateFrom=AppDateUtil.convertToDBDate(taskDateFrom, false, false);
+		taskDateTo=AppDateUtil.convertToDBDate(taskDateTo, false, false);
+
+		String query="SELECT a.task_id, a.task_date_from, a.task_date_to, a.task_config_id, b.task_config_name, a.assigned_to, c.first_name, a.task_status " + 
+				"FROM task_master a, task_config_master b, adm_employee_master_view c " + 
+				"WHERE a.task_config_id=b.task_config_id AND a.assigned_to=c.emp_id " + 
+				"AND a.bool_delete_status=0 AND b.bool_delete_status=0 " ;
 
 
-		String query="SELECT a.process_master_id, a.task_type, a.sales_id, a.process_master_status, a.created_date, d.customer_id, d.first_name, d.sale_date " + 
-				"FROM task_process_master a " + 
-				"LEFT JOIN ( SELECT b.sale_id, b.sale_date, b.customer_id, c.first_name "
-				+ "FROM sales_customer_booking_form b, sales_customer_master_view c " + 
-				"WHERE b.customer_id = c.customer_id ) AS d ON d.sale_id = a.sales_id " ;
-
-		
-		if( !serviceName.isEmpty() && !serviceName.equals("0") ) { 
-			query+=" AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE service_id="+serviceName+" ) "; 
+		if( !customerName.isEmpty() && !customerName.equals("0") ) { 
+			query+=" AND a.process_child_id IN( SELECT process_child_id FROM task_process_master a, task_process_child b, sales_customer_booking_form c  "
+					+ " WHERE a.process_master_id=b.process_master_id AND a.sales_id=c.sale_id AND a.bool_delete_status=0 "
+					+ "AND b.bool_delete_status=0 AND c.customer_id="+customerName+" ) "; 
 		}
-		if( !packageName.isEmpty() && !packageName.equals("0")  ) {
-			query+=" AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE package_id="+packageName+" ) "; 
+		if( !taskName.isEmpty() && !taskName.equals("0")  ) {
+			query+=" AND a.task_config_id IN( "+taskName+" ) "; 
 		}
-		if( !processName.isEmpty()  && !processName.equals("0") ) { 
-			query+="AND a.process_master_id IN( SELECT process_master_id FROM task_process_child WHERE process_id="+processName+" ) "; 
+		if( !taskCode.isEmpty()  && !taskCode.equals("0") ) { 
+			query+="AND a.task_id IN( "+taskCode+" ) "; 
+		}
+		if( !taskStatus.isEmpty() ) { 
+			query+="AND a.task_status IN( '"+taskStatus.replace(",", "','")+"' ) "; 
+		}
+		if( !assignedTo.isEmpty()  && !assignedTo.equals("0") ) { 
+			query+="AND a.assigned_to IN( "+assignedTo+" ) "; 
+		}
+		if( !taskType.isEmpty()  && !taskType.equals("0") ) { 
+			query+=" AND a.process_child_id IN( SELECT process_child_id FROM task_process_master a, task_process_child b "
+					+ " WHERE a.process_master_id=b.process_master_id AND a.bool_delete_status=0 "
+					+ "AND b.bool_delete_status=0 AND a.task_type='"+taskType+"' ) "; 
+		}
+		if( !taskDateFrom.isEmpty() &&  !taskDateTo.isEmpty() ) { 
+			query+=" AND a.task_Date between '"+taskDateFrom+"' and '"+taskDateTo+"' ";
+		}
+		if( !taskDateFrom.isEmpty() &&  taskDateTo.isEmpty() ) { 
+			query+=" AND a.task_Date >= '"+taskDateFrom+"' ";
+		}
+		if( taskDateFrom.isEmpty() &&  !taskDateTo.isEmpty() ) { 
+			query+=" AND a.task_Date <= '"+taskDateTo+"' ";
 		}
 
 		return query;
@@ -53,13 +82,23 @@ public class TaskSearchHandler {
 
 		Map<String, String> requestMap=new HashMap<String, String>();
 
-		String serviceName=AppUtil.getNullToEmpty( request.getParameter("serviceName") );
-		String packageName=AppUtil.getNullToEmpty( request.getParameter("packageName") );
-		String processName=AppUtil.getNullToEmpty( request.getParameter("processName") );
+		String customerName=AppUtil.getNullToEmpty( request.getParameter("customerName") );
+		String taskName=AppUtil.getNullToEmpty( request.getParameter("taskName") );
+		String taskCode=AppUtil.getNullToEmpty( request.getParameter("taskCode") );
+		String taskStatus=AppUtil.getNullToEmpty( request.getParameter("taskStatus") );
+		String assignedTo=AppUtil.getNullToEmpty( request.getParameter("assignedTo") );
+		String taskType=AppUtil.getNullToEmpty( request.getParameter("taskType") );
+		String taskDateFrom=AppUtil.getNullToEmpty( request.getParameter("taskDateFrom") );
+		String taskDateTo=AppUtil.getNullToEmpty( request.getParameter("taskDateTo") );
 
-		requestMap.put("serviceName", serviceName);
-		requestMap.put("packageName", packageName);
-		requestMap.put("processName", processName);
+		requestMap.put("customerName", customerName);
+		requestMap.put("taskName", taskName);
+		requestMap.put("taskCode", taskCode);
+		requestMap.put("taskStatus", taskStatus);
+		requestMap.put("assignedTo", assignedTo);
+		requestMap.put("taskType", taskType);
+		requestMap.put("taskDateFrom", taskDateFrom);
+		requestMap.put("taskDateTo", taskDateTo);
 
 		return requestMap;
 	}

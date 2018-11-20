@@ -134,6 +134,14 @@
 		<filter-class>com.cms.web.filter.CMSFilter</filter-class>
 	</filter>
 	<servlet>
+		<servlet-name>taskProcessController</servlet-name>
+		<servlet-class>com.cms.task.controller.TaskProcessController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>taskProcessController</servlet-name>
+		<url-pattern>/taskProcess</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>taskController</servlet-name>
 		<servlet-class>com.cms.task.controller.TaskController</servlet-class>
 	</servlet>
@@ -141,6 +149,7 @@
 		<servlet-name>taskController</servlet-name>
 		<url-pattern>/task</url-pattern>
 	</servlet-mapping>
+	
 	<filter-mapping>
 		<filter-name>cmsFilter</filter-name>
 		<url-pattern>/login</url-pattern>

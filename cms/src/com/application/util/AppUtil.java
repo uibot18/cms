@@ -70,7 +70,10 @@ public class AppUtil {
 		delemeter=getNullToEmpty(delemeter, ",");
 		if(array!=null) {
 			for (String str : array) {
-				retVal+=delemeter+str;
+				str=getNullToEmpty(str).trim();
+				if(!str.isEmpty()) {
+					retVal+=delemeter+str;
+				}
 			}
 			if( !retVal.isEmpty() ) { retVal=retVal.substring(1); }
 		}

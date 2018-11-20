@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.application.util.AppDateUtil;
+import com.application.util.AppUtil;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 import com.cms.task.bean.TaskProcessChildDO;
@@ -169,6 +170,22 @@ public class TaskProcessMasterDAO {
 
 		} catch (Exception e) { e.printStackTrace(); } 
 		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return false;
+	}
+
+	public static boolean updateApproval(Connection preCon, String processIds) {
+		Connection con=null;
+		Statement stmt=null;
+		
+		String query="Update task_process_master set process_master_status='approved' where process_master_id in("+AppUtil.getNullToEmpty(processIds, "0")+")";
+		System.out.println("query: "+query);
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			int rowAffect=stmt.executeUpdate(query);
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
 	}
 
