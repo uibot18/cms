@@ -6,7 +6,7 @@
 <%@page import="com.cms.common.search.SearchEnum"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html dir="ltr" lang="en">
   
 <head>
     <meta charset="utf-8">

@@ -10,27 +10,17 @@
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Random"%>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html dir="ltr" lang="en">
   
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/images/favicon.png">
     <title>ui-bot</title>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/libs/select2/dist/css/select2.min.css">
-    <link href="dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 
 <body>
@@ -94,7 +84,7 @@
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Package Name</label>
 		                                        <div class="col-sm-8">
-				                    			<select id="timesheetinput2" class="form-control" placeholder="Package Name" name="packageName" ">
+				                    			<select id="packageName" class="form-control" placeholder="Package Name" name="packageName" >
 						                            		<option></option>
 															<%=PackageCreationController.packageOption("", packageName) %>
 														</select>
@@ -106,7 +96,7 @@
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Process Name</label>
 		                                        <div class="col-sm-8">
-                                		<input type="text" id="packageName" class="form-control" placeholder="Process Name" name="processName" value="<%=processName%>">
+                                		<input type="text" id="processName" class="form-control" placeholder="Process Name" name="processName" value="<%=processName%>">
                                 		             </div>
 		                                    </div>
                                 		</div>
@@ -190,10 +180,8 @@ $(document).ready(function(){
 });
 
 function <%=formName %>reset(){
-	$('#<%=formName %> #holidayName').val('');$('#<%=formName %> #holidayName').attr('value', '');
-	$('#<%=formName %> #holidayType').val('');$('#<%=formName %> #holidayType').attr('value', '');
-	$('#<%=formName %> #holidaySubType').val('');$('#<%=formName %> #holidaySubType').attr('value', '');
-	$('#<%=formName %> #holidayDate').val('');$('#<%=formName %> #holidayDate').attr('value', '');
+	$('#<%=formName %> #processName').val('');$('#<%=formName %> #processName').attr('value', '');
+	$('#<%=formName %> #packageName').val('');$('#<%=formName %> #packageName').attr('value', '');
 }
 $('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 	

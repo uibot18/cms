@@ -42,7 +42,7 @@ label.invalid{
 			<input type="hidden" name="levelNo" value="<%=serviceDO.getLevelNo()%>">
 			
 			<div class="form-group">
-			    <label for="serviceName" class="control-label">saleId<span style="color: #f62d51;">*</span></label>
+			    <label for="serviceName" class="control-label">Service Name<span style="color: #f62d51;">*</span></label>
 			    <input type="text" name="serviceName" class="form-control" id="serviceName" value="<%=serviceDO.getCmnMasterName()%>" placeholder="Service Name">
 			</div>
         </div>

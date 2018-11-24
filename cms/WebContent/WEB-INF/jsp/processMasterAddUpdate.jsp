@@ -45,14 +45,14 @@ label.invalid{
 				<%=PageUtil.getAlert(request) %>
 				<div class="form-body">
 				
-								<label for="timesheetinput1">Package Name</label>
+								<label for="timesheetinput1">Package Name<span style="color: #f62d51;">*</span></label>
 									<select id="packageName" class="form-control" placeholder="Package Name" name="packageName" required="required">
 	                            		<option></option>
 										<%=PackageCreationController.packageOption("", ""+packageDO.getParentId()) %>
 									</select>
 						</div>
 							<div class="form-group">
-								<label for="timesheetinput1">Process Name</label>
+								<label for="timesheetinput1">Process Name<span style="color: #f62d51;">*</span></label>
 									<input type="text" id="processName" class="form-control" placeholder="Process Name" name="processName" value="<%=AppUtil.getNullToEmpty(packageDO.getCmnMasterName() )%>" required="required">
 									<!-- <div class="form-control-position">
 										<i class="fas fa-unlock-alt"></i>
