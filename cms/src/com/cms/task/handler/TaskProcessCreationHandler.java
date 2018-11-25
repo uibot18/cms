@@ -49,7 +49,7 @@ public class TaskProcessCreationHandler {
 	public static void doProcessSave(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			
-			String URI="WEB-INF/jsp/task/taskPreview.jsp"; 
+			String URI="WEB-INF/jsp/task/taskProcessPreview.jsp"; 
 			TaskProcessMasterDO taskProMstDO=constructDO(request, response);
 
 			System.out.println("taskConfigDO: "+taskProMstDO);
@@ -62,7 +62,7 @@ public class TaskProcessCreationHandler {
 					request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Detail Successfully Saved..!");
 				}else {
 					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Detail..!");
-					URI="WEB-INF/jsp/task/taskAddUpdate.jsp"; 
+					URI="WEB-INF/jsp/task/taskProcessAddUpdate.jsp"; 
 				}
 			}else {
 				//			update
@@ -71,7 +71,7 @@ public class TaskProcessCreationHandler {
 					request.setAttribute(PageAlertType.SUCCESS.getType(), "Task Detail Successfully Saved..!");
 				}else {
 					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Task Detail..!");
-					URI="WEB-INF/jsp/task/taskAddUpdate.jsp"; 
+					URI="WEB-INF/jsp/task/taskProcessAddUpdate.jsp"; 
 				}
 			}
 			request.setAttribute("taskProMstDO", taskProMstDO);

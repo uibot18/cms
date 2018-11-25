@@ -61,11 +61,11 @@
                         <div class="card">
                             <div class="card-body">
                             	<h4 class="card-title">SERVICE SEARCH
-                            		<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=add&taskType=<%=TaskType.Customer.getType()%>" class="btn btn-primary btn-sm float-right btn-rounded" style="">
+                            		<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskProcess?action=add&taskType=<%=TaskType.Customer.getType()%>" class="btn btn-primary btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-plus"></i> 
 	                            		Customer Task
 	                            	</button>
-	                            	<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=add&taskType=<%=TaskType.GeneralTask.getType()%>" class="btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            	<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskProcess?action=add&taskType=<%=TaskType.GeneralTask.getType()%>" class="btn btn-primary btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-plus"></i> 
 	                            		General Task
 	                            	</button>
