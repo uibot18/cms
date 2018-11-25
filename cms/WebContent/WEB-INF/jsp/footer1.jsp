@@ -32,6 +32,14 @@
 <script src="./static/assets/libs/select2/dist/js/select2.min.js"></script>
 <script src="./static/dist/js/pages/forms/select2/select2.init.js"></script>
 
+<script src="./static/assets/libs/chartist/dist/chartist.min.js"></script>
+<script src="./static/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<!--c3 charts -->
+<script src="./static/assets/extra-libs/c3/d3.min.js"></script>
+<script src="./static/assets/extra-libs/c3/c3.min.js"></script>
+<script src="./static/assets/libs/chart.js/dist/Chart.min.html"></script>
+<script src="./static/dist/js/pages/dashboards/dashboard1.js"></script>
+
 <script type="text/javascript">
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {

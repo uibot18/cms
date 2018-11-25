@@ -1,134 +1,201 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
-  
-<!-- Mirrored from themeselection.com/demo/chameleon-admin-template/html/ltr/vertical-menu-template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Jul 2018 09:44:28 GMT -->
+<html dir="ltr">
+
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
-    <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
-    <meta name="author" content="ThemeSelect">
-    <title>CMS</title>
-    <link rel="apple-touch-icon" href="./resource/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="https://themeselection.com/demo/chameleon-admin-template/app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
-    <link href="../../../../../../maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.html" rel="stylesheet">
-    <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/vendors/css/forms/toggle/switchery.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/plugins/forms/switch.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/core/colors/palette-switch.min.css">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN CHAMELEON  CSS-->
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/app.min.css">
-    <!-- END CHAMELEON  CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/core/menu/menu-types/vertical-menu.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/core/colors/palette-gradient.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/pages/login-register.min.css">
-    <link rel="stylesheet" type="text/css" href="./resource/app-assets/css/plugins/extensions/toastr.min.css">
-    
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="./resource./assets/css/style.css">
-    <!-- END Custom CSS-->
-  </head>
-  <body class="vertical-layout vertical-menu 1-column  bg-full-screen-image menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="1-column">
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <div class="app-content content">
-      <div class="content-wrapper">
-        <div class="content-wrapper-before"></div>
-        <div class="content-header row">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/images/favicon.png">
+    <title>ui-bot</title>
+    <!-- Custom CSS -->
+    <link href="./static/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<style>
+.form-control.invalid{
+	border-color: #f62d51 !important;
+}
+label.invalid{
+	color: #f62d51 !important;
+}
+.form-control.valid{
+	border-color: #36bea6 !important;
+}
+
+</style>
+<body>
+    <div class="main-wrapper">
+        
+        <!-- Preloader - style you can find in spinners.css -->
+        
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
         </div>
-        <div class="content-body"><section class="flexbox-container">
-    <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="col-md-4 col-10 box-shadow-2 p-0">
-            <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
-                <div class="card-header border-0">
-                    <div class="text-center mb-1">
-                            <img src="./resource/app-assets/images/logo/logo.png" alt="branding logo">
+        
+        <!-- Preloader - style you can find in spinners.css -->
+        
+        
+        <!-- Login box.scss -->
+        
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(./static/assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box">
+                <div id="loginform">
+                    <div class="logo">
+                        <span class="db"><img src="./static/img/logo.png" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">CMS Admin Login</h5>
                     </div>
-                    <div class="font-large-1  text-center">                       
-                        Member Login
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="form-horizontal m-t-20" id="cms_login_frm" action="login" method="post">
+                            	<input type="hidden"  name="action" value="validate">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input type="text" name="userName" class="form-control form-control-lg" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required="required">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="required">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <a href="javascript:void(0)" id="to-recover" class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-center">
+                                    <div class="col-xs-12 p-b-20">
+                                        <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="card-content">
-                   
-                    <div class="card-body">
-                        <form class="form-horizontal" action="login" novalidate method="post">
-                        <input type="hidden"  name="action" value="validate">
-                            <fieldset class="form-group position-relative has-icon-left">
-                                <input type="text" name="userName" class="form-control round" id="user-name" placeholder="Your Username" required>
-                                <div class="form-control-position">
-                                    <i class="ft-user"></i>
-                                </div>
-                            </fieldset>
-                            <fieldset class="form-group position-relative has-icon-left">
-                                <input type="password" name="password" class="form-control round" id="user-password" placeholder="Enter Password" required>
-                                <div class="form-control-position">
-                                    <i class="ft-lock"></i>
-                                </div>
-                            </fieldset>
+                <div id="recoverform">
+                    <div class="logo">
+                        <span class="db"><img src="./static/assets/images/logo-icon.png" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">Recover Password</h5>
+                        <span>Enter your Email and instructions will be sent to you!</span>
+                    </div>
+                    <div class="row m-t-20">
+                        <!-- Form -->
+                        <form class="col-12" action="">
+                            <!-- email -->
                             <div class="form-group row">
-                                <div class="col-md-6 col-12 text-center text-sm-left">
-                                   
+                                <div class="col-12">
+                                    <input class="form-control form-control-lg" type="email" required="" placeholder="Username">
                                 </div>
-                                <div class="col-md-6 col-12 float-sm-left text-center text-sm-right"><a href="login?action=password-recovery" class="card-link">Forgot Password?</a></div>
-                            </div>                           
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn round btn-block btn-glow btn-bg-gradient-x-purple-blue col-12 mr-1 mb-1">Login</button>    
                             </div>
-                           
+                            <!-- pwd -->
+                            <div class="row m-t-20">
+                                <div class="col-12">
+                                    <button class="btn btn-block btn-lg btn-danger" type="submit" name="action">Reset</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <!-- <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2 " id="fade-toast"><span>OR Sign Up Using</span></p>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-facebook"><span class="ft-facebook"></span></a>
-                        <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-twitter"><span class="ft-twitter"></span></a>
-                        <a href="#" class="btn btn-social-icon round mr-1 mb-1 btn-instagram"><span class="ft-instagram"></span></a>
-                    </div>
-                    
-                    <p class="card-subtitle text-muted text-right font-small-3 mx-2 my-1"><span>Don't have an account ? <a href="login?action=register" class="card-link">Sign Up</a></span></p> -->                    
                 </div>
             </div>
         </div>
+        
+        <!-- Login box.scss -->
+        
+        
+        <!-- Page wrapper scss in scafholding.scss -->
+        
+        
+        <!-- Page wrapper scss in scafholding.scss -->
+        
+        
+        <!-- Right Sidebar -->
+        
+        
+        <!-- Right Sidebar -->
+        
     </div>
-</section>
+    
+    <!-- All Required js -->
+    
+    <script src="./static/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="./static/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="./static/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+    <!-- This page plugin js -->
+    
+    <script>
+    $('[data-toggle="tooltip"]').tooltip();
+    $(".preloader").fadeOut();
+    // ============================================================== 
+    // Login and Recover Password 
+    // ============================================================== 
+    $('#to-recover').on("click", function() {
+        $("#loginform").slideUp();
+        $("#recoverform").fadeIn();
+    });
+    
+    /* $(document).ready(function(){
+    	try{		
+    		$('#cms_login_frm').validate({
+    			errorClass: 'invalid',
+    			validClass: 'valid',
+    			errorPlacement: function(error, element) {
+    				error.insertAfter(element.parent());
+    			},
+    			rules: {
 
-        </div>
-      </div>
-    </div>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
+    				userName: { required: true },
+    				password: { required: true }
+    			},
+    			messages: {
+    				userName: { required: 'User Name is required' },
+    				password: { required: 'Password is required' }
 
-    <!-- BEGIN VENDOR JS-->
-    <script src="./resource/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
-    <script src="./resource/app-assets/vendors/js/forms/toggle/switchery.min.js" type="text/javascript"></script>
-    <script src="./resource/app-assets/js/scripts/forms/switch.min.js" type="text/javascript"></script>
-    <!-- BEGIN VENDOR JS-->
-    <!-- BEGIN PAGE VENDOR JS-->
-    <script src="./resource./app-assets/vendors/js/forms/validation/jqBootstrapValidation.js" type="text/javascript"></script>
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN CHAMELEON  JS-->
-    <script src="./resource/app-assets/js/core/app-menu.min.js" type="text/javascript"></script>
-    <script src="./resource/app-assets/js/core/app.min.js" type="text/javascript"></script>
-    <!-- END CHAMELEON  JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
-    <script src="./resource/app-assets/js/scripts/forms/form-login-register.min.js" type="text/javascript"></script>
-     <script src="./resource/app-assets/vendors/js/extensions/toastr.min.js" type="text/javascript"></script>
-    <script src="./resource/app-assets/js/scripts/extensions/toastr.min.js" type="text/javascript"></script>
+    			},
+    			submitHandler: function(form) {
+    				$.ajax({
+    					url:$(form).attr('action'),
+    					data:$(form).serialize(),
+    					beforeSend:function(){
+    						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+    					},
+    					success:function(data){
+    						location.href="home";
+    					}
+    				}); 
+    			}
+    		});
+    		
+    	}catch(e){
+    		alert('Something went wrong. Please Try Later..!');
+    	}
+    }); */
     
     
-    <!-- END PAGE LEVEL JS-->
-  </body>
-<script type="text/javascript">
+    
+    </script>
+</body>
 
-$(document).ready(function(){
-	//alert();
-	
-});
-</script>
-<!-- Mirrored from themeselection.com/demo/chameleon-admin-template/html/ltr/vertical-menu-template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Jul 2018 09:44:29 GMT -->
+
 </html>

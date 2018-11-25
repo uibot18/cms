@@ -1,7 +1,11 @@
 <!-- Topbar header - style you can find in pages.scss -->
+<%@page import="java.util.Random"%>
 <link href="./static/dist/css/style.min.css" rel="stylesheet">
 <link href="./static/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./static/assets/libs/select2/dist/css/select2.min.css">
+<%
+String rVal=""+Math.abs( new Random().nextInt(9999));
+%>
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header">
@@ -10,23 +14,24 @@
             
             <!-- Logo -->
             
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="home">
                 <!-- Logo icon -->
                 <b class="logo-icon">
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="./static/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <!-- <img src="./static/assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
                     <!-- Light Logo icon -->
-                    <img src="./static/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                    <img src="./static/img/logo.png?q=<%=rVal%>" alt="homepage" class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span class="logo-text">
-                     <!-- dark Logo text -->
+                <!-- <span class="logo-text">
+                     dark Logo text
                      <img src="./static/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                     <!-- Light Logo text -->    
+                     Light Logo text    
                      <img src="./static/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                </span>
+                </span> -->
+                <span class="logo-text" style="color: white; font-size: 30px; font-weight: bold;">CMS</span>
             </a>
             
             <!-- End Logo -->
@@ -188,8 +193,8 @@
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class=""><img src="./static/assets/images/users/1.jpg" alt="user" class="img-circle" width="60"></div>
                             <div class="m-l-10">
-                                <h4 class="m-b-0">Steave Jobs</h4>
-                                <p class=" m-b-0">varun@gmail.com</p>
+                                <h4 class="m-b-0">Admin</h4>
+                                <p class=" m-b-0">Admin@ui-bot.com</p>
                             </div>
                         </div>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
@@ -198,7 +203,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                        <a class="dropdown-item" href="logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                         <div class="dropdown-divider"></div>
                         <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
                     </div>
@@ -229,8 +234,8 @@
                         <div class="user-pic"><img src="./static/assets/images/users/1.jpg" alt="users" class="rounded-circle" width="40" /></div>
                         <div class="user-content hide-menu m-l-10">
                             <a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="m-b-0 user-name font-medium">Steave Jobs <i class="fa fa-angle-down"></i></h5>
-                                <span class="op-5 user-email">varun@gmail.com</span>
+                                <h5 class="m-b-0 user-name font-medium">Admin<i class="fa fa-angle-down"></i></h5>
+                                <span class="op-5 user-email">Admin@ui-bot.com</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
@@ -239,7 +244,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <a class="dropdown-item" href="logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </div>
                     </div>

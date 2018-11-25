@@ -184,7 +184,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Employee List</h4>
+                                <h4 class="card-title">Task List</h4>
                             </div>
                             <form id="<%=formName %>_tble" class="form" action="taskProcess?action=approveTaskProcess" method="post">
 	                            <div class="table-responsive">
