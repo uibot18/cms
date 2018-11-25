@@ -12,6 +12,19 @@
 <%@page import="com.cms.user.login.bean.LoginMasterBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <style>
+.form-control.invalid{
+	border-color: #f62d51 !important;
+}
+label.invalid{
+	color: #f62d51 !important;
+}
+.form-control.valid{
+	border-color: #36bea6 !important;
+}
+
+</style>
+    
 
 <%
 SalesCustomerMasterDO customerDO=(SalesCustomerMasterDO)request.getAttribute("customerDO");
@@ -42,218 +55,212 @@ for(CommonDocumentStoreDO docDO:docList){
 	if(docDO.getDocumentTypeId()==11){ gstinNo=docDO.getDocumentNo(); }
 }
 String formName="cust_frm_"+Math.abs( new Random().nextInt(9999) );
+System.out.print("true");
 %>
 
-<div class="modal-dialog modal-xl" role="document" style="margin-left: 33%;width: 700px;">
-	<div class="modal-content">
-		<form class="form" action="customer?action=save" method="post" id="<%=formName%>">
-			<input type="hidden" name="action" value="save">
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+       <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+           <form class="form" action="customer?action=save" method="post" id="<%=formName%>">
+           		<input type="hidden" name="action" value="save">
 			<input type="hidden" name="customerId" value="<%=customerDO.getCustomerId()%>">
 			<input type="hidden" name="ledgerId" value="<%=customerDO.getLedgerId()%>">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel16">Customer Creation</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<%=PageUtil.getAlert(request) %>
-				<div class="form-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">Customer Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Customer Name" name="customerName" value="<%=AppUtil.getNullToEmpty(ledgerMstDO.getLedgerName() )%>" required="required"">
-									<div class="form-control-position">
-										<i class="ft-user"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">Contact Person</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Contact Person" name="contactPerson" value="<%=AppUtil.getNullToEmpty(personalDO.getFirstName() )%>" required="required">
-									<div class="form-control-position">
-										<i class="la la-briefcase"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">Door No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Door No" name="doorNo" value="<%=AppUtil.getNullToEmpty(addressDO.getDooNo() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">Email</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Email" name="email" value="<%=AppUtil.getNullToEmpty(contactDO.getEmail1() )%>" required="required">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">Street Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Street Name" name="streetName" value="<%=AppUtil.getNullToEmpty(addressDO.getStreetName() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">Mobile Number</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Mobile Number" name="mobileNumber" value="<%=AppUtil.getNullToEmpty(contactDO.getMobile1() )%>" required="required">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">Road Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Rood Name" name="roadName" value="<%=AppUtil.getNullToEmpty(addressDO.getRoadName() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">Web Site</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Website" name="webSite" value="<%=AppUtil.getNullToEmpty(contactDO.getWebsite() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">Land Mark</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Land Mark" name="landMark" value="<%=AppUtil.getNullToEmpty(addressDO.getLandMark() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">PAN</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="PAN" name="pan" value="<%=AppUtil.getNullToEmpty(panNo)%>" required="required">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">City</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="City" name="city" value="<%=AppUtil.getNullToEmpty(addressDO.getCity() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">GST</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" value="<%=AppUtil.getNullToEmpty( gstinNo )%>" readonly="readonly">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput1">State</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="State" name="state" value="<%=AppUtil.getNullToEmpty(addressDO.getState() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="timesheetinput2">Pin Code</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=AppUtil.getNullToEmpty(addressDO.getPincode() )%>">
-									<div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-				<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
-				<button type="submit" class="btn btn-success">Save</button>
-			</div>
-		</form>
-	</div>
-	
-</div>
+               <div class="modal-header">
+                   <h4 class="modal-title" id="myLargeModalLabel">Customer Creation</h4>
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               </div>
+               <div class="modal-body">
+               		<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name<span style="color: #f62d51;">*</span></label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput1" class="form-control" placeholder="Customer Name" name="customerName" value="<%=AppUtil.getNullToEmpty(ledgerMstDO.getLedgerName() )%>" required="required"">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Contact Person Name<span style="color: #f62d51;">*</span></label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Contact Person" name="contactPerson" value="<%=AppUtil.getNullToEmpty(personalDO.getFirstName() )%>" required="required">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Door No</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="timesheetinput1" class="form-control" placeholder="Door No" name="doorNo" value="<%=AppUtil.getNullToEmpty(addressDO.getDooNo() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Street Name</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput1" class="form-control" placeholder="Street Name" name="streetName" value="<%=AppUtil.getNullToEmpty(addressDO.getStreetName() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                    <div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput1" class="form-control" placeholder="City" name="city" value="<%=AppUtil.getNullToEmpty(addressDO.getCity() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">State</label>
+		                                        <div class="col-sm-8">
+		                                          <input type="text" id="timesheetinput1" class="form-control" placeholder="State" name="state" value="<%=AppUtil.getNullToEmpty(addressDO.getState() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Land Mark</label>
+		                                        <div class="col-sm-8">
+		                                        <input type="text" id="timesheetinput1" class="form-control" placeholder="Land Mark" name="landMark" value="<%=AppUtil.getNullToEmpty(addressDO.getLandMark() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Road Name</label>
+		                                        <div class="col-sm-8">
+		                                          <input type="text" id="timesheetinput1" class="form-control" placeholder="Rood Name" name="roadName" value="<%=AppUtil.getNullToEmpty(addressDO.getRoadName() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                	<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=AppUtil.getNullToEmpty(addressDO.getPincode() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Email<span style="color: #f62d51;">*</span></label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="Email" name="email" value="<%=AppUtil.getNullToEmpty(contactDO.getEmail1() )%>" required="required">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		
+                                		
+                                	</div>
+                                	
+                                	
+                                		
+                                	<div class="row">
+                                	
+                                	<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Mobile Number<span style="color: #f62d51;">*</span></label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Mobile Number" name="mobileNumber" value="<%=AppUtil.getNullToEmpty(contactDO.getMobile1() )%>" required="required">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Web Site</label>
+		                                        <div class="col-sm-8">
+		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Website" name="webSite" value="<%=AppUtil.getNullToEmpty(contactDO.getWebsite() )%>">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		
+                                		
+                                	</div> 
+                                	
+                                	
+                                	<div class="row">
+                                	<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">PAN<span style="color: #f62d51;">*</span></label>
+		                                        <div class="col-sm-8">
+		                                         <input type="text" id="timesheetinput2" class="form-control" placeholder="PAN" name="pan" value="<%=AppUtil.getNullToEmpty(panNo)%>" required="required">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">GST</label>
+		                                        <div class="col-sm-8">
+		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" value="<%=AppUtil.getNullToEmpty( gstinNo )%>" readonly="readonly">
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		</div>   
+               </div>
+               <div class="modal-footer">
+                   <button type="submit" class="btn btn-danger m-t-10 float-right"><i class="fas fa-times"></i> Cancel</button>
+	               <button type="submit" class="btn btn-success m-r-10 m-t-10 float-right"><i class="fa fa-check"></i> Save</button>
+               </div>
+               </form>
+           </div>
+           <!-- /.modal-content -->
+       </div>
+       <!-- /.modal-dialog -->
+   </div>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 $(document).ready( function(){
-	$('#<%=formName%>').submit(function(e){
-		var frm=$(this);
-		$.ajax({
-		 	   url:$(frm).attr('action'),
-		 	   data:$(frm).serialize(),
-		 	   beforeSend:function(){
-		 		    $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
-		 	   },
-		 	   success:function(data){
-		 		   $('#CMS-POPUP-MODEL').html(data);
-		 	   }
-		    }); 
-		e.preventDefault();
-	});
+	try{		
+		$('#<%=formName%>').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+				
+			},
+			messages: {
+				
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-POPUP-MODEL').html(data);
+					}
+				}); 
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
 });
 
 
