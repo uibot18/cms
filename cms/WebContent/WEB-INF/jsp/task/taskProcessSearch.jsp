@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@page import="com.cms.task.handler.TaskType"%>
 <%@page import="com.cms.process.handler.ProcessCreationController"%>
 <%@page import="com.cms.cms_package.handler.PackageCreationController"%>
@@ -10,27 +9,7 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="com.cms.common.search.SearchEnum"%>
 <%@page import="java.util.Map"%>
-<html dir="ltr" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/images/favicon.png">
-    <title>ui-bot</title>
-</head>
-<body>
-    
-    <!-- Preloader - style you can find in spinners.css -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
-    </div>
-    
+
    <%
    Map<String, String> requestMap= (Map<String,String>)request.getAttribute( SearchEnum.REQUEST_MAP.getKeyName() );
    if(requestMap==null){ requestMap=new HashMap<String, String>(); }
@@ -45,16 +24,8 @@
    String formName="Proc_frm_"+Math.abs( new Random().nextInt(9999));
    %>
     
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <div id="main-wrapper">
-        <%@include file="../header1.jsp" %>
-        <!-- Page wrapper  -->
-        
-        <div class="page-wrapper">
-            
-            <!-- Container fluid  -->
-            
-            <div class="container-fluid">
+
+	<div class="container-fluid">
                 <!-- Start Page Content -->
                 <div class="row">
                     <div class="col-12">
@@ -173,50 +144,68 @@
                 </div>
                 <!-- End PAge Content -->
             </div>
-            <!-- End Container fluid  -->
-            <%@include file="../footer1.jsp"%>
-        </div>
-        <!-- End Page wrapper  -->
-    </div>
-    <!-- End Wrapper -->
-    <div class="chat-windows"></div>
-</body>
+            
+            
 <script type="text/javascript">
 
 $(document).ready(function(){
-	<%-- try{		
-		$('#<%=formName%>_tble').validate({
+	try{		
+		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
 			validClass: 'valid',
 			errorPlacement: function(error, element) {
 				error.insertAfter(element);
 			},
 			rules: {
-				processIds: { required: true }
 			},
 			messages: {
-				processIds: { required: 'Please Select' }
 			},
 			submitHandler: function(form) {
-				/* $.ajax({
+				$.ajax({
 					url:$(form).attr('action'),
 					data:$(form).serialize(),
 					beforeSend:function(){
-						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+						$('#CMS-PAGE-CONTAINER').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
 					},
 					success:function(data){
-				 		$('#CMS-POPUP-MODEL').html(data);
+				 		$('#CMS-PAGE-CONTAINER').html(data);
 					}
-				});  */
-				alert("1");
-				$(form).submit();
-				alert("2");
+				}); 
 			}
 		});
 		
 	}catch(e){
 		alert('Something went wrong. Please Try Later..!');
-	} --%>
+	}
+	
+	try{		
+		$('#<%=formName %>_tble').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+			},
+			messages: {
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-PAGE-CONTAINER').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-PAGE-CONTAINER').html(data);
+					}
+				}); 
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
 	
 	
 	
@@ -276,4 +265,3 @@ function <%=formName %>reset(){
 
 </script>
 
-</html>

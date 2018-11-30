@@ -115,7 +115,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 </style>
 
-<div class="modal-dialog modal-xl" role="document" style="margin-left: 20%;width: 78%;">
+ <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 		<form class="form" action="taskConfig?action=save" method="post" id="<%=formName%>">
 			<input type="hidden" name="action" value="save">

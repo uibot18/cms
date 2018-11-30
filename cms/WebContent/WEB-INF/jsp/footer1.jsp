@@ -67,9 +67,38 @@ $("#CMS-POPUP-MODEL").on('hide.bs.modal', function () {
 });
 $("#CMS-POPUP-MODEL").on('hidden.bs.modal', function () {
 	$('#CMS-POPUP-MODEL').html('');
-	location.reload();
+	reloadBasePage();
 });
 
+
+$('.cms_menu_item').click(function(){
+	
+	var url=$(this).attr('href');
+	loadData(url, '', 'CMS-PAGE-CONTAINER');
+	
+	//CMS-PAGE-CONTAINER
+	
+	return false;
+});
+
+function reloadBasePage(){
+	var url = $('#CMS-PAGE-CONTAINER').attr('data-url');
+	loadData(url, '', 'CMS-PAGE-CONTAINER');
+}
+
+function loadData(url, param, containerId){
+	$.ajax({
+		url:url,
+		data:param,
+		beforeSend:function(){
+			$('#'+containerId).html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+		},
+		success:function(data){
+			$('#'+containerId).attr('data-url', url);
+			$('#'+containerId).html(data);
+		 }
+	});
+}
 /* $('#eleId').datepicker({
 	autoclose:true,
 	todayBtn:'linked',

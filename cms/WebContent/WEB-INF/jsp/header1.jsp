@@ -254,24 +254,24 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="home" aria-expanded="false"><i class="ti-loop"></i><span class="hide-menu">Back To Home</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Master</span></a>
                     <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item"><a href="service?action=search" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Service</span></a></li>
-                        <li class="sidebar-item"><a href="package?action=search" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Package</span></a></li>
-                        <li class="sidebar-item"><a href="process?action=search" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Process</span></a></li>
+                        <li class="sidebar-item"><a href="service?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Service</span></a></li>
+                        <li class="sidebar-item"><a href="package?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Package</span></a></li>
+                        <li class="sidebar-item"><a href="process?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Process</span></a></li>
                         <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">HoliDay</span></a>
                             <ul aria-expanded="false" class="collapse second-level">
-                                <li class="sidebar-item"><a href="holidayType?action=search" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Holiday Type</span></a></li>
-                                <li class="sidebar-item"><a href="holiday?action=search" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Holiday Search</span></a></li>
+                                <li class="sidebar-item"><a href="holidayType?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Holiday Type</span></a></li>
+                                <li class="sidebar-item"><a href="holiday?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Holiday Search</span></a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="customer?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="employee?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="taskConfig?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Configuration</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="customer?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskConfig?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Configuration</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="taskQuestionnaire?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Questionnaire</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="customerBooking?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer Booking</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="taskProcess?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Process</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="task?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskProcess?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Process</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="task?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task</span></a></li>
                 
             </ul>
         </nav>

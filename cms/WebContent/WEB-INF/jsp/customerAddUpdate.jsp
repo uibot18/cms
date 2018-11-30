@@ -59,8 +59,6 @@ System.out.print("true");
 %>
 
 
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
        <div class="modal-dialog modal-lg">
            <div class="modal-content">
            <form class="form" action="customer?action=save" method="post" id="<%=formName%>">
@@ -212,7 +210,7 @@ System.out.print("true");
                                 		</div>   
                </div>
                <div class="modal-footer">
-                   <button type="submit" class="btn btn-danger m-t-10 float-right"><i class="fas fa-times"></i> Cancel</button>
+                   <button type="button" class="btn btn-danger m-t-10 float-right"  data-dismiss="modal"><i class="fas fa-times"></i> Cancel</button>
 	               <button type="submit" class="btn btn-success m-r-10 m-t-10 float-right"><i class="fa fa-check"></i> Save</button>
                </div>
                </form>
@@ -220,13 +218,6 @@ System.out.print("true");
            <!-- /.modal-content -->
        </div>
        <!-- /.modal-dialog -->
-   </div>
-
-
-
-
-
-
 
 
 <script type="text/javascript">

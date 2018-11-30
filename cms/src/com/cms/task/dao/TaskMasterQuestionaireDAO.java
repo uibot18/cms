@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.util.AppDateUtil;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 import com.cms.task.bean.TaskMasterQuestionaireDO;
@@ -15,8 +16,8 @@ import com.cms.task.bean.TaskMasterQuestionaireDO;
 public class TaskMasterQuestionaireDAO {
 
 	private static final String SELECT="select   task_quest_id, task_id, questionaire_id, options, description, bool_delete_status, created_user, created_date, update_user, update_date from task_master_questionaire ";
-	private static final String INSERT="insert into task_master_questionaire( task_quest_id, task_id, questionaire_id, options, description, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
-	private static final String UPDATE="update  task_master_questionaire set  task_id=?, questionaire_id=?, options=?, description=?, bool_delete_status=?, created_user=?, created_date=?, update_user=?, update_date=? WHERE task_quest_id=? ";
+	private static final String INSERT="insert into task_master_questionaire( task_quest_id, task_id, questionaire_id, options, description, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, now(), ?, now() ) ";
+	private static final String UPDATE="update  task_master_questionaire set  task_id=?, questionaire_id=?, options=?, description=?, bool_delete_status=?, update_user=?, update_date=NOW() WHERE task_quest_id=? ";
 
 	public static int insert(Connection preCon, TaskMasterQuestionaireDO dto) {
 		int insertId=0;
@@ -34,9 +35,7 @@ public class TaskMasterQuestionaireDAO {
 			stmt.setString(i++, dto.getDescription() );
 			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
 			stmt.setString(i++, dto.getCreatedUser() );
-			stmt.setString(i++, dto.getCreatedDate() );
 			stmt.setString(i++, dto.getUpdateUser() );
-			stmt.setString(i++, dto.getUpdateDate() );
 			stmt.execute();
 			rs=stmt.getGeneratedKeys();
 			if(rs.next()) { insertId=rs.getInt(1); }
@@ -57,10 +56,7 @@ public class TaskMasterQuestionaireDAO {
 			stmt.setString(i++,dto.getOptions());
 			stmt.setString(i++,dto.getDescription());
 			stmt.setBoolean(i++,dto.getBoolDeleteStatus());
-			stmt.setString(i++,dto.getCreatedUser());
-			stmt.setString(i++,dto.getCreatedDate());
 			stmt.setString(i++,dto.getUpdateUser());
-			stmt.setString(i++,dto.getUpdateDate());
 			stmt.setInt(i++,dto.getTaskQuestId());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { return true; }
@@ -71,6 +67,13 @@ public class TaskMasterQuestionaireDAO {
 
 	public static List<TaskMasterQuestionaireDO> getTaskMasterQuestionaire(Connection preCon, boolean needChild) {
 		String query=SELECT;
+		List<TaskMasterQuestionaireDO> dtoList =getTaskMasterQuestionaire(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<TaskMasterQuestionaireDO>(); }
+		return dtoList;
+	}
+	
+	public static List<TaskMasterQuestionaireDO> getTaskMasterQuestionaire(Connection preCon, int taskId, boolean needChild) {
+		String query=SELECT+" WHERE task_id="+taskId;
 		List<TaskMasterQuestionaireDO> dtoList =getTaskMasterQuestionaire(preCon, query, needChild);
 		if( dtoList==null ) { dtoList=new ArrayList<TaskMasterQuestionaireDO>(); }
 		return dtoList;
@@ -109,12 +112,37 @@ public class TaskMasterQuestionaireDAO {
 			dto.setDescription(rs.getString(i++));
 			dto.setBoolDeleteStatus(rs.getBoolean(i++));
 			dto.setCreatedUser(rs.getString(i++));
-			dto.setCreatedDate(rs.getString(i++));
+			dto.setCreatedDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
 			dto.setUpdateUser(rs.getString(i++));
-			dto.setUpdateDate(rs.getString(i++));
+			dto.setUpdateDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
+	}
+
+	public static boolean saveTaskQuestionnaire(Connection preCon, List<TaskMasterQuestionaireDO> questionnaireList) {
+		System.out.println("questionnaireList=>size : "+questionnaireList.size());
+		Connection con=null;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			con.setAutoCommit(false);
+			
+			for (TaskMasterQuestionaireDO taskMasterQuestionaireDO : questionnaireList) {
+				if(taskMasterQuestionaireDO.getTaskQuestId()==0 ) {
+					if(insert(null, taskMasterQuestionaireDO)==0) {
+						con.rollback(); return false;
+					}
+				}else {
+					if(update(null, taskMasterQuestionaireDO)==false) {
+						con.rollback(); return false;
+					}
+				}
+			}
+			con.commit();
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( preCon==null?con:null ); }
+		return false;
 	} 
 
 

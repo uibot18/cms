@@ -1,8 +1,10 @@
 package com.application.util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.cms.common.master.bean.CommonMasterDO;
 
@@ -90,4 +92,18 @@ public class AppUtil {
 		
 	}
 	
+	public static Set<String> convertStrArrayToSet(String[] array){
+		Set<String> valueSet = new HashSet<String>();
+		try {
+			if(array!=null && array.length > 0) {
+				for (String stringVal : array) {
+					valueSet.add(stringVal);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return valueSet;
+	}
 }

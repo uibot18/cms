@@ -33,7 +33,7 @@
         <%@include file="header1.jsp" %>
         <!-- Page wrapper  -->
         
-        <div class="page-wrapper">
+        <div class="page-wrapper" id="CMS-PAGE-CONTAINER">
             
             <!-- Bread crumb and right sidebar toggle -->
             

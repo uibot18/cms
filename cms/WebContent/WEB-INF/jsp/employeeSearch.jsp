@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Random"%>
@@ -6,59 +5,29 @@
 <%@page import="com.cms.common.search.SearchEnum"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<html dir="ltr" lang="en">
   
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./static/assets/images/favicon.png">
-    <title>ui-bot</title>
-</head>
-  <body>
-    
-    <!-- Preloader - style you can find in spinners.css -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
-    </div>
-   <!-- Content start -->
-   <%
-   Map<String, String> requestMap= (Map<String,String>)request.getAttribute( SearchEnum.REQUEST_MAP.getKeyName() );
-   if(requestMap==null){ requestMap=new HashMap<String, String>(); }
+<%
+Map<String, String> requestMap= (Map<String,String>)request.getAttribute( SearchEnum.REQUEST_MAP.getKeyName() );
+if(requestMap==null){ requestMap=new HashMap<String, String>(); }
 
-   Map<String, Object> resultMap=(Map<String, Object>)request.getAttribute( SearchEnum.RESULT_MAP.getKeyName() );
-   if(resultMap==null){ resultMap=new HashMap<String, Object>(); }
+Map<String, Object> resultMap=(Map<String, Object>)request.getAttribute( SearchEnum.RESULT_MAP.getKeyName() );
+if(resultMap==null){ resultMap=new HashMap<String, Object>(); }
+
+String employeeName=AppUtil.getNullToEmpty( requestMap.get("employeeName") );
+String department=AppUtil.getNullToEmpty( requestMap.get("department") );
+String designation=AppUtil.getNullToEmpty( requestMap.get("designation") );
+String qualification=AppUtil.getNullToEmpty( requestMap.get("qualification") );
+String state=AppUtil.getNullToEmpty( requestMap.get("state") );
+String city=AppUtil.getNullToEmpty( requestMap.get("city") );
+String pinCode=AppUtil.getNullToEmpty( requestMap.get("pinCode") );
+String email=AppUtil.getNullToEmpty( requestMap.get("email") );
+String mobile=AppUtil.getNullToEmpty( requestMap.get("mobile") );
+
+String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
+
+%>
    
-   String employeeName=AppUtil.getNullToEmpty( requestMap.get("employeeName") );
-   String department=AppUtil.getNullToEmpty( requestMap.get("department") );
-   String designation=AppUtil.getNullToEmpty( requestMap.get("designation") );
-   String qualification=AppUtil.getNullToEmpty( requestMap.get("qualification") );
-   String state=AppUtil.getNullToEmpty( requestMap.get("state") );
-   String city=AppUtil.getNullToEmpty( requestMap.get("city") );
-   String pinCode=AppUtil.getNullToEmpty( requestMap.get("pinCode") );
-   String email=AppUtil.getNullToEmpty( requestMap.get("email") );
-   String mobile=AppUtil.getNullToEmpty( requestMap.get("mobile") );
-   
-   String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
-   
-   %>
-   
-   <!-- Main wrapper - style you can find in pages.scss -->
-    <div id="main-wrapper">
-        <%@include file="header1.jsp" %>
-        <!-- Page wrapper  -->
-        
-        <div class="page-wrapper">
-            
-            <!-- Container fluid  -->
-            
-            <div class="container-fluid">
+   <div class="container-fluid">
                 <!-- Start Page Content -->
                 <div class="row">
                     <div class="col-12">
@@ -229,17 +198,38 @@
                 </div>
                 <!-- End PAge Content -->
             </div>
-            <!-- End Container fluid  -->
-            <%@include file="footer1.jsp"%>
-        </div>
-        <!-- End Page wrapper  -->
-    </div>
-    <!-- End Wrapper -->
-    <div class="chat-windows"></div>
-  </body>
+   
+   
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	try{		
+		$('#<%=formName%>').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+			},
+			messages: {
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-PAGE-CONTAINER').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-PAGE-CONTAINER').html(data);
+					}
+				}); 
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
 });
 
 function <%=formName %>reset(){
@@ -274,4 +264,3 @@ $('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 	}
 	});
 </script>
-</html>
