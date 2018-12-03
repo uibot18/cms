@@ -2,7 +2,7 @@ package com.cms.user.login;
 
 import java.util.Set;
 
-interface LoginDetail {
+public interface LoginDetail {
 	String getLoginId();
 	String getRefType();
 	String getUserName();
