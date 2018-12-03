@@ -19,6 +19,9 @@ public class TaskMasterDAO {
 	private static final String INSERT="insert into task_master( task_id, process_child_id, task_particulars, task_config_id, process_id, exe_order, assigned_to, task_date, task_date_from, task_date_to, task_status, pause_time_start, pause_time_end, pause_count, task_description, ref_type, ref_id, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
 	private static final String UPDATE="update  task_master set  process_child_id=?, task_particulars=?, task_config_id=?, process_id=?, exe_order=?, assigned_to=?, task_date=?, task_date_from=?, task_date_to=?, task_status=?, pause_time_start=?, pause_time_end=?, pause_count=?, task_description=?, ref_type=?, ref_id=?, bool_delete_status=?, update_user=?, update_date=NOW() WHERE task_id=? ";
 	private static final String UPDATE_MINIMAL="update  task_master set task_particulars=?, assigned_to=?, task_date=?, task_date_from=?, task_date_to=?, update_user=?, update_date=NOW() WHERE task_id=? ";
+	private static final String UPDATE_TASK_START="update  task_master set task_status='started', start_time=NOW(), update_user=?, update_date=NOW() WHERE task_id=? ";
+	private static final String UPDATE_TASK_CLOSE="update  task_master set task_status='close', end_time=NOW(), update_user=?, update_date=NOW() WHERE task_id=? ";
+	
 	public static int insert(Connection preCon, TaskMasterDO dto) {
 		int insertId=0;
 		Connection con=null;
@@ -220,6 +223,37 @@ public class TaskMasterDAO {
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
+	}
+
+	public static boolean updateTaskStart(Connection preCon, int taskId, String loginId) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(UPDATE_TASK_START);
+			stmt.setString(i++, loginId);
+			stmt.setInt(i++, taskId);
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
+	public static boolean updateTaskClose(Connection preCon, int taskId, String loginId) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(UPDATE_TASK_CLOSE);
+			stmt.setString(i++, loginId);
+			stmt.setInt(i++, taskId);
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
 	}
 
 

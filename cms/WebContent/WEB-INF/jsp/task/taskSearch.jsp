@@ -208,8 +208,14 @@
 												<%if(task_status.equalsIgnoreCase("pending")){ %>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=edit&taskId=<%=task_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=questionnaire&taskId=<%=task_id%>" href="#">Questionnaire</a> &nbsp;&nbsp;
+													<a class="btn_taskAction" data-type="start" href="javascript:;" ahref="task?action=taskAction&type=start&taskId=<%=task_id%>">start</a> &nbsp;
+													
 													<%-- <a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp; --%>
-											<%} %>
+												<%} %>
+												<%if(task_status.equalsIgnoreCase("started")){ %>
+													<a class="btn_taskAction" data-type="start" href="javascript:;" ahref="task?action=taskAction&type=complete&taskId=<%=task_id%>">complete</a> &nbsp;
+												<%} %>
+											
 											</tr>
 										<%sno++;
 										} %>
@@ -297,6 +303,32 @@ $(document).ready(function(){
 	}catch(e){
 		alert('Something went wrong. Please Try Later..!');
 	} --%>
+	
+	
+	
+	$('#<%=formName %>_tble').on('click', '.btn_taskAction', function(){
+
+		var thisObj=$(this);
+		var urlQry=$(this).attr('ahref');
+		var type=$(this).attr('data-type');
+		$.getJSON(urlQry, function(data){
+			if(data.errorExists==false){
+				if(type=='start'){
+					/* $(thisObj).text('Complete');
+					$(thisObj).attr('data-type', 'complete'); */
+					$('#<%=formName %>').find('button[type="submit"]').click();
+				}else if(type=='complete'){
+					$(thisObj).remove();
+				}
+				
+				
+			}else{
+				alert(data.message);
+			}
+		});
+
+	});
+	
 	
 });
 
