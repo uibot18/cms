@@ -40,7 +40,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 	                            		<i class="fa fa-plus"></i> 
 	                            		ADD
 	                            	</button>
-	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-primary btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-eye"></i> 
 	                            		VIEW
 	                            	</button>
@@ -214,17 +214,17 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                		<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                             <p class="form-control-static"> 11/06/1987 </p>
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Customer Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Contact Person Name <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Contact Person Name">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Contact Person Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -232,17 +232,17 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Door No <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Door No">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Door No <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Street Name <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Street Name">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Street Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -250,35 +250,17 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                                     <div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="City">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">City <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">State <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="State">
-		                                        </div>
-		                                    </div>
-                                		</div>
-                                	</div>
-                                	<div class="row">
-                                		<div class="col-sm-6">
-                                			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Land Mark <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Land Mark">
-		                                        </div>
-		                                    </div>
-                                		</div>
-                                		<div class="col-sm-6">
-                                			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Pin Code">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">State <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -286,17 +268,17 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Email <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Email">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Land Mark <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Web Site <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="Web Site">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Pin Code <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -304,17 +286,35 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">PAN <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="PAN">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Email <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">GST <b class="float-right"> :</b></label>
-		                                        <div class="col-sm-8">
-		                                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="GST">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Web Site <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">PAN <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">GST <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
 		                                        </div>
 		                                    </div>
                                 		</div>
