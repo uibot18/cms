@@ -149,6 +149,14 @@
 		<servlet-name>taskController</servlet-name>
 		<url-pattern>/task</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>timesheetController</servlet-name>
+		<servlet-class>com.cms.timesheet.controller.TimesheetController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>timesheetController</servlet-name>
+		<url-pattern>/timesheet</url-pattern>
+	</servlet-mapping>
 	
 	<filter-mapping>
 		<filter-name>cmsFilter</filter-name>
@@ -165,6 +173,7 @@
 		<url-pattern>/taskQuestionnaire</url-pattern>
 		<url-pattern>/customerBooking</url-pattern>
 		<url-pattern>/task</url-pattern>
+		<url-pattern>/timesheet</url-pattern>
 		<url-pattern>/logout</url-pattern>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>

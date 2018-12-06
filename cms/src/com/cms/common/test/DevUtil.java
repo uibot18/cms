@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
 
 public class DevUtil {
@@ -136,7 +137,12 @@ public class DevUtil {
 				daoUpdateMethod.append("stmt.set"+dataType+"(i++,dto.get"+pojoName+"());\n");
 			}
 
-			constructDTOMethod.append("dto.set"+pojoName+"(rs.get"+dataType+"(i++));\n");
+			if(pojoName.equalsIgnoreCase("CreatedDate") || pojoName.equalsIgnoreCase("UpdateDate")) {
+				constructDTOMethod.append("dto.set"+pojoName+"(AppDateUtil.convertToAppDate(rs.get"+dataType+"(i++), true, true));\n");
+			}else {
+				constructDTOMethod.append("dto.set"+pojoName+"(rs.get"+dataType+"(i++));\n");
+			}
+			
 			daoInsertMethod.append("stmt.set"+dataType+"(i++, dto.get"+pojoName+"() );\n");
 
 			i++;

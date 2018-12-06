@@ -3,18 +3,15 @@ package com.cms.common.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 
 public class Test{
 	public static void main(String[] args)  {
-//		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_process_child");
+		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_time_sheet_master");
+		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_time_sheet_child");
 		
-		String [] arr=null;
-		
-		System.out.println("Length: "+arr.length);
 	}
 	
 	
