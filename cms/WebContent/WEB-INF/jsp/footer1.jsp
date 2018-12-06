@@ -58,6 +58,7 @@ $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
 	 	   },
 	 	   success:function(data){
 	 		   $('#CMS-POPUP-MODEL').html(data);
+	 		  initPage();
 	 	   }
 	    }); 
 	}
@@ -98,9 +99,16 @@ function loadData(url, param, containerId){
 		success:function(data){
 			$('#'+containerId).attr('data-url', url);
 			$('#'+containerId).html(data);
+			initPage();
 		 }
 	});
 }
+
+function initPage(){
+	$('.select2').select2();
+}
+
+
 /* $('#eleId').datepicker({
 	autoclose:true,
 	todayBtn:'linked',

@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.application.util.AjaxModel;
+import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
 import com.cms.questionnaire.bean.TaskQuestionaireChildDO;
@@ -267,6 +269,35 @@ public class TaskCreationHandler {
 			questionnaireList.add(questionnaireDO);
 		}
 		return questionnaireList;
+	}
+
+	public static void doTaskAction(HttpServletRequest request, HttpServletResponse response) {
+		
+		LoginDetail loginDetail = LoginUtil.getLoginDetail(request);
+		
+		String type=AppUtil.getNullToEmpty( request.getParameter("type") );
+		int taskId = AppUtil.getNullToInteger( request.getParameter("taskId") );
+		
+		boolean success = false;
+		
+		if(type.equalsIgnoreCase("start")) {
+			success = TaskMasterDAO.updateTaskStart(null, taskId, loginDetail.getLoginId());
+		}
+		else if(type.equalsIgnoreCase("complete")) {
+			success = TaskMasterDAO.updateTaskClose(null, taskId, loginDetail.getLoginId());
+		}
+		
+		AjaxModel model = new AjaxModel();
+		
+		if(success) {
+			model.setErrorExists(false);
+			model.setMessage("Task "+type+"ed");
+		}else {
+			model.setMessage("Failed to "+type+" Task");
+			model.setErrorExists(true);
+		}
+		AjaxUtil.sendResponse(request, response, model);
+		
 	}
 
 }

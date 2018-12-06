@@ -150,6 +150,34 @@
 		<url-pattern>/task</url-pattern>
 	</servlet-mapping>
 	
+	
+		<servlet>
+		<servlet-name>menuController</servlet-name>
+		<servlet-class>com.cms.menu.controller.menuController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>menuController</servlet-name>
+		<url-pattern>/menu</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>navigationController</servlet-name>
+		<servlet-class>com.cms.navigation.controller.navigationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>navigationController</servlet-name>
+		<url-pattern>/navigation</url-pattern>
+	</servlet-mapping>
+	
+			<servlet>
+		<servlet-name>rightsController</servlet-name>
+		<servlet-class>com.cms.rights.controller.rightsController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rightsController</servlet-name>
+		<url-pattern>/rights</url-pattern>
+	</servlet-mapping>
+	
 	<filter-mapping>
 		<filter-name>cmsFilter</filter-name>
 		<url-pattern>/login</url-pattern>
@@ -166,6 +194,9 @@
 		<url-pattern>/customerBooking</url-pattern>
 		<url-pattern>/task</url-pattern>
 		<url-pattern>/logout</url-pattern>
+		<url-pattern>/menu</url-pattern>
+		<url-pattern>/navigation</url-pattern>
+		<url-pattern>/rights</url-pattern>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>
 </web-app>

@@ -52,6 +52,9 @@ public class TaskController extends HttpServlet {
 			TaskCreationHandler.doQquestionnaireSave(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/task/taskQuestionaireAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("taskAction")){
+			TaskCreationHandler.doTaskAction(request, response);
+		}
 		else {
 			System.out.println("service not available..");
 		}
