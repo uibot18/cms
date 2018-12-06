@@ -201,6 +201,9 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
    
    
 <script type="text/javascript">
+
+
+
 $(document).ready(function(){
 	try{		
 		$('#<%=formName%>').validate({

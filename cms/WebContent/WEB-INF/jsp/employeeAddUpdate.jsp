@@ -73,13 +73,15 @@ int bankId=branchDO.getBankId();
  
  %>
  
+ <style>
  
+ .wizard > .actions {
+    display: none;
+    }
+ </style>
  <div class="modal-dialog modal-lg">
 	<div class="modal-content">
-		<form class="form" action="employee?action=save" method="post" id="<%=formName%>">
-			<input type="hidden" name="action" value="save">
-			<input type="hidden" name="employeeId" value="<%=employeeDO.getEmpId()%>">
-			<input type="hidden" name="ledgerId" value="<%=employeeDO.getLedgerId()%>">
+			
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel16">Employee Creation</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -88,7 +90,185 @@ int bankId=branchDO.getBankId();
 			</div>
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
-				<div class="form-body">
+				
+				<form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
+					<input type="hidden" name="action" value="save">
+					<input type="hidden" name="employeeId" value="<%=employeeDO.getEmpId()%>">
+					<input type="hidden" name="ledgerId" value="<%=employeeDO.getLedgerId()%>"> 
+						<h6>Personal Info</h6>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="firstName1">First Name :</label>
+                                                    <input type="text" class="form-control" id="firstName1"> </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="lastName1">Last Name :</label>
+                                                    <input type="text" class="form-control" id="lastName1"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="emailAddress1">Email Address :</label>
+                                                    <input type="email" class="form-control" id="emailAddress1"> </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="phoneNumber1">Phone Number :</label>
+                                                    <input type="tel" class="form-control" id="phoneNumber1"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="location1">Select City :</label>
+                                                    <select class="custom-select form-control" id="location1" name="location">
+                                                        <option value="">Select City</option>
+                                                        <option value="Amsterdam">India</option>
+                                                        <option value="Berlin">USA</option>
+                                                        <option value="Frankfurt">Dubai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="date1">Date of Birth :</label>
+                                                    <input type="date" class="form-control" id="date1"> </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 2 -->
+                                    <h6>Office Details</h6>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="jobTitle1">Job Title :</label>
+                                                    <input type="text" class="form-control" id="jobTitle1"> </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="videoUrl1">Company Name :</label>
+                                                    <input type="text" class="form-control" id="videoUrl1">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="shortDescription1">Job Description :</label>
+                                                    <textarea name="shortDescription" id="shortDescription1" rows="6" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 3 -->
+                                    <h6>Permanent Address</h6>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="int1">Interview For :</label>
+                                                    <input type="text" class="form-control" id="int1"> </div>
+                                                <div class="form-group">
+                                                    <label for="intType1">Interview Type :</label>
+                                                    <select class="custom-select form-control" id="intType1" data-placeholder="Type to search cities" name="intType1">
+                                                        <option value="Banquet">Normal</option>
+                                                        <option value="Fund Raiser">Difficult</option>
+                                                        <option value="Dinner Party">Hard</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Location1">Location :</label>
+                                                    <select class="custom-select form-control" id="Location1" name="location">
+                                                        <option value="">Select City</option>
+                                                        <option value="India">India</option>
+                                                        <option value="USA">USA</option>
+                                                        <option value="Dubai">Dubai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="jobTitle2">Interview Date :</label>
+                                                    <input type="date" class="form-control" id="jobTitle2">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Requirements :</label>
+                                                    <div class="c-inputs-stacked">
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio6" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio6">Employee</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio7" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio7">Contract</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <!-- Step 4 -->
+                                    <h6>Communication Address</h6>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="behName1">Behaviour :</label>
+                                                    <input type="text" class="form-control" id="behName1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="participants1">Confidance</label>
+                                                    <input type="text" class="form-control" id="participants1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="participants1">Result</label>
+                                                    <select class="custom-select form-control" id="participants1" name="location">
+                                                        <option value="">Select Result</option>
+                                                        <option value="Selected">Selected</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                        <option value="Call Second-time">Call Second-time</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="decisions1">Comments</label>
+                                                    <textarea name="decisions" id="decisions1" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Rate Interviwer :</label>
+                                                    <div class="c-inputs-stacked">
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio1">1 star</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio2">2 star</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio3">3 star</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio4">4 star</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
+                                                            <label class="custom-control-label" for="customRadio5">5 star</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+								</form>
+				
+				<%-- <div class="form-body">
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -236,12 +416,12 @@ int bankId=branchDO.getBankId();
 									<!-- <i class="la la-briefcase"></i> -->
 								</div>
 								
-								<%-- <div class="position-relative has-icon-left">
+								<div class="position-relative has-icon-left">
 									<input type="text" id="reportingTo" class="form-control" placeholder="Reporting To" name="reportingTo" value="<%=employeeDO.getReportingTo()%>">
 									<div class="form-control-position">
 										<!-- <i class="la la-briefcase"></i> -->
 									</div>
-								</div> --%>
+								</div>
 							</div>
 						</div>
 						
@@ -548,14 +728,14 @@ int bankId=branchDO.getBankId();
 						</div>
 						
 					</div>
-				</div>
+				</div> --%>
+				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
 				<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
 				<button type="submit" class="btn btn-success">Save</button>
 			</div>
-		</form>
 	</div>
 </div>
  
@@ -690,6 +870,21 @@ if(employeeDO.getEmpId()!=0 && false){ %>
  
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$(".tab-wizard").steps({
+	    headerTag: "h6",
+	    bodyTag: "section",
+	    transitionEffect: "fade",
+	    titleTemplate: '<span class="step">#index#</span> #title#',
+	    labels: {
+	        finish: "Submit"
+	    },
+	    onFinished: function(event, currentIndex) {
+	        swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+
+	    }
+	});
+	
 	$('#<%=formName%>').on('change', '#bankName', function(){
 		var bankId=$(this).val();
 		if(bankId!=null && bankId!=''){
