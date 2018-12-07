@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.application.util.AppUtil;
-import com.cms.common.master.CmnGroupName;
 import com.cms.common.search.SearchEnum;
 import com.cms.common.search.util.SearchUtil;
 
@@ -25,13 +24,21 @@ public class TimesheetSearchController {
 
 	private static String constructQuery(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
 
-		String serviceName=AppUtil.getNullToEmpty( requestMap.get("serviceName") );
+		String taskName=AppUtil.getNullToEmpty( requestMap.get("taskName") );
+		int assignedTo=AppUtil.getNullToInteger( requestMap.get("assignedTo") );
+		String taskType=AppUtil.getNullToEmpty( requestMap.get("taskType") );
+		String timeSheetFrom=AppUtil.getNullToEmpty( requestMap.get("timeSheetFrom") );
+		String timeSheetTo=AppUtil.getNullToEmpty( requestMap.get("timeSheetTo") );
 
+		String query="SELECT a.time_sheet_id, '1000-01-01' AS start_date, '1000-01-01' AS end_date, a.assigned_to, b.first_name AS assigned_to_name, "+
+				" a.shift_id, '' AS shift_name, a.status, a.approved_by, c.first_name AS approved_by_name, a.approved_on " + 
+				" FROM " + 
+				" task_time_sheet_master a, adm_employee_master_view b,  adm_employee_master_view c " + 
+				" WHERE a.assigned_to=b.emp_id AND a.approved_by=c.emp_id " + 
+				" AND a.bool_delete_status=0 ";
 
-		String query="SELECT cmn_master_id, cmn_group_id, parent_id, cmn_master_name AS service_name, level_no " + 
-				"FROM common_master WHERE cmn_group_id="+CmnGroupName.SERVICE.getGroupId()+" AND bool_delete_status=0 ";
-
-		if( !serviceName.isEmpty() ) { query+=" AND cmn_master_name like'%"+serviceName+"%' "; }
+		if( !taskName.isEmpty() ) { query+=" "; }
+		if( assignedTo!=0 ) { query+=" AND a.assigned_to="+assignedTo+" "; }
 
 		return query;
 	}
@@ -39,10 +46,17 @@ public class TimesheetSearchController {
 	private static Map<String, String>  constructRequstMap(HttpServletRequest request) {
 
 		Map<String, String> requestMap=new HashMap<String, String>();
+		String taskName=AppUtil.getNullToEmpty( request.getParameter("taskName") );
+		int assignedTo=AppUtil.getNullToInteger( request.getParameter("assignedTo") );
+		String taskType=AppUtil.getNullToEmpty( request.getParameter("taskType") );
+		String timeSheetFrom=AppUtil.getNullToEmpty( request.getParameter("timeSheetFrom") );
+		String timeSheetTo=AppUtil.getNullToEmpty( request.getParameter("timeSheetTo") );
 
-		String serviceName=AppUtil.getNullToEmpty( request.getParameter("serviceName") );
-
-		requestMap.put("serviceName", serviceName);
+		requestMap.put("taskName", taskName);
+		requestMap.put("assignedTo", ""+assignedTo);
+		requestMap.put("taskType", taskType);
+		requestMap.put("timeSheetFrom", timeSheetFrom);
+		requestMap.put("timeSheetTo", timeSheetTo);
 
 		return requestMap;
 	}

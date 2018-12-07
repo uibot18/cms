@@ -1,4 +1,4 @@
-package com.cms.holiday.handler;
+package com.cms.booking.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import com.application.util.AppUtil;
 import com.cms.common.search.SearchEnum;
 import com.cms.common.search.util.SearchUtil;
 
-public class HolidaySearchController {
+public class SalesCustomerBookingSearchHandler {
 
 	public static void doSearch( HttpServletRequest request, HttpServletResponse response ) {
 

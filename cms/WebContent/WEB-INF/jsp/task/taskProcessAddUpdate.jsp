@@ -121,7 +121,7 @@ label.invalid{
 <script type="text/javascript">
 
 $(document).ready( function(){
-	init();
+	initPage();
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
@@ -164,7 +164,7 @@ $('#<%=formName%>').on('click', '#process_addRow', function(){
 			if(response.data!=null && typeof(response)!='undefined'){
 				$('#<%=formName%> #process_container').append(response.data);
 				$('#<%=formName%> #rowCount').val(sno);
-				init();
+				initPage();
 			}
 		});
 	});
@@ -184,7 +184,7 @@ $('#<%=formName%>').on('click', '#process_addRow', function(){
 		$.getJSON('taskProcess'+param, function(data){
 			if(data.errorExists!=true){
 				$('#<%=formName%> #process_container').html(data.data);
-				init();
+				initPage();
 			}else{
 				alert(data.message);
 			}
@@ -200,14 +200,6 @@ function <%=formName %>reset(){
 	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');
 }
 
-function init(){
-	$('.select2').select2();
-	$('.date_picker').datepicker({
-		autoclose:true,
-		todayBtn:'linked',
-		todayHighlight:true,
-		format:'dd/mm/yyyy'
-	}); 
-}
+
 </script>
 </html>

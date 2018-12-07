@@ -1,3 +1,4 @@
+<%@page import="com.cms.task.handler.TaskProcessCreationHandler"%>
 <%@page import="com.cms.task.handler.TaskCreationHandler"%>
 <%@page import="com.cms.task.handler.TaskType"%>
 <%@page import="com.cms.customer.handler.CustomerCreationController"%>
@@ -53,7 +54,7 @@ label.invalid{
 							</tr>
 						</thead>
 						<tbody id="process_container">
-							<%=TaskCreationHandler.generateTaskPreviewTableDisp(request, taskProMstDO) %>
+							<%=TaskProcessCreationHandler.generateTaskPreviewTableDisp(request, taskProMstDO) %>
 						</tbody>
 					</table>
 				</div>

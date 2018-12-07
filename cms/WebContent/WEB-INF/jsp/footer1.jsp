@@ -106,6 +106,12 @@ function loadData(url, param, containerId){
 
 function initPage(){
 	$('.select2').select2();
+	$('.date_picker').datepicker({
+		autoclose:true,
+		todayBtn:'linked',
+		todayHighlight:true,
+		format:'dd/mm/yyyy'
+	}); 
 }
 
 
