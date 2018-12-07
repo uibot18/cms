@@ -81,7 +81,10 @@ int bankId=branchDO.getBankId();
  </style>
  <div class="modal-dialog modal-lg">
 	<div class="modal-content">
-			
+			<form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
+					<input type="hidden" name="action" value="save">
+					<input type="hidden" name="employeeId" value="<%=employeeDO.getEmpId()%>">
+					<input type="hidden" name="ledgerId" value="<%=employeeDO.getLedgerId()%>"> 
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel16">Employee Creation</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -91,7 +94,7 @@ int bankId=branchDO.getBankId();
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
 				
-				<form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
+				<%-- <form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
 					<input type="hidden" name="action" value="save">
 					<input type="hidden" name="employeeId" value="<%=employeeDO.getEmpId()%>">
 					<input type="hidden" name="ledgerId" value="<%=employeeDO.getLedgerId()%>"> 
@@ -266,9 +269,9 @@ int bankId=branchDO.getBankId();
                                             </div>
                                         </div>
                                     </section>
-								</form>
+								</form> --%>
 				
-				<%-- <div class="form-body">
+				<div class="form-body">
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -728,7 +731,8 @@ int bankId=branchDO.getBankId();
 						</div>
 						
 					</div>
-				</div> --%>
+				</div>
+				
 				
 			</div>
 			<div class="modal-footer">
@@ -736,6 +740,7 @@ int bankId=branchDO.getBankId();
 				<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
 				<button type="submit" class="btn btn-success">Save</button>
 			</div>
+			</form>
 	</div>
 </div>
  
@@ -871,7 +876,7 @@ if(employeeDO.getEmpId()!=0 && false){ %>
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$(".tab-wizard").steps({
+	/* $(".tab-wizard").steps({
 	    headerTag: "h6",
 	    bodyTag: "section",
 	    transitionEffect: "fade",
@@ -883,7 +888,7 @@ $(document).ready(function(){
 	        swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
 
 	    }
-	});
+	}); */
 	
 	$('#<%=formName%>').on('change', '#bankName', function(){
 		var bankId=$(this).val();

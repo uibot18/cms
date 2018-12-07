@@ -39,7 +39,7 @@ if(taskQuestionaireList==null){ taskQuestionaireList=new ArrayList<TaskQuestiona
 		margin: 1px;
 	}    
 </style>
-<div class="modal-dialog modal-xl" role="document" style="margin-left: 20%;width: 78%;">
+<div class="modal-dialog modal-lg" role="document">
 	<div class="modal-content">
 		<form class="form" action="taskQuestionnaire?action=save" method="post" id="<%=formName%>">
 			<div class="modal-header">

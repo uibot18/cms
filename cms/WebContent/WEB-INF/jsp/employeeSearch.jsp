@@ -141,7 +141,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Added  User</h4>
+                                <h4 class="card-title">Employee List</h4>
                             </div>
                             <form id="<%=formName %>_tble" class="form" action="#" method="post">
 	                            <div class="table-responsive">

@@ -40,10 +40,10 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 	                            		<i class="fa fa-plus"></i> 
 	                            		ADD
 	                            	</button>
-	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            	<!-- <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-primary btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-eye"></i> 
 	                            		VIEW
-	                            	</button>
+	                            	</button> -->
                             	</h4>
                                  <form id="<%=formName %>" class="form" action="customer" method="post">
 			                    <input type="hidden" name="action" value="search">
@@ -147,7 +147,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Added  User</h4>
+                                <h4 class="card-title">Customer List</h4>
                             </div>
                             <form id="<%=formName %>_tble" class="form" action="#" method="post">
 	                            <div class="table-responsive">

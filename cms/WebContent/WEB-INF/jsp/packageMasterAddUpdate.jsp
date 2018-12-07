@@ -39,7 +39,6 @@ label.invalid{
 				<h4 class="modal-title" id="myModalLabel16">Package Creation</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
-			<hr>
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
 				<div class="form-body">

@@ -258,7 +258,7 @@ select.form-control:not([size]):not([multiple]) {
 					<!-- ----------------display---------------- -->
 					
 					
-					<div class="row mb-2">
+					<!-- <div class="row mb-2">
 						<div class="col-md-4">
 							<div class="form-group">
 						<label class="col-md-4 label-control" for="projectinput5">Service Name <b class="float-right">:</b></label>
@@ -367,7 +367,7 @@ select.form-control:not([size]):not([multiple]) {
 	                    </div>
                     </div>
 						</div>
-					</div>
+					</div> -->
 					
 					<!-- ----------------display---------------- -->
 					
@@ -836,7 +836,7 @@ select.form-control:not([size]):not([multiple]) {
 							<label class="form-check-label" for="configType_na"><b>Ends After</b></label>
 						</div>
 					</div>
-					<div class="configType_div" id="configType_div_na" style="margin-left: 30px;">
+					<div class="" id="configType_div_na" style="margin-left: 30px;">
 						<div class="row">
 							<div class="col-md-2">
 								<div class="form-check">

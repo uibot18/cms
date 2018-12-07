@@ -203,7 +203,7 @@ System.out.print("true");
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">GST</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" value="<%=AppUtil.getNullToEmpty( gstinNo )%>" readonly="readonly">
+		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" value="<%=AppUtil.getNullToEmpty( gstinNo )%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
