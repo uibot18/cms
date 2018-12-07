@@ -66,7 +66,7 @@ return false;
 }
 
 public static List<MenuMasterDO> getMenuMaster(Connection preCon, boolean needChild) {
-String query=SELECT;
+String query=SELECT +" where bool_delete_status=0 ";
 List<MenuMasterDO> dtoList =getMenuMaster(preCon, query, needChild);
 if( dtoList==null ) { dtoList=new ArrayList<MenuMasterDO>(); }
 return dtoList;

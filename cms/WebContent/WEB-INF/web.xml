@@ -186,6 +186,15 @@
 		<url-pattern>/rights</url-pattern>
 	</servlet-mapping>
 	
+	
+				<servlet>
+		<servlet-name>rightsTemplateController</servlet-name>
+		<servlet-class>com.cms.rights_template.controller.rightsTemplateController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rightsTemplateController</servlet-name>
+		<url-pattern>/rightsTemplate</url-pattern>
+	</servlet-mapping>
 	<filter-mapping>
 		<filter-name>cmsFilter</filter-name>
 		<url-pattern>/login</url-pattern>
@@ -206,6 +215,8 @@
 		<url-pattern>/menu</url-pattern>
 		<url-pattern>/navigation</url-pattern>
 		<url-pattern>/rights</url-pattern>
+		<url-pattern>/rightsTemplate</url-pattern>
+		
 		<url-pattern>/</url-pattern>
 	</filter-mapping>
 </web-app>

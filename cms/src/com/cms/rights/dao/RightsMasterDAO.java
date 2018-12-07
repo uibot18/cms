@@ -68,7 +68,7 @@ return false;
 }
 
 public static List<RightsMasterDO> getRightsMaster(Connection preCon, boolean needChild) {
-String query=SELECT;
+String query=SELECT +" where bool_delete_status=0 ";
 List<RightsMasterDO> dtoList =getRightsMaster(preCon, query, needChild);
 if( dtoList==null ) { dtoList=new ArrayList<RightsMasterDO>(); }
 return dtoList;
