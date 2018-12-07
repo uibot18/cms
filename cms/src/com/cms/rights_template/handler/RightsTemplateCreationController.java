@@ -25,7 +25,7 @@ public class RightsTemplateCreationController {
 					rightsTemplateDO =RightsTemplateDAO.getRightsTemplateByRightsTemplateId(null, rightsTemplateId, true);
 					request.setAttribute(PageAlertType.SUCCESS.getType(), "Rights Template Details Successfully Saved..!");
 				}else {
-					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Rights TEmplate Details..!");
+					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Rights Template Details..!");
 				}
 			}else {
 				//update	

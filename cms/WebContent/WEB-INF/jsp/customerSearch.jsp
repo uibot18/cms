@@ -40,6 +40,10 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 	                            		<i class="fa fa-plus"></i> 
 	                            		ADD
 	                            	</button>
+	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            		<i class="fa fa-eye"></i> 
+	                            		VIEW
+	                            	</button>
                             	</h4>
                                  <form id="<%=formName %>" class="form" action="customer" method="post">
 			                    <input type="hidden" name="action" value="search">
@@ -66,7 +70,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                                 	
                                 	
                                 	
-                  <div class="row">
+                  					<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City</label>
@@ -199,7 +203,132 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                 </div>
                 <!-- End PAge Content -->
             </div>
-   
+   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+       <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h4 class="modal-title" id="myLargeModalLabel">Task Configuration Display</h4>
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               </div>
+               <div class="modal-body">
+               		<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Customer Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Contact Person Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Door No <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Street Name <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                    <div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">City <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">State <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Land Mark <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Pin Code <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Email <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">Web Site <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>
+                                	<div class="row">
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">PAN <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                		<div class="col-sm-6">
+                                			<div class="form-group row">
+		                                        <label for="fname" class="col-sm-4 p-t-5  control-label col-form-label">GST <b class="float-right"> :</b></label>
+		                                        <div class="col-sm-7 p-t-5">
+		                                             <p class="form-control-static m-b-0"> 11/06/1987 </p>
+		                                        </div>
+		                                    </div>
+                                		</div>
+                                	</div>    
+               </div>
+               <div class="modal-footer">
+                   <button type="submit" class="btn btn-danger m-t-10 float-right"><i class="fas fa-times"></i> Cancel</button>
+	               <button type="submit" class="btn btn-success m-r-10 m-t-10 float-right"><i class="fa fa-check"></i> Save</button>
+               </div>
+           </div>
+           <!-- /.modal-content -->
+       </div>
+       <!-- /.modal-dialog -->
+   </div>
    
 <script type="text/javascript">
 

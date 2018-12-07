@@ -10,11 +10,11 @@ import com.cms.common.db.util.DBUtil;
 
 public class Test{
 	public static void main(String[] args)  {
-//		DevUtil.generateDOAndDAO(DBConnection.getConnection(), "task_process_child");
+	DevUtil.generateDOAndDAO(DBConnection.getConnection(), "rights_template");
 		
-		String [] arr=null;
+		//String [] arr=null;
 		
-		System.out.println("Length: "+arr.length);
+		//System.out.println("Length: "+arr.length);
 	}
 	
 	

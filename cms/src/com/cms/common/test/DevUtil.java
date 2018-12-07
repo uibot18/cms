@@ -218,7 +218,7 @@ public class DevUtil {
 
 	private static void generateFile(String fileName, String content)  {
 		try {
-			FileOutputStream fos=new FileOutputStream("C:\\Users\\SWEET INDHU\\Desktop\\devUtil\\"+fileName);
+			FileOutputStream fos=new FileOutputStream("H:\\Madhan Project\\"+fileName);
 			fos.write(content.getBytes());fos.flush();fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();

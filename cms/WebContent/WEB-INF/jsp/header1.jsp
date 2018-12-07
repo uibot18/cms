@@ -3,6 +3,8 @@
 <link href="./static/dist/css/style.min.css" rel="stylesheet">
 <link href="./static/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./static/assets/libs/select2/dist/css/select2.min.css">
+<link href="./static/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="./static/assets/libs/jquery-steps/steps.css" rel="stylesheet">
 <%
 String rVal=""+Math.abs( new Random().nextInt(9999));
 %>
@@ -234,18 +236,8 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                         <div class="user-pic"><img src="./static/assets/images/users/1.jpg" alt="users" class="rounded-circle" width="40" /></div>
                         <div class="user-content hide-menu m-l-10">
                             <a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="m-b-0 user-name font-medium">Admin<i class="fa fa-angle-down"></i></h5>
                                 <span class="op-5 user-email">Admin@ui-bot.com</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Userdd">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                            </div>
                         </div>
                     </div>
                     <!-- End User Profile-->
@@ -265,16 +257,16 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="customer?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskConfig?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Configuration</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link" href="taskQuestionnaire?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Questionnaire</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="customer?action=search" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Customer</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=search" aria-expanded="false"><i class="mdi mdi-account-multiple-plus"></i><span class="hide-menu">Employee</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskConfig?action=search" aria-expanded="false"><i class="mdi mdi-content-paste"></i><span class="hide-menu">Task Configuration</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link" href="taskQuestionnaire?action=search" aria-expanded="false"><i class="mdi mdi-check-circle"></i><span class="hide-menu">Task Questionnaire</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link" href="customerBooking?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Customer Booking</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskProcess?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task Process</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="task?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Task</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="menu?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Menu</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="navigation?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Navigation</span></a></li>
-                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rights?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Rights</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="taskProcess?action=search" aria-expanded="false"><i class="fas fa-tasks"></i><span class="hide-menu">Task Process</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="task?action=search" aria-expanded="false"><i class="fas fa-folder-plus"></i><span class="hide-menu">Task</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="menu?action=search" aria-expanded="false"><i class="fas fa-ellipsis-h"></i><span class="hide-menu">Menu</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="navigation?action=search" aria-expanded="false"><i class="fas fa-compass"></i><span class="hide-menu">Navigation</span></a></li>
+                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rights?action=search" aria-expanded="false"><i class="far fa-copyright"></i><span class="hide-menu">Rights</span></a></li>
                  <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rightsTemplate?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Rights Template</span></a></li>
                 
             </ul>
