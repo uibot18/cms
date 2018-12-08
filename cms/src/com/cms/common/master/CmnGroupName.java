@@ -14,6 +14,7 @@ public enum CmnGroupName {
 	SERVICE(10, "service"),
 	PACKAGE(11, "package"),
 	PROCESS(12, "process"),
+	TIME_SHEET_TASK_TYPE(13, "task_type"),
 	;
 	private int groupId;
 	private String groupName;

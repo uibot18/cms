@@ -1,6 +1,6 @@
 package com.cms.timesheet.handler;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,9 +9,13 @@ import com.application.util.AjaxModel;
 import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
+import com.cms.cms_package.handler.PackageCreationController;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
+import com.cms.process.handler.ProcessCreationController;
+import com.cms.timesheet.bean.TaskTimeSheetChildDO;
+import com.cms.timesheet.bean.TaskTimeSheetMasterDO;
 
 public class TimesheetCreationController {
 
@@ -74,27 +78,60 @@ public class TimesheetCreationController {
 		return cmnMstDO;
 	}
 
-	public static String serviceOption( String parentIds, String selServiceIds ) {
-		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
-		String subQry=" AND cmn_group_id="+CmnGroupName.SERVICE.getGroupId() +" AND parent_id=0 AND bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
-		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+	
+	public static String generateTimeSheetTable(HttpServletRequest request, String formName, TaskTimeSheetMasterDO timeSheetMstDO ) {
 		
-		return AppUtil.formOption(map, selServiceIds);
+		StringBuffer timeSheetTable = new StringBuffer();
+		
+		List<TaskTimeSheetChildDO> timeSheetChildList = timeSheetMstDO.getTimeSheetChildList();
+		
+		if(timeSheetChildList != null && !timeSheetChildList.isEmpty()) {
+			int sno = 1;
+			for (TaskTimeSheetChildDO timeSheetChildDO : timeSheetChildList) {
+				timeSheetTable.append( generateTimeSheetRow(request, formName, sno, timeSheetMstDO, timeSheetChildDO) );
+				sno++;	
+			}
+		}else {
+			timeSheetTable.append( generateTimeSheetRow(request, formName, 1, timeSheetMstDO, new TaskTimeSheetChildDO()) );
+		}
+		return timeSheetTable.toString();
 	}
-	public static String customerserviceOption( String parentIds, String selServiceIds, int salesId ) {
-		parentIds=AppUtil.getNullToEmpty(parentIds, "0");
-		String subQry=" AND cmn_group_id="+CmnGroupName.SERVICE.getGroupId() +" AND parent_id=0 AND bool_delete_status=0 ";
-		if(!parentIds.isEmpty() && !parentIds.equals("0") ) { subQry+=" AND parent_id in("+parentIds+")"; }
+	
+	private static String generateTimeSheetRow(HttpServletRequest request, String formName, int sno, TaskTimeSheetMasterDO timeSheetMstDO, TaskTimeSheetChildDO timeSheetChildDO) {
 		
-		subQry+=" AND cmn_master_id IN( " + 
-				"	SELECT  parent_id FROM sales_customer_package_details a, common_master b " + 
-				"	WHERE a.package_id=b.cmn_master_id AND a.bool_delete_status=0 AND sales_id=" +salesId +
-				")";
+		StringBuffer timeSheetRow = new StringBuffer();
+		timeSheetRow.append("<tr id='row_"+sno+"'>");
+		timeSheetRow.append("<td>"+sno+"</td>");
+		timeSheetRow.append("<td><div class='form-group'>");
+		timeSheetRow.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm date_picker wef' placeholder='Start Time' name='wef_"+sno+"' value='"+timeSheetChildDO.getStartTime()+"' required='required'>");
+		timeSheetRow.append("</div></td>");
+
+		timeSheetRow.append("<td><div class='form-group'>");
+		timeSheetRow.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm date_picker endsOn' placeholder='End Time' name='endsOn_"+sno+"' value='"+timeSheetChildDO.getEndTime()+"' required='required'>");
+		timeSheetRow.append("</div></td>	");
 		
-		Map<String, String> map=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		timeSheetRow.append("<td><div class='form-group'>");
+		timeSheetRow.append("<select id='"+formName+"_packageName_"+sno+"' class='form-control input-sm select2 packageName' placeholder='Package Name' name='packageName_"+sno+"'>");
+		timeSheetRow.append("<option>-- please Select --</option>");
+		timeSheetRow.append("<option>Lunch Break</option>");
+		timeSheetRow.append("<option>Task</option>");
+		/*timeSheetRow.append("<option>-- please Select --</option>"+PackageCreationController.packageOption("", ""));*/
+		timeSheetRow.append("</select>");
+		timeSheetRow.append("</div></td>");
+
+		timeSheetRow.append("<td><div class='form-group'>");
+		timeSheetRow.append("<select id='"+formName+"_processName_"+sno+"' class='form-control input-sm select2 processName' placeholder='Process Name' name='processName_"+sno+"'>");
+		timeSheetRow.append("<option>-- please Select --</option>");
+		/*timeSheetRow.append("<option>-- please Select --</option>"+ProcessCreationController.processOption("", ""));*/
+		timeSheetRow.append("</select>");
+		timeSheetRow.append("</div></td>");
 		
-		return AppUtil.formOption(map, selServiceIds);
+		timeSheetRow.append("<td><div class='form-group'>");
+		timeSheetRow.append("<textarea  name='option_"+sno+"' id='option_"+sno+"' class='form-control' rows='1' cols='50' placeholder='Comments..' required='required'>"+AppUtil.getNullToEmpty( timeSheetChildDO.getComments() )+"</textarea>");
+		timeSheetRow.append("</div></td>");
+		timeSheetRow.append("<td><span style='cursor:pointer;' id='del_row_"+sno+"' class='del_row'>Delete</span></td>");
+		timeSheetRow.append("</tr>");
+		return timeSheetRow.toString();
 	}
 	
 	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
@@ -112,6 +149,20 @@ public class TimesheetCreationController {
 			model.setMessage(" Unable to Delete Service");model.setErrorExists(true);
 		}
 		AjaxUtil.sendResponse(request, response, model);
+		
+	}
+
+	public static void doLoadTimeSheetRow(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			int sno = AppUtil.getNullToInteger( request.getParameter("sno") );
+			String formName = AppUtil.getNullToEmpty( request.getParameter("formName") );
+			
+			AjaxModel model = new AjaxModel();
+			model.setData( generateTimeSheetRow(request, formName, sno, null, new TaskTimeSheetChildDO()) );
+			AjaxUtil.sendResponse(request, response, model);
+			
+		} catch (Exception e) { e.printStackTrace(); }
 		
 	}
 }

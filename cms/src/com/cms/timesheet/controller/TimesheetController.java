@@ -40,6 +40,9 @@ public class TimesheetController extends HttpServlet {
 			TimesheetCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/timesheet/timesheetAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("loadTimeSheetRow")){
+			TimesheetCreationController.doLoadTimeSheetRow(request, response);
+		}
 		else if(action.equalsIgnoreCase("delete")){
 			TimesheetCreationController.doDelete(request, response);
 		}

@@ -1,18 +1,17 @@
+<%@page import="com.cms.timesheet.handler.TimesheetCreationController"%>
+<%@page import="com.cms.timesheet.bean.TaskTimeSheetMasterDO"%>
 <%@page import="com.application.util.PageUtil"%>
 <%@page import="com.application.util.AppUtil"%>
-<%@page import="com.cms.common.master.CmnGroupName"%>
-<%@page import="com.cms.common.master.bean.CommonMasterDO"%>
 <%@page import="java.util.Random"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.cms.user.login.bean.LoginMasterBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%
-CommonMasterDO serviceDO=(CommonMasterDO)request.getAttribute("serviceDO");
-if( serviceDO==null ){ serviceDO=new  CommonMasterDO(); } 
+TaskTimeSheetMasterDO timeSheetMstDO = (TaskTimeSheetMasterDO)request.getAttribute("timeSheetMstDO"); 
+if(timeSheetMstDO==null){ timeSheetMstDO=new TaskTimeSheetMasterDO(); }
 
-String formName="Hldy_frm_"+Math.abs( new Random().nextInt(9999) );
+String formName="tim_sht_frm_"+Math.abs( new Random().nextInt(9999) );
 %>
 <style>
 .form-control.invalid{
@@ -26,7 +25,7 @@ label.invalid{
 }
 
 </style>
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
     	<form id="<%=formName%>" action="service?action=save" method="post">
         <div class="modal-header">
@@ -37,14 +36,39 @@ label.invalid{
         <%=PageUtil.getAlert(request) %>
 			<input type="hidden" name="action" value="save">
 			
-			<div class="form-group">
-			    <label for="serviceName" class="control-label">Service Name<span style="color: #f62d51;">*</span></label>
-			    <input type="text" name="serviceName" class="form-control" id="serviceName" value="<%=serviceDO.getCmnMasterName()%>" placeholder="Service Name">
+			<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+				<%
+					int childSize=timeSheetMstDO.getTimeSheetChildList().size();
+					//if(childSize==0){ childSize=1; }
+				%>
+					<input type="hidden" id="rowCount" value="<%=childSize==0?1:childSize%>">
+					<table class="table">
+						<thead class="bg-success" style="color: white;">
+							<tr>
+								<th align="center"><div style="width: 30px;">
+								<button type="button" id="btn_addRow">+</button>
+								</div></th>
+								<th>Start Time</th>
+								<th>End Time</th>
+								<th>Type</th>
+								<th>Particular</th>
+								<th>Comments</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="data_container">
+							<%=TimesheetCreationController.generateTimeSheetTable(request, formName, timeSheetMstDO ) %>
+						</tbody>
+					</table>
+				</div>
 			</div>
+		</div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger waves-effect waves-light">Save</button>
+            <button type="submit" class="btn btn-default waves-effect waves-light">Save</button>
+            <button type="button" class="btn waves-effect" data-dismiss="modal">Close</button>
         </div>
         </form>
     </div>
@@ -83,6 +107,28 @@ $(document).ready( function(){
 	}catch(e){
 		alert('Something went wrong. Please Try Later..!');
 	}
+	
+	$('#<%=formName%>').on('click', '#btn_addRow', function(){
+		
+		var sno=parseInt($('#<%=formName%> #rowCount').val()); if(isNaN(sno)){ sno=1;}
+		sno++;
+		var param='action=loadTimeSheetRow&formName=<%=formName%>&sno='+sno;
+		$.getJSON('timesheet?'+param,function(response){
+			
+			if(response.data!=null && typeof(response)!='undefined'){
+				$('#<%=formName%> #data_container').append(response.data);
+				$('#<%=formName%> #rowCount').val(sno);
+				initPage();
+			}
+		});
+	});
+	
+	$('#<%=formName%>').on('click', '.del_row', function(){
+		var id=$(this).attr('id');
+		var sno=id.replace('del_row_', '');
+		$('#<%=formName%> #row_'+sno).remove();
+	});
+	
 });
 
 function <%=formName %>reset(){
