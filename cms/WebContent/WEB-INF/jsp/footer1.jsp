@@ -10,7 +10,6 @@
 <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="./static/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-
 <!-- Bootstrap tether Core JavaScript -->
 <script src="./static/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./static/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>

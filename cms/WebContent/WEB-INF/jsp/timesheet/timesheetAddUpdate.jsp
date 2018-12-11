@@ -27,7 +27,7 @@ label.invalid{
 </style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-    	<form id="<%=formName%>" action="service?action=save" method="post">
+    	<form id="<%=formName%>" action="timesheet?action=save" method="post">
         <div class="modal-header">
             <h4 class="modal-title">TIME SHEET</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -128,6 +128,25 @@ $(document).ready( function(){
 		var sno=id.replace('del_row_', '');
 		$('#<%=formName%> #row_'+sno).remove();
 	});
+	
+	$('#<%=formName%>').on('change', '.refType', function(){
+		
+		var sno = (''+$(this).attr('id')).replace('<%=formName%>_refType_', '');
+		
+		var refTypeId=$(this).val();
+		$('#<%=formName%>_particularsId_'+sno).html('<option>-Please Select-</option>');
+		if(refTypeId!=null && refTypeId!=''){
+			var param='action=loadParticulars&refTypeId='+refTypeId;
+			$.getJSON('timesheet?'+param,function(response){
+				if(response.data!=null && typeof(response)!='undefined'){
+					$('#<%=formName%>_particularsId_'+sno).append(response.data);
+					initPage();
+				}
+			});
+		}
+		
+	});
+	
 	
 });
 

@@ -4,14 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 
 public class Test{
 	public static void main(String[] args)  {
-	DevUtil.generateDOAndDAO(DBConnection.getConnection(), "rights_template");
-		
+	//DevUtil.generateDOAndDAO(DBConnection.getConnection(), "rights_template");
+		TreeSet< String> set= new TreeSet<>();
+		set.add("AA");
+		System.out.println("FF: "+set.first());
+		System.out.println("LL: "+set.last());
 		//String [] arr=null;
 		
 		//System.out.println("Length: "+arr.length);

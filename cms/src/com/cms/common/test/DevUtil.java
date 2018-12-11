@@ -134,7 +134,7 @@ public class DevUtil {
 			}
 			else{ 
 				updateQuery+=" "+sqlColumnName+"=?,";
-				daoUpdateMethod.append("stmt.set"+dataType+"(i++,dto.get"+pojoName+"());\n");
+				daoUpdateMethod.append("stmt.set"+dataType+"(i++, dto.get"+pojoName+"());\n");
 			}
 
 			if(pojoName.equalsIgnoreCase("CreatedDate") || pojoName.equalsIgnoreCase("UpdateDate")) {

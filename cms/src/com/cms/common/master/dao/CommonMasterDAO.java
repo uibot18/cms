@@ -161,5 +161,13 @@ public class CommonMasterDAO {
 		return commonMap;
 
 	}
+	
+	public static Map<String, String> getCommonDataByGroupId(Connection preCon, String commonGroupIds){
+		return getCommonDetMapBySubQry(preCon, " AND cmn_group_id in("+AppUtil.getNullToEmpty(commonGroupIds, "0")+")");
+	}
+	
+	public static Map<String, String> getCommonDataByParentId(Connection preCon, String commonGroupIds){
+		return getCommonDetMapBySubQry(preCon, " AND parent_id in("+AppUtil.getNullToEmpty(commonGroupIds, "0")+")");
+	}
 
 }

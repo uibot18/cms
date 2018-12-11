@@ -46,6 +46,12 @@ public class TimesheetController extends HttpServlet {
 		else if(action.equalsIgnoreCase("delete")){
 			TimesheetCreationController.doDelete(request, response);
 		}
+		else if(action.equalsIgnoreCase("loadParticulars")){
+			TimesheetCreationController.doLoadParticulars(request, response);
+		}
+		else {
+			System.out.println("service not available...");
+		}
 	}
 
 }

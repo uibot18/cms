@@ -16,8 +16,9 @@ import com.cms.timesheet.bean.TaskTimeSheetChildDO;
 public class TaskTimeSheetChildDAO {
 
 	private static final String SELECT="select   time_sheet_child_id, time_sheet_id, start_time, end_time, ref_type, particulars_id, comments, bool_delete_status, created_user, created_date, update_user, update_date from task_time_sheet_child ";
-	private static final String INSERT="insert into task_time_sheet_child( time_sheet_child_id, time_sheet_id, start_time, end_time, ref_type, particulars_id, comments, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
-	private static final String UPDATE="update  task_time_sheet_child set  time_sheet_id=?, start_time=?, end_time=?, ref_type=?, particulars_id=?, comments=?, bool_delete_status=?, created_user=?, created_date=?, update_user=?, update_date=? WHERE time_sheet_child_id=? ";
+	private static final String INSERT="insert into task_time_sheet_child( time_sheet_child_id, time_sheet_id, start_time, end_time, ref_type, particulars_id, comments, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
+	private static final String UPDATE="update  task_time_sheet_child set  time_sheet_id=?, start_time=?, end_time=?, ref_type=?, particulars_id=?, comments=?, bool_delete_status=?, update_user=?, update_date=NOW() WHERE time_sheet_child_id=? ";
+	private static final String DELETE_BY_TIME_SHEET_ID="delete from task_time_sheet_child WHERE  time_sheet_id=? ";
 
 	public static int insert(Connection preCon, TaskTimeSheetChildDO dto) {
 		int insertId=0;
@@ -37,9 +38,7 @@ public class TaskTimeSheetChildDAO {
 			stmt.setString(i++, dto.getComments() );
 			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
 			stmt.setString(i++, dto.getCreatedUser() );
-			stmt.setString(i++, dto.getCreatedDate() );
 			stmt.setString(i++, dto.getUpdateUser() );
-			stmt.setString(i++, dto.getUpdateDate() );
 			stmt.execute();
 			rs=stmt.getGeneratedKeys();
 			if(rs.next()) { insertId=rs.getInt(1); }
@@ -47,6 +46,34 @@ public class TaskTimeSheetChildDAO {
 		finally { DBUtil.close( rs, stmt, preCon==null?con:null); }
 		return insertId;
 	}
+
+	public static boolean insert(Connection preCon, List<TaskTimeSheetChildDO> dtos, int timeSheetId) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			for (TaskTimeSheetChildDO dto : dtos) {
+				int i=1;
+				stmt.setInt(i++, dto.getTimeSheetChildId() );
+				stmt.setInt(i++, timeSheetId );
+				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getStartTime(), true, true ) );
+				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getEndTime(), true, true ) );
+				stmt.setInt(i++, dto.getRefType() );
+				stmt.setInt(i++, dto.getParticularsId() );
+				stmt.setString(i++, dto.getComments() );
+				stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
+				stmt.setString(i++, dto.getCreatedUser() );
+				stmt.setString(i++, dto.getUpdateUser() );
+				stmt.addBatch();
+			}
+			stmt.executeBatch();
+			return true;
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( rs, stmt, preCon==null?con:null); }
+		return false;
+	} 
 
 	public static boolean update(Connection preCon, TaskTimeSheetChildDO dto) {
 		Connection con=null;
@@ -62,10 +89,7 @@ public class TaskTimeSheetChildDAO {
 			stmt.setInt(i++,dto.getParticularsId());
 			stmt.setString(i++,dto.getComments());
 			stmt.setBoolean(i++,dto.getBoolDeleteStatus());
-			stmt.setString(i++,dto.getCreatedUser());
-			stmt.setString(i++,dto.getCreatedDate());
 			stmt.setString(i++,dto.getUpdateUser());
-			stmt.setString(i++,dto.getUpdateDate());
 			stmt.setInt(i++,dto.getTimeSheetChildId());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { return true; }
@@ -76,6 +100,12 @@ public class TaskTimeSheetChildDAO {
 
 	public static List<TaskTimeSheetChildDO> getTaskTimeSheetChild(Connection preCon, boolean needChild) {
 		String query=SELECT;
+		List<TaskTimeSheetChildDO> dtoList =getTaskTimeSheetChild(preCon, query, needChild);
+		if( dtoList==null ) { dtoList=new ArrayList<TaskTimeSheetChildDO>(); }
+		return dtoList;
+	}
+	public static List<TaskTimeSheetChildDO> getTaskTimeSheetChildsByTimeSheetId(Connection preCon, int timeSheetId,  boolean needChild) {
+		String query=SELECT +" WHERE time_sheet_id="+timeSheetId;
 		List<TaskTimeSheetChildDO> dtoList =getTaskTimeSheetChild(preCon, query, needChild);
 		if( dtoList==null ) { dtoList=new ArrayList<TaskTimeSheetChildDO>(); }
 		return dtoList;
@@ -119,10 +149,26 @@ public class TaskTimeSheetChildDAO {
 			dto.setCreatedDate(AppDateUtil.convertToAppDate(rs.getString(i++), true, true));
 			dto.setUpdateUser(rs.getString(i++));
 			dto.setUpdateDate(AppDateUtil.convertToAppDate(rs.getString(i++), true, true));
+
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
-	} 
+	}
 
+	public static boolean delete(Connection preCon, int timeSheetId) {
+		Connection con=null;
+		PreparedStatement stmt=null;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.prepareStatement(DELETE_BY_TIME_SHEET_ID);
+			stmt.setInt(1, timeSheetId);
+
+			int rowAffect=stmt.executeUpdate();
+			if(rowAffect!=0) { return true; }
+
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
 
 }

@@ -39,12 +39,24 @@ public class AppDateUtil {
 		} catch (Exception e) { e.printStackTrace(); }
 		return retVal;
 	}
+	public static String convertDate(String dateVal, String srcFormat, String destFormat, String defaultVal) {
+		String retVal=defaultVal;
+		dateVal=AppUtil.getNullToEmpty(dateVal);
+		try {
+			if(!dateVal.isEmpty()) {
+				SimpleDateFormat dateFormat=new SimpleDateFormat(srcFormat); 
+				Calendar cal=Calendar.getInstance(); cal.setTime(dateFormat.parse(dateVal));
+				dateFormat=new SimpleDateFormat(destFormat); retVal=dateFormat.format(cal.getTime());
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+		return retVal;
+	}
 
 	public static String convertToDBDate( String dateVal, boolean needTime, boolean needDefaultVal) {
-		return convertDate( dateVal,  (needTime?DISPLAY_DATE_TIME:DISPLAY_DATE),  (needTime?DB_DATE_TIME:DB_DATE));
+		return convertDate( dateVal,  (needTime?DISPLAY_DATE_TIME:DISPLAY_DATE),  (needTime?DB_DATE_TIME:DB_DATE), "1000-01-01"+(needTime?" 00:00:00":""));
 	}
 	public static String convertToAppDate( String dateVal, boolean needTime, boolean needDefaultVal) {
-		return convertDate( dateVal,  (needTime?DB_DATE_TIME:DB_DATE),  (needTime?DISPLAY_DATE_TIME:DISPLAY_DATE));
+		return convertDate( dateVal,  (needTime?DB_DATE_TIME:DB_DATE),  (needTime?DISPLAY_DATE_TIME:DISPLAY_DATE), "01/01/1000"+(needTime?" 00:00:00":""));
 	}
 
 	public static List<String> getWeekDaysDateList(String fromDate, String toDate){
