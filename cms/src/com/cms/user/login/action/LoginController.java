@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cms.user.login.LoginDetail;
+import com.application.util.PageAlertType;
 import com.cms.user.login.LoginDetailImpl;
 import com.cms.user.login.LoginEnum;
+import com.cms.user.login.bean.AdminLoginMasterDO;
 import com.cms.user.login.bean.LoginMasterBean;
+import com.cms.user.login.dao.AdminLoginMasterDAO;
 import com.cms.user.login.dao.LoginMasterDAO;
 
 public class LoginController extends HttpServlet {
@@ -51,29 +53,32 @@ public class LoginController extends HttpServlet {
 		//request.setAttribute("msg", "");
 		boolean validLogin=false;
 		if(!userName.isEmpty() && !password.isEmpty()) {
-			LoginMasterBean loginDTO = LoginMasterDAO.getLoginMasterByLoginid(userName); if(loginDTO==null) { loginDTO= new LoginMasterBean(); }
-			System.out.println("loginDTO:"+loginDTO);
-			if(password.equals(loginDTO.getPassword())) {
-				validLogin=true;
-				
-				HttpSession session = request.getSession();
-				LoginDetailImpl loginDetail=new LoginDetailImpl();
-				loginDetail.setLoginId( loginDTO.getLoginId() );
-				loginDetail.setRefType( "" );
-				loginDetail.setUserName("Vijay");
-				session.setAttribute(LoginEnum.LOGIN_DETAIL.getType(), loginDetail );
-				
+			
+			AdminLoginMasterDO loginMasterDO = AdminLoginMasterDAO.getAdminLoginMasterByLoginId(null, userName, false);
+			if(loginMasterDO!=null) {
+				if(password.equals(loginMasterDO.getLoginPwd())) {
+					validLogin=true;
+					
+					HttpSession session = request.getSession();
+					LoginDetailImpl loginDetail=new LoginDetailImpl();
+					loginDetail.setLoginId( loginMasterDO.getLoginId() );
+					loginDetail.setRefType( loginMasterDO.getRefType() );
+					loginDetail.setUserName("Vijay");
+					session.setAttribute( LoginEnum.LOGIN_DETAIL.getType(), loginDetail );
+				}else {
+					request.setAttribute(PageAlertType.ERROR.getType(), "Invalid User Name or Password");
+				}
+			}else {
+				request.setAttribute(PageAlertType.ERROR.getType(), "Invalid User Name or Password");
 			}
 		}
 		
 		if(validLogin==true) {
 			
-			
 			response.sendRedirect("home");
 			//request.getRequestDispatcher("WEB-INF/jsp/home.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
-			request.setAttribute("err", "Invalid User Name or Password..!");
 		}
 		
 		

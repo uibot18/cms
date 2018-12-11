@@ -350,7 +350,7 @@ int bankId=branchDO.getBankId();
 							<div class="form-group">
 								<label for="timesheetinput2">Date of Birth</label>
 								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Date of Birth" name="dob" value="<%=personalDO.getDob()%>" required="required">
+									<input type="text" id="timesheetinput2" class="form-control date_picker" placeholder="Date of Birth" name="dob" value="<%=personalDO.getDob()%>" required="required">
 									<div class="form-control-position">
 										<!-- <i class="la la-briefcase"></i> -->
 									</div>
@@ -419,12 +419,6 @@ int bankId=branchDO.getBankId();
 									<!-- <i class="la la-briefcase"></i> -->
 								</div>
 								
-								<div class="position-relative has-icon-left">
-									<input type="text" id="reportingTo" class="form-control" placeholder="Reporting To" name="reportingTo" value="<%=employeeDO.getReportingTo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
 							</div>
 						</div>
 						
@@ -487,10 +481,8 @@ int bankId=branchDO.getBankId();
 								<label for="bankName">Bank Name</label>
 								<div class="position-relative has-icon-left">
 									<select id="bankName" class="form-control" placeholder="Bank Name" name="bankName">
-										<option></option>
-										<%
-										Map<String, String> bankMap=FinancePartyBankDetailsDAO.loadBankMap(null); if(bankMap==null){ bankMap=new HashMap<String, String>();  }
-										%>
+										<%Map<String, String> bankMap=FinancePartyBankDetailsDAO.loadBankMap(null); if(bankMap==null){ bankMap=new HashMap<String, String>();  } %>
+										<option>-Please Select-</option>
 										<%=AppUtil.formOption(bankMap, ""+branchDO.getBankId())%>
 									</select>
 									<div class="form-control-position">
@@ -915,6 +907,7 @@ $(document).ready(function(){
 		 	   },
 		 	   success:function(data){
 		 		   $('#CMS-POPUP-MODEL').html(data);
+		 		  initPage();
 		 	   }
 		    }); 
 		e.preventDefault();

@@ -20,6 +20,8 @@ import com.cms.finance.bean.FinanceLedgerMasterDO;
 import com.cms.finance.bean.FinancePartyAddressDetailsDO;
 import com.cms.finance.bean.FinancePartyContactDetailsDO;
 import com.cms.finance.bean.FinancePartyPersonalDetailsDO;
+import com.cms.user.login.LoginDetail;
+import com.cms.user.login.util.LoginUtil;
 
 public class CustomerCreationController {
 
@@ -58,7 +60,8 @@ public class CustomerCreationController {
 
 	private static SalesCustomerMasterDO costructDTO(HttpServletRequest request, HttpServletResponse response) {
 
-		String loginId="Admin";
+		LoginDetail logindetail = LoginUtil.getLoginDetail(request);
+		String loginId=logindetail.getLoginId();
 
 //		LoginDetail loginDetail=(LoginDetail) request.getSession().getAttribute( LoginEnum.LOGIN_DETAIL.getType() );
 

@@ -82,4 +82,32 @@ public class EmployeeSearchHandler {
 		return requestMap;
 	}
 
+	public static void doEmployeeRightsSearch(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, String> requestMap =constructRequstMap_Rights( request );
+
+		String query=constructQuery_Rights( requestMap, request, response  );
+		SearchUtil.generateSearhResult(request, response, query);
+
+		request.setAttribute(SearchEnum.REQUEST_MAP.getKeyName(), requestMap);
+	}
+
+	private static String constructQuery_Rights(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
+		
+		String query="SELECT a.emp_id, a.first_name, b.rights_template_id, c.rights_template_name " + 
+				"FROM (adm_employee_master_view a, admin_login_master b) " + 
+				"LEFT JOIN rights_template c ON b.rights_template_id=c.rights_template_id " + 
+				"WHERE b.ref_type='employee' AND b.ref_id=a.emp_id ";
+				
+		return query;
+	}
+
+	private static Map<String, String> constructRequstMap_Rights(HttpServletRequest request) {
+		Map<String, String> requestMap=new HashMap<String, String>();
+
+		String employeeName=AppUtil.getNullToEmpty( request.getParameter("employeeName") );
+
+		requestMap.put("employeeName", employeeName);
+		return requestMap;
+	}
+
 }

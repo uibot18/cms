@@ -1,5 +1,7 @@
 package com.cms.rights_template.handler;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -100,4 +102,6 @@ public class RightsTemplateCreationController {
 		AjaxUtil.sendResponse(request, response, model);
 		
 	}
+	
+	
 }

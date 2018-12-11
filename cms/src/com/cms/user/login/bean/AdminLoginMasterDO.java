@@ -9,6 +9,7 @@ public class AdminLoginMasterDO {
 	private int refId=0;
 	private boolean boolLoginActiveStatus;
 	private boolean boolDeleteStatus;
+	private int rightsTemplateId=0;
 	private String createdUser="";
 	private String createdDate="";
 	private String updateUser="";
@@ -56,6 +57,12 @@ public class AdminLoginMasterDO {
 	}
 	public boolean getBoolDeleteStatus(){
 		return this.boolDeleteStatus;
+	}
+	public void setRightsTemplateId(int rightsTemplateId){
+		this.rightsTemplateId=rightsTemplateId;
+	}
+	public int getRightsTemplateId(){
+		return this.rightsTemplateId;
 	}
 	public void setCreatedUser(String createdUser){
 		this.createdUser=createdUser;

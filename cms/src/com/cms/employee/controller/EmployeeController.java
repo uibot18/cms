@@ -47,6 +47,15 @@ public class EmployeeController extends HttpServlet {
 		else if(action.equalsIgnoreCase("delete")) {
 			EmployeeCreationHandler.doEmployeeDelete(request, response);
 		}
+		else if(action.equalsIgnoreCase("employeeRightsSearch")) {
+			EmployeeSearchHandler.doEmployeeRightsSearch(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/employeeRightsSearch.jsp").forward(request, response);
+		}
+		else if(action.equalsIgnoreCase("employeeRightsMap")) {
+			EmployeeCreationHandler.doEmployeeRightsMapping( request, response);
+			EmployeeSearchHandler.doEmployeeRightsSearch(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/employeeRightsSearch.jsp").forward(request, response);
+		}
 		
 		
 		

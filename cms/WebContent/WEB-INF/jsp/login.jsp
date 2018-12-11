@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="com.application.util.AppUtil"%>
+<%@page import="com.application.util.PageAlertType"%>
 <html dir="ltr">
 
 
@@ -145,14 +147,26 @@ label.invalid{
     <!-- This page plugin js -->
     
     <script>
-    $('[data-toggle="tooltip"]').tooltip();
-    $(".preloader").fadeOut();
-    // ============================================================== 
-    // Login and Recover Password 
-    // ============================================================== 
-    $('#to-recover').on("click", function() {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
+    
+    $(document).ready(function(){
+    	
+    	<%
+    	String err_msg=AppUtil.getNullToEmpty((String)request.getAttribute(PageAlertType.ERROR.getType()));
+    	if(!err_msg.isEmpty()){
+    	%>
+    	alert('<%=err_msg%>');
+    	<%} %>
+    	
+    	
+    	$('[data-toggle="tooltip"]').tooltip();
+        $(".preloader").fadeOut();
+        // ============================================================== 
+        // Login and Recover Password 
+        // ============================================================== 
+        $('#to-recover').on("click", function() {
+            $("#loginform").slideUp();
+            $("#recoverform").fadeIn();
+        });
     });
     
     /* $(document).ready(function(){

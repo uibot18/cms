@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,10 @@ import com.cms.finance.bean.FinancePartyAddressDetailsDO;
 import com.cms.finance.bean.FinancePartyContactDetailsDO;
 import com.cms.finance.bean.FinancePartyPersonalDetailsDO;
 import com.cms.finance.dao.FinancePartyBankBranchDetailsDAO;
+import com.cms.user.login.LoginDetail;
+import com.cms.user.login.UserType;
+import com.cms.user.login.dao.AdminLoginMasterDAO;
+import com.cms.user.login.util.LoginUtil;
 
 public class EmployeeCreationHandler {
 
@@ -250,6 +255,25 @@ public class EmployeeCreationHandler {
 			model.setMessage(" Unable to Delete");model.setErrorExists(true);
 		}
 		AjaxUtil.sendResponse(request, response, model);
+	}
+	public static void doEmployeeRightsMapping(HttpServletRequest request, HttpServletResponse response) {
+		
+		LoginDetail detail = LoginUtil.getLoginDetail(request);
+		
+		String[] empIdArr = request.getParameterValues("empIds");
+		Set<String> empIdSet = AppUtil.convertStrArrayToSet(empIdArr);
+		System.out.println("empIdSet: "+empIdSet);
+		if(empIdSet!=null) {
+			for (String empIdStr : empIdSet) {
+				int empId = AppUtil.getNullToInteger(empIdStr);
+				int templateId=AppUtil.getNullToInteger( request.getParameter("rights_ids_"+empId) );
+				System.out.println("templateId:"+templateId);
+				if(templateId!=0) {
+					boolean a = AdminLoginMasterDAO.updateRights(null, templateId, detail.getLoginId(), UserType.EMPLOYEE.getType(), empId); 
+				}
+				
+			}
+		}
 	}
 	
 }

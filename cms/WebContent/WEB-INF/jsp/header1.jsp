@@ -267,9 +267,10 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="task?action=search" aria-expanded="false"><i class="fas fa-folder-plus"></i><span class="hide-menu">Task</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="menu?action=search" aria-expanded="false"><i class="fas fa-ellipsis-h"></i><span class="hide-menu">Menu</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="navigation?action=search" aria-expanded="false"><i class="fas fa-compass"></i><span class="hide-menu">Navigation</span></a></li>
-                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rights?action=search" aria-expanded="false"><i class="far fa-copyright"></i><span class="hide-menu">Rights</span></a></li>
-                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rightsTemplate?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Rights Template</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rights?action=search" aria-expanded="false"><i class="far fa-copyright"></i><span class="hide-menu">Rights</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rightsTemplate?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Rights Template</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="timesheet?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Time Sheet</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=employeeRightsSearch" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee Rights</span></a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

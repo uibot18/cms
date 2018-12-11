@@ -8,6 +8,7 @@ public class LoginDetailImpl implements LoginDetail, Serializable{
 	private static final long serialVersionUID = 1L;
 	private String loginId="";
 	private String refType;
+	private int refId;
 	private String userName;
 	private String menuIds;
 	private String rightsIds;
@@ -26,6 +27,12 @@ public class LoginDetailImpl implements LoginDetail, Serializable{
 	}
 	public void setRefType(String refType) {
 		this.refType = refType;
+	}
+	public int getRefId() {
+		return refId;
+	}
+	public void setRefId(int refId) {
+		this.refId = refId;
 	}
 	public String getUserName() {
 		return userName;

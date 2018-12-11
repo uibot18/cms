@@ -21,6 +21,8 @@ import com.cms.finance.dao.FinanceLedgerMasterDAO;
 import com.cms.finance.dao.FinancePartyAddressDetailsDAO;
 import com.cms.finance.dao.FinancePartyContactDetailsDAO;
 import com.cms.finance.dao.FinancePartyPersonalDetailsDAO;
+import com.cms.user.login.UserType;
+import com.cms.user.login.dao.AdminLoginMasterDAO;
 
 public class SalesCustomerMasterDAO {
 
@@ -109,6 +111,9 @@ public class SalesCustomerMasterDAO {
 				}else { System.out.println("Customer insertion failed..!"); con.rollback(); return 0; }
 			}
 			con.commit();
+			if(!AdminLoginMasterDAO.createLogin(null, UserType.CUSTOMER.getType(), customerId, dto.getCreatedUser())) {
+				System.out.println("Failed to Create Login detail..!");
+			}
 		} catch (Exception e) { e.printStackTrace(); }
 		finally { DBUtil.close( rs, stmt, preCon==null?con:null  ); }
 		return customerId;

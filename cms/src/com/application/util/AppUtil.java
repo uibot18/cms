@@ -103,7 +103,18 @@ public class AppUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return valueSet;
 	}
+	
+	public static String fillDigit(int val, int noOfDigit, char fillBy) {
+		String finalVal=""+val;
+		noOfDigit-=finalVal.length();
+		if(val>0 && noOfDigit >0) {
+			for(int i=0; i<noOfDigit; i++) {
+				finalVal = fillBy + finalVal;
+			}
+		}
+		return finalVal;
+	}
+	
 }
