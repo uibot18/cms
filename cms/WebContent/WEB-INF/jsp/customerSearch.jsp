@@ -48,7 +48,11 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                            	</div>
                             <div class="card-body">
                                  <form id="<%=formName %>" class="form" action="customer" method="post">
-			          mj          <input type="hidden" name="action" value="search">
+			                    <input type="hidden" name="action" value="search">
+			                    	<div class="col-12">
+                                        <label class="m-t-20">Default Material Date Timepicker</label>
+                                        <input type="text" id="date-format" class="form-control" placeholder="Saturday 24 June 2017 - 21:44">
+                                    </div>
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
@@ -333,7 +337,9 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
    </div>
    
 <script type="text/javascript">
-
+$(document).ready(function(){
+	$('#date-format').bootstrapMaterialDatePicker({ format: 'dddd DD MMMM YYYY - HH:mm' });
+});
 $(document).ready(function(){
 	try{		
 		$('#<%=formName%>').validate({
