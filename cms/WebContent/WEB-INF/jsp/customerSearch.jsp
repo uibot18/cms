@@ -34,19 +34,21 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
-                            	<h4 class="card-title">CUSTOMER SEARCH
-                            		<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="customer?action=add" class="btn btn-primary btn-sm float-right btn-rounded" style="">
+                        	<div class="card-header bg-danger">
+                            	<h4 class="m-b-0 text-white">CUSTOMER SEARCH
+                            		<button type="button" data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="customer?action=add" class="btn btn-light btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-plus"></i> 
 	                            		ADD
 	                            	</button>
-	                            	<!-- <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-primary btn-sm float-right btn-rounded" style="">
+	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-light btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-eye"></i> 
 	                            		VIEW
-	                            	</button> -->
+	                            	</button> 
                             	</h4>
+                           	</div>
+                            <div class="card-body">
                                  <form id="<%=formName %>" class="form" action="customer" method="post">
-			                    <input type="hidden" name="action" value="search">
+			          mj          <input type="hidden" name="action" value="search">
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
