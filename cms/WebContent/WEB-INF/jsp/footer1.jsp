@@ -41,6 +41,9 @@
 
 <script src="./static/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
     <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    
+    <script src="./static/assets/libs/moment/moment.js"></script>
+    <script src="./static/assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js"></script>
 <script type="text/javascript">
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
