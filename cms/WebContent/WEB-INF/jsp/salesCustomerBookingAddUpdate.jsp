@@ -32,55 +32,66 @@ holidaySubTypeMap.put("specific", "Specific");
 String formName="cust_bk_frm_"+Math.abs( new Random().nextInt(9999) );
 
 %>
+
 <style>
+.form-control.invalid{
+	border-color: #f62d51 !important;
+}
+label.invalid{
+	color: #f62d51 !important;
+}
+.form-control.valid{
+	border-color: #36bea6 !important;
+}
 .table td, .table th {
 	padding:5px;
 }
 </style>
-<div class="modal-dialog modal-xl" role="document" style="margin-left: 20%;">
-<div class="modal-content">
-<form class="form" action="customerBooking?action=save" method="post" id="<%=formName%>">
-	<input type="hidden" name="saleId" value="<%=bookingDO.getSaleId()%>">
-	<div class="modal-header">
-		<h4 class="modal-title" id="myModalLabel16">Booking Form</h4>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<div class="modal-body">
-	<%=PageUtil.getAlert(request) %>
-		                 
-	<div class="form-body">
-		
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="timesheetinput1">Customer Name</label>
-					<div class="position-relative has-icon-left">
-						<select id="customerName" class="form-control" placeholder="Customer Name" name="customerName" required="required">
-							<option>-- please Select --</option>
+
+
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+    	<form id="<%=formName%>" action="customerBooking?action=save" class='form p-t-20' method="post">
+    		<input type="hidden" name="saleId" value="<%=bookingDO.getSaleId()%>">
+        <div class="modal-header">
+            <h4 class="modal-title">Booking Form</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body">
+        <%=PageUtil.getAlert(request) %>
+			
+			
+					
+					
+					
+					<div class="row">
+                      		<div class="col-sm-6">
+                      			<div class="form-group row">
+                                <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name<span style="color: #f62d51;">*</span></label>
+                                <div class="col-sm-8">
+                                     <select id="customerName" class="form-control select" placeholder="Customer Name" name="customerName" required="required">
+							<option></option>
 							<%=CustomerCreationController.customerOption( ""+bookingDO.getCustomerId()) %>
 						</select>
-						<div class="form-control-position">
-							<i class="fas fa-unlock-alt"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="timesheetinput1">Booking Date</label>
-					<div class="position-relative has-icon-left">
-						<input type="text" id="bookingDate" class="form-control" placeholder="Booking Date" name="bookingDate" value="<%=AppUtil.getNullToEmpty(bookingDO.getSaleDate() )%>" required="required">
-						<div class="form-control-position">
-							<i class="fas fa-unlock-alt"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		<div class="row">
+									
+                                </div>
+                            </div>
+                      		</div>
+                      		
+                      		
+                      		<div class="col-sm-6">
+                      			<div class="form-group row">
+                                <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Booking Date<span style="color: #f62d51;">*</span></label>
+                                <div class="col-sm-8">
+                                 <input type="text" id="bookingDate" class="form-control date_picker" placeholder="Booking Date" name="bookingDate" value="<%=bookingDO.getSaleDate()%>" required="required">
+                                </div>
+                            </div>
+                      		</div>
+                      	</div>
+					
+					<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
 				<%
@@ -89,7 +100,7 @@ String formName="cust_bk_frm_"+Math.abs( new Random().nextInt(9999) );
 				%>
 					<input type="hidden" id="rowCount" value="<%=childSize%>">
 					<table class="table">
-						<thead class="bg-primary white">
+						<thead class="">
 							<tr>
 								<th align="center"><div style="width: 30px;"><button type="button" id="pack_addRow">+</button></div></th>
 								<th>Service Name</th>
@@ -105,36 +116,58 @@ String formName="cust_bk_frm_"+Math.abs( new Random().nextInt(9999) );
 				</div>
 			</div>
 		</div>
-		
-	</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn" data-dismiss="modal">Close</button>
-		<%-- <button type="button" class="btn grey btn-secondary" onclick="<%=formName %>reset()">Reset</button> --%>
-		<button type="submit" class="btn btn-success">Save</button>
-	</div>
-	</form>
+			
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger waves-effect waves-light">Save</button>
+        </div>
+        </form>
+    </div>
 </div>
-</div>
+
+
+
+
 
 
 <script type="text/javascript">
 
 $(document).ready( function(){
-	$('#<%=formName%>').submit(function(e){
-		var frm=$(this);
-		$.ajax({
-		 	   url:$(frm).attr('action'),
-		 	   data:$(frm).serialize(),
-		 	   beforeSend:function(){
-		 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
-		 	   },
-		 	   success:function(data){
-		 		   $('#CMS-POPUP-MODEL').html(data);
-		 	   }
-		    }); 
-		e.preventDefault();
-	});
+	try{		
+		$('#<%=formName%>').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+				bookingDate: { required: true },
+				customerName: { required: true }
+			},
+			messages: {
+				bookingDate: { required: 'Booking Date is required' },
+				customerName: { required: 'Customer Name is required' }
+			
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-POPUP-MODEL').html(data);
+					}
+				}); 
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
+});
 	
 	$('#<%=formName%>').on('click', '#pack_addRow', function(){
 		
@@ -155,7 +188,7 @@ $(document).ready( function(){
 		$('#<%=formName%> #row_'+sno).remove();
 	});
 	
-});
+
 
 function <%=formName %>reset(){
 	$('#<%=formName %> #holidayType').val('');$('#<%=formName %> #holidayType').attr('value', '');
