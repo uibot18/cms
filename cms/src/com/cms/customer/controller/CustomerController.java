@@ -40,7 +40,10 @@ public class CustomerController extends HttpServlet {
 		else if(action.equalsIgnoreCase("delete")) {
 			CustomerCreationController.doCustomerDelete( request, response );
 		}
-
+		else if(action.equalsIgnoreCase("view")) {
+			CustomerCreationController.doCustomerEdit( request, response );
+			request.getRequestDispatcher("WEB-INF/jsp/customerView.jsp").forward(request, response);
+		}
 
 	}
 

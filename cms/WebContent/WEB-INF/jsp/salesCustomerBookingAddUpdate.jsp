@@ -51,7 +51,7 @@ label.invalid{
 
 
 
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
     	<form id="<%=formName%>" action="customerBooking?action=save" class='form p-t-20' method="post">
     		<input type="hidden" name="saleId" value="<%=bookingDO.getSaleId()%>">
@@ -99,14 +99,14 @@ label.invalid{
 					if(childSize==0){ childSize=1; }
 				%>
 					<input type="hidden" id="rowCount" value="<%=childSize%>">
-					<table class="table">
+					<table class="table table-bordered text-center ">
 						<thead class="">
 							<tr>
 								<th align="center"><div style="width: 30px;"><button type="button" id="pack_addRow">+</button></div></th>
-								<th>Service Name</th>
-								<th>Package Name</th>
-								<th>W.E.F</th>
-								<th>Ends On</th>
+								<th>Service Name<span style="color: #f62d51;">*</span></th>
+								<th>Package Name<span style="color: #f62d51;">*</span></th>
+								<th>W.E.F<span style="color: #f62d51;">*</span></th>
+								<th>Ends On<span style="color: #f62d51;">*</span></th>
 								<th>Overide</th>
 								<th>Action</th>
 							</tr>
@@ -134,7 +134,8 @@ label.invalid{
 <script type="text/javascript">
 
 $(document).ready( function(){
-	try{		
+	try{	
+		initPage();
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
 			validClass: 'valid',
@@ -178,6 +179,7 @@ $(document).ready( function(){
 			if(response.data!=null && typeof(response)!='undefined'){
 				$('#<%=formName%> #pack_container').append(response.data);
 				$('#<%=formName%> #rowCount').val(sno);
+				initPage();
 			}
 		});
 	});

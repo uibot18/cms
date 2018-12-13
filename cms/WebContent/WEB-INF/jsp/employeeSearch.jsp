@@ -185,7 +185,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
 												<td>
 													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="employee?action=edit&employeeId=<%=emp_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a class='<%=formName %>_delete' href="javascript:;" ahref="employee?action=delete&employeeId=<%=emp_id%>">delete</a>&nbsp;&nbsp;
-													<a href="employee?action=view&employeeId=<%=emp_id%>">View</a></td>
+												<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="employee?action=view&employeeId=<%=emp_id%>" href="#">View</a> &nbsp;&nbsp;</td>
 											</tr>
 										<%sno++;
 										} %>
