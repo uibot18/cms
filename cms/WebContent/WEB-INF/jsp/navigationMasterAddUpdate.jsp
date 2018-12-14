@@ -42,6 +42,13 @@ label.invalid{
 			<input type="hidden" name="action" value="save">
 			<input type="hidden" name="navigationId" value="<%=menunavDO.getNavigationId()%>">
 	
+			<div class="form-group">
+		    	<label for="parent_navigationId" class="control-label">Parent Navigation Name</label>
+		       	<select id="parent_navigationId" class="form-control " placeholder="Parent Navigation" name="parent_navigationId" >
+          			<option>Root</option>
+					<%=NavigationCreationController.parentNavigationOption( ""+menunavDO.getParentNavigationId(),""+menunavDO.getNavigationId()) %>
+				</select>
+			</div>
 			
 			<div class="form-group">
 			    <label for="navigationName" class="control-label">Navigation Name<span style="color: #f62d51;">*</span></label>
@@ -49,19 +56,10 @@ label.invalid{
 			</div>
 			
 			<div class="form-group">
-			    <label for="parent_navigationId" class="control-label">Parent Navigation Name</label>
-			       <select id="parent_navigationId" class="form-control " placeholder="Parent Navigation" name="parent_navigationId" >
-						                            		<option></option>
-															<%=NavigationCreationController.parentNavigationOption( ""+menunavDO.getParentNavigationId(),""+menunavDO.getNavigationId()) %>
-														</select>
-			</div>
-			
-			
-			<div class="form-group">
 			    <!-- <label for="MenuAction" class="control-label">Is Menu</label> -->
 			    <div class="form-check">
-			    <input type="checkbox" name="isMenu" class="form-check-input " value="1" id="isMenu"   >
-			    <label class="form-check-label" for="isMenu">Is Menu</label>
+			    	<input type="checkbox" name="isMenu" class="form-check-input " value="1" id="isMenu" <%=menunavDO.getBoolIsMenu()?"checked":"" %>  >
+			    	<label class="form-check-label" for="isMenu">Is Menu</label>
 			    </div>
 			</div>
 			
@@ -119,7 +117,7 @@ $(document).ready( function(){
 			},
 			rules: {
 				
-				navigationName: { required: true }
+				//navigationName: { required: true }
 			},
 			messages: {
 				menuId: { required: 'Menu Name is required' },

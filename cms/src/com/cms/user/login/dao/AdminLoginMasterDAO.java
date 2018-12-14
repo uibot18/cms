@@ -136,8 +136,6 @@ public class AdminLoginMasterDAO {
 		String password="cms@123";
 		try {
 			AdminLoginMasterDO loginMasterDO = new AdminLoginMasterDO();
-			loginMasterDO.setRefId( refId );
-			loginMasterDO.setLoginId( loginId );
 			loginMasterDO.setLoginPwd( password );
 			if(refType.equalsIgnoreCase(UserType.EMPLOYEE.getType())) {
 				loginMasterDO.setRefType( UserType.EMPLOYEE.getType() );
@@ -148,6 +146,8 @@ public class AdminLoginMasterDAO {
 			}else {
 				
 			}
+			loginMasterDO.setRefId( refId );
+			loginMasterDO.setLoginId( loginId );
 			loginMasterDO.setCreatedDate(createUser); 
 			loginMasterDO.setUpdateUser(createUser);
 			loginMasterDO.setBoolLoginActiveStatus( true );

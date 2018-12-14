@@ -143,11 +143,11 @@ public class TimesheetCreationController {
 		timeSheetRow.append("</td>");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<input type='text' id='startTime_"+sno+"' class='form-control input-sm date_picker startTime' placeholder='Start Time' name='startTime_"+sno+"' value='"+timeSheetChildDO.getStartTime()+"' required='required'>");
+		timeSheetRow.append("<input type='text' id='startTime_"+sno+"' class='form-control input-sm date_time_picker startTime' placeholder='Start Time' name='startTime_"+sno+"' value='"+timeSheetChildDO.getStartTime()+"' required='required'>");
 		timeSheetRow.append("</div></td>");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<input type='text' id='endTime_"+sno+"' class='form-control input-sm date_picker endTime' placeholder='End Time' name='endTime_"+sno+"' value='"+timeSheetChildDO.getEndTime()+"' required='required'>");
+		timeSheetRow.append("<input type='text' id='endTime_"+sno+"' class='form-control input-sm date_time_picker endTime' placeholder='End Time' name='endTime_"+sno+"' value='"+timeSheetChildDO.getEndTime()+"' required='required'>");
 		timeSheetRow.append("</div></td>	");
 
 		timeSheetRow.append("<td><div class='form-group'>");

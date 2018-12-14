@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
@@ -148,5 +150,25 @@ public static boolean deleteupdate(Connection preCon, RightsMasterDO dto) {
 	} catch (Exception e) { e.printStackTrace(); } 
 	finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 	return false;
+}
+
+public static Set<String> getAllRightsIdSet(Connection preCon) {
+	Set<String> rightsIdSet=new HashSet<String>();
+	Connection con=null;
+	Statement stmt=null;
+	ResultSet rs=null;
+
+	String query="select rights_master FROM rights_master where 0=0 and bool_delete_status=0 ";
+	try {
+		con=preCon==null?DBConnection.getConnection():preCon;
+		stmt=con.createStatement();
+		rs=stmt.executeQuery(query);
+		while(rs.next()) {
+			rightsIdSet.add( ""+rs.getInt(1) );
+		}
+
+	} catch (Exception e) { e.printStackTrace(); }
+	finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+	return rightsIdSet;
 }
 }

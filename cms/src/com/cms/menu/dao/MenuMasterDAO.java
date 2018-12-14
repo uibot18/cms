@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.application.util.AppUtil;
 import com.cms.common.db.connection.DBConnection;
@@ -167,5 +169,25 @@ public static String duplicatecheck(Connection preCon, MenuMasterDO menuDO){
 	} catch (Exception e) { e.printStackTrace(); }
 	finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
 	return "";
+}
+
+public static Set<String> getMenuIdSet(Connection preCon) {
+	Set<String> menuMasterSet=new HashSet<String>();
+	Connection con=null;
+	Statement stmt=null;
+	ResultSet rs=null;
+
+	String query="select menu_id, menu_name FROM menu_master where 0=0 and bool_delete_status=0 ";
+	try {
+		con=preCon==null?DBConnection.getConnection():preCon;
+		stmt=con.createStatement();
+		rs=stmt.executeQuery(query);
+		while(rs.next()) {
+			menuMasterSet.add( ""+rs.getInt(1) );
+		}
+
+	} catch (Exception e) { e.printStackTrace(); }
+	finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+	return menuMasterSet;
 }
 }

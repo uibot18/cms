@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.application.util.AppUtil;
 import com.cms.common.db.connection.DBConnection;
@@ -177,6 +179,50 @@ stmt.setString(i++,dto.getCreatedDate());*/
 		} catch (Exception e) { e.printStackTrace(); }
 		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
 		return "";
+	}
+
+
+	public static Set<String> getRootNavigationSet(Connection preCon) {
+		Set<String> navSet=new HashSet<String>();
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+
+		String query="SELECT navigation_id FROM menu_navigation WHERE parent_navigation_id=0 AND bool_delete_status=0"; 
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+			while(rs.next()) {
+				navSet.add(""+rs.getInt(1));
+			}
+
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return navSet;
+	}
+	
+	public static Map<String, String> getParentNavigationMap(Connection preCon) {
+		Map<String, String> parentNavMap=new HashMap<String, String>();
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+
+		String query="SELECT parent_navigation_id, GROUP_CONCAT( navigation_id ) AS child_nav_ids " + 
+				" FROM menu_navigation " + 
+				" WHERE  bool_delete_status=0 " + 
+				" GROUP BY parent_navigation_id ORDER BY created_date DESC"; 
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+			while(rs.next()) {
+				parentNavMap.put(""+rs.getInt(1), rs.getString(2));
+			}
+
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return parentNavMap;
 	}
 	
 }

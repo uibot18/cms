@@ -10,8 +10,6 @@ import com.application.util.AjaxModel;
 import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
-import com.cms.menu.bean.MenuMasterDO;
-
 import com.cms.navigation.bean.MenuNavigationDO;
 import com.cms.navigation.dao.MenuNavigationDAO;
 

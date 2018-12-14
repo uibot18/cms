@@ -8,9 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
+import com.cms.menu.dao.MenuMasterDAO;
+import com.cms.rights.dao.RightsMasterDAO;
+import com.cms.rights_template.bean.RightsTemplateDO;
+import com.cms.rights_template.dao.RightsTemplateDAO;
 import com.cms.user.login.LoginDetailImpl;
 import com.cms.user.login.LoginEnum;
+import com.cms.user.login.UserType;
 import com.cms.user.login.bean.AdminLoginMasterDO;
 import com.cms.user.login.bean.LoginMasterBean;
 import com.cms.user.login.dao.AdminLoginMasterDAO;
@@ -43,46 +49,67 @@ public class LoginController extends HttpServlet {
 	}
 
 	private void doLoginvalidation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
 		String userName= request.getParameter("userName"); if(userName==null) { userName=""; }
 		String password= request.getParameter("password"); if(password==null) { password=""; }
-		
+
 		System.out.println("userName: "+userName);
 		System.out.println("password: "+password);
 		//request.setAttribute("msg", "");
 		boolean validLogin=false;
-		if(!userName.isEmpty() && !password.isEmpty()) {
-			
+		if( !userName.isEmpty() && !password.isEmpty() ) 
+		{
 			AdminLoginMasterDO loginMasterDO = AdminLoginMasterDAO.getAdminLoginMasterByLoginId(null, userName, false);
-			if(loginMasterDO!=null) {
+			if(loginMasterDO!=null) 
+			{
 				if(password.equals(loginMasterDO.getLoginPwd())) {
 					validLogin=true;
-					
+
 					HttpSession session = request.getSession();
 					LoginDetailImpl loginDetail=new LoginDetailImpl();
 					loginDetail.setLoginId( loginMasterDO.getLoginId() );
 					loginDetail.setRefType( loginMasterDO.getRefType() );
 					loginDetail.setUserName("Vijay");
+
+					if( loginMasterDO.getRefType().equalsIgnoreCase( UserType.ADMIN.getType() ) ) 
+					{
+						loginDetail.setMenuIdSet( MenuMasterDAO.getMenuIdSet( null ) );
+						loginDetail.setRightsIdSet( RightsMasterDAO.getAllRightsIdSet( null ) );
+					}
+					else 
+					{
+						RightsTemplateDO templateDO = RightsTemplateDAO.getRightsTemplateByRightsTemplateId(null, loginMasterDO.getRightsTemplateId(), false);
+						if(templateDO != null)
+						{
+							String[] menuIdArr = AppUtil.getNullToEmpty( templateDO.getMenuIds() ).split(",");
+							loginDetail.setMenuIdSet( AppUtil.convertStrArrayToSet( menuIdArr ) );
+
+							String[] rightsIdArr = AppUtil.getNullToEmpty( templateDO.getRightsIds() ).split(",");
+							loginDetail.setRightsIdSet( AppUtil.convertStrArrayToSet( rightsIdArr ) );
+						}
+					}
 					session.setAttribute( LoginEnum.LOGIN_DETAIL.getType(), loginDetail );
-				}else {
+				}
+				else
+				{
 					request.setAttribute(PageAlertType.ERROR.getType(), "Invalid User Name or Password");
 				}
-			}else {
+			}
+			else
+			{
 				request.setAttribute(PageAlertType.ERROR.getType(), "Invalid User Name or Password");
 			}
 		}
-		
-		if(validLogin==true) {
-			
+
+		if(validLogin==true) 
+		{
 			response.sendRedirect("home");
 			//request.getRequestDispatcher("WEB-INF/jsp/home.jsp").forward(request, response);
-		}else {
+		}
+		else 
+		{
 			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
 		}
-		
-		
-		
 	}
 
 	private void doUserRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,7 +121,7 @@ public class LoginController extends HttpServlet {
 			loginMasterBean.setEmail( request.getParameter("email") ); 
 
 			System.out.println("loginMasterBean: "+loginMasterBean);
-			
+
 			boolean isValid=true;
 
 			if(loginMasterBean.getLoginId()==null || loginMasterBean.getLoginId().isEmpty()) { 
@@ -121,7 +148,7 @@ public class LoginController extends HttpServlet {
 					System.out.println("User Name Already Used");
 				}
 			}
-			
+
 			int loginId=0;
 			if(isValid==true) {
 				loginId=LoginMasterDAO.insert(loginMasterBean);
@@ -131,7 +158,7 @@ public class LoginController extends HttpServlet {
 			System.out.println("loginId: "+loginId);
 			if(loginId!=0) {
 				response.sendRedirect("login");
-//				request.getRequestDispatcher("login").forward(request, response);
+				//				request.getRequestDispatcher("login").forward(request, response);
 			}else {
 				request.getRequestDispatcher("WEB-INF/jsp/loginRegister.jsp").forward(request, response);
 			}

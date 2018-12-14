@@ -13,8 +13,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.application.util.CMSMailer;
-import com.application.util.EmailPayload;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
 
@@ -22,15 +20,25 @@ public class Test{
 	public static void main(String[] args)  {
 		//	DevUtil.generateDOAndDAO(DBConnection.getConnection(), "admin_login_master");
 
-		EmailPayload payload = new EmailPayload();
-		payload.setTo("vijay.cool35@gmail.com");
-		payload.setSubject("Reg: User Registration");
-		payload.setMessage("Dear User,\n\n\t\t Your Account successfully created..!\n\n"
-				+ "User Name: asmin\n password: admin\n\n\n"
-				+ "regards\nTeam\nUI-BOT");
 		
-		CMSMailer.send(payload);
+		
 	}
+	
+	
+	
+	
+	
+	public static String generateMenuItem() {
+		return null;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	private static void sendMail() {
 		final String username = "uibot18@gmail.com";

@@ -114,15 +114,11 @@ function initPage(){
 		todayHighlight:true,
 		format:'dd/mm/yyyy'
 	}); 
+	
+	$('.date_time_picker').bootstrapMaterialDatePicker({ 
+		format: 'DD/MM/YYYY HH:mm:ss' 
+	});
 }
-
-
-/* $('#eleId').datepicker({
-	autoclose:true,
-	todayBtn:'linked',
-	todayHighlight:true,
-	format:'dd/mm/yyyy'
-}); */
 
 </script>
  
