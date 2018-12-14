@@ -579,7 +579,7 @@ if(employeeDO.getEmpId()!=0 && false){ %>
  
  
 <script type="text/javascript">
-$(document).ready(function(){
+
 	
 
 	
