@@ -54,6 +54,24 @@ public class AppUtil {
 		return option.toString();
 	}
 	
+	
+	public static String formDisplay(Map<String, String> valueMap, String selVal ) {
+		String retVal="";
+		if(valueMap==null) { valueMap=new HashMap<String, String>(); }
+		selVal=AppUtil.getNullToEmpty(selVal);
+		String delemeter=",";
+		Set<String> selected_val=convertStrArrayToSet(selVal.split(","));
+		
+		for(String id:selected_val) {
+			String str=getNullToEmpty(valueMap.get(id));
+			if(!str.isEmpty()) {
+				retVal+=delemeter+str;
+			}
+			
+		}
+		if( !retVal.isEmpty() ) { retVal=retVal.substring(1); }
+		return retVal;
+	}
 	public static String dbToJavCase(String strVal, boolean needFirstCap) {
 		strVal=getNullToEmpty(strVal).replace("_", " ");
 		String retVal="";

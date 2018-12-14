@@ -17,7 +17,6 @@ import com.cms.cms_package.handler.PackageCreationController;
 import com.cms.common.master.bean.CommonMasterDO;
 import com.cms.common.master.dao.CommonMasterDAO;
 import com.cms.service.handler.ServiceCreationController;
-import com.cms.task.config.dao.TaskConfigMasterDAO;
 import com.cms.user.login.LoginDetail;
 import com.cms.user.login.util.LoginUtil;
 
@@ -113,24 +112,24 @@ public class SalesCustomerBookingCreationHandler {
 		row.append("<tr id='row_"+sno+"'>");
 		row.append("<td><span class='sno'>"+sno+"</span><input name='childRows' type='hidden' value='"+sno+"'></td>");
 		
-		row.append("<td><div class='form-group'>");
-		row.append("<select id='serviceName_"+sno+"' class='form-control input-sm serviceName' placeholder='Service Name' name='serviceName_"+sno+"'>");
-		row.append("<option>-- please Select --</option>"+ServiceCreationController.serviceOption("", ""+packageDO.getParentId()));
+		row.append("<td><div class='form-group '> ");
+		row.append("<select id='serviceName_"+sno+"' class='form-control select2 serviceName ' required='required' data-msg-required='Service Name is Required' placeholder='Service Name' name='serviceName_"+sno+"'>");
+		row.append("<option></option>"+ServiceCreationController.serviceOption("", ""+packageDO.getParentId()));
 		row.append("</select>");
 		row.append("</div></td>");
 		
 		row.append("<td><div class='form-group'>");
-		row.append("<select id='packageName_"+sno+"' class='form-control input-sm packageName' placeholder='Package Name' name='packageName_"+sno+"'>");
-		row.append("<option>-- please Select --</option>"+PackageCreationController.packageOption(""+packageDO.getParentId(), ""+packageDO.getCmnMasterId()));
+		row.append("<select id='packageName_"+sno+"' class='form-control input-sm packageName select2' required='required' data-msg-required='Package Name is Required' placeholder='Package Name' name='packageName_"+sno+"'>");
+		row.append("<option></option>"+PackageCreationController.packageOption(""+packageDO.getParentId(), ""+packageDO.getCmnMasterId()));
 		row.append("</select>");
 		row.append("</div></td>");
 		
 		row.append("<td><div class='form-group'>");
-		row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm wef' placeholder='W.E.F' name='wef_"+sno+"' value='"+childDO.getProcessStartsFrom()+"' required='required'>");
+		row.append("<input type='text' id='wef_"+sno+"' class='form-control input-sm wef date_picker' placeholder='W.E.F' data-msg-required='W.E.F is Required' name='wef_"+sno+"' value='"+childDO.getProcessStartsFrom()+"' required='required'>");
 		row.append("</div></td>");
 		
 		row.append("<td><div class='form-group'>");
-		row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm endsOn' placeholder='Booking Date' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
+		row.append("<input type='text' id='endsOn_"+sno+"' class='form-control input-sm endsOn date_picker' data-msg-required='Ends On is Required' placeholder='Ends On' name='endsOn_"+sno+"' value='"+childDO.getProcessEndsOn()+"' required='required'>");
 		row.append("</div></td>	");
 		
 		row.append("<td><div class='form-check'>");

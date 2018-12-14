@@ -6,7 +6,7 @@ import java.util.List;
 public class SalesCustomerBookingFormDO { 
 
 	private int saleId=0;
-	private String saleDate="01/10/1000";
+	private String saleDate="";
 	private int customerId=0;
 	private String description="";
 	private boolean boolDeleteStatus;

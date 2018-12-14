@@ -225,6 +225,22 @@ public class EmployeeCreationHandler {
 
 		return AppUtil.formOption(cmnMap, selEmpId);
 	}
+	public static String formEmployeeDisplay( String selEmpId, String empIdExclue ) {
+
+		Map<String, String> cmnMap=AdmEmployeeMasterDAO.loadAllEmpNameMap(null, selEmpId, empIdExclue );
+		if(cmnMap==null){ cmnMap=new LinkedHashMap<String, String>(); }
+
+		return AppUtil.formDisplay(cmnMap, selEmpId);
+	}
+	
+	public static String formCmnMasterDisplay( String masterId ) {
+if(masterId.isEmpty()) masterId="0";
+		String subQry=" AND cmn_master_id IN("+masterId+" ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formDisplay(cmnMap, masterId);
+	}
 	public static void loadBranch(HttpServletRequest request, HttpServletResponse response) throws IOException  {
 		JSONObject jsonObject=new JSONObject();
 		try {

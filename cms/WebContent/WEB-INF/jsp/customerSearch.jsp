@@ -194,7 +194,7 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 												<td><%=web_site %></td>
 												<td>
 													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="customer?action=edit&customerId=<%=customer_id%>" href="#">Edit</a> &nbsp;&nbsp;
-													<a href="customer?action=view&customerId=<%=customer_id%>">View</a>
+													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="customer?action=view&customerId=<%=customer_id%>" href="#">View</a>
 													<a class='<%=formName %>_delete' href="javascript:;" ahref="customer?action=delete&customerId=<%=customer_id%>">Delete</a>
 													</td>
 											</tr>

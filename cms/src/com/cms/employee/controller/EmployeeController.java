@@ -41,6 +41,10 @@ public class EmployeeController extends HttpServlet {
 			EmployeeCreationHandler.doEmployeeEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("view")) {
+			EmployeeCreationHandler.doEmployeeEdit(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/employeeView.jsp").forward(request, response);
+		}
 		else if(action.equalsIgnoreCase("loadBranch")) {
 			EmployeeCreationHandler.loadBranch( request, response );
 		}
