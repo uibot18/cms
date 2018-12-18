@@ -136,6 +136,23 @@ public class TaskTimeSheetMasterDAO {
 		finally { }
 		return dto;
 	} 
+	
+	public static boolean updateApproval(Connection preCon, String timeSheetIds, String approvedBy, String status) {
+		Connection con=null;
+		Statement stmt=null;
+		int i=1;
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			int rowAffect = stmt.executeUpdate("update  task_time_sheet_master set status='"+status+"', approved_by='"+approvedBy+"', approved_on=NOW(), update_user='"+approvedBy+"', update_date=NOW() WHERE time_sheet_id in("+timeSheetIds+") ");
+			if(rowAffect!=0) { 
+				return true;
+			}
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+		return false;
+	}
+	
 
 
 }

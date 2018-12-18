@@ -39,6 +39,8 @@ System.out.println(action);
 		}
 		else if(action.equalsIgnoreCase("delete")) {
 			NavigationCreationController.doNavigationDelete( request, response );
+		}else {
+			System.out.println("Service Not Found..!");
 		}
 
 

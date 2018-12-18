@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
@@ -191,6 +193,39 @@ public class AdminLoginMasterDAO {
 		} catch (Exception e) { e.printStackTrace(); } 
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
+	}
+
+	public static Map<String, String> loadUserDetail(Connection preCon, String refType, int refId) {
+		Map<String, String> userDetMap = new HashMap<String, String>(); 
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		String query = null;
+		try {
+			if( refType.equalsIgnoreCase( UserType.EMPLOYEE.getType() ) ) {
+				query = " SELECT a.emp_id, CONCAT(a.first_name, IF(IFNULL(a.middle_name,'')!='',' ','' ), a.middle_name, IF(IFNULL(a.last_name,'')!='',' ','' ), a.last_name) AS emp_name \n" + 
+						" FROM adm_employee_master_view a "
+						+ " where a.emp_id="+refId;
+				
+			}else if( refType.equalsIgnoreCase( UserType.CUSTOMER.getType() ) ) {
+				query = " SELECT a.customer_id, CONCAT(a.first_name, IF(IFNULL(a.middle_name,'')!='',' ','' ), a.middle_name, IF(IFNULL(a.last_name,'')!='',' ','' ), a.last_name) AS emp_name \n" + 
+						" FROM sales_customer_master_view a "
+						+ " where a.customer_id="+refId;
+			}
+			if(query != null) 
+			{
+				con=preCon==null?DBConnection.getConnection():preCon;
+				stmt=con.createStatement();
+				rs = stmt.executeQuery( query );
+				if( rs.next() ) {
+					userDetMap.put("USER_ID", ""+rs.getInt(1) );
+					userDetMap.put("USER_NAME", ""+rs.getString(2) );
+				}
+			}
+		} catch (Exception e) { e.printStackTrace(); } 
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		
+		return userDetMap;
 	}
 
 }

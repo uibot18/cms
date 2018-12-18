@@ -33,6 +33,8 @@ import com.cms.user.login.UserType;
 import com.cms.user.login.dao.AdminLoginMasterDAO;
 import com.cms.user.login.util.LoginUtil;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
 public class EmployeeCreationHandler {
 
 	public static void doEmployeeAdd( HttpServletRequest request, HttpServletResponse response ) {
@@ -203,9 +205,11 @@ public class EmployeeCreationHandler {
 
 		return AppUtil.formOption(cmnMap, selDepartment);
 	}
-	public static String formDesignationOption( String selDesignation ) {
+	public static String formDesignationOption( String deptIds, String selDesignation ) {
 
+		deptIds = AppUtil.getNullToEmpty( deptIds );
 		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.DESIGNATION.getGroupName()+"' ) ";
+		if(!deptIds.isEmpty()) { subQry+=" and parent_id in( "+deptIds+" )"; }
 		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
 		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
 
@@ -290,6 +294,12 @@ if(masterId.isEmpty()) masterId="0";
 				
 			}
 		}
+	}
+	public static void loadEmployeeDesignation(HttpServletRequest request, HttpServletResponse response) {
+		AjaxModel model = new AjaxModel();
+		String deptIds = AppUtil.getNullToEmpty(request.getParameter("deptIds"), "0");
+		model.setData( formDesignationOption(deptIds, "") );
+		AjaxUtil.sendResponse(request, response, model);
 	}
 	
 }

@@ -132,6 +132,7 @@ for(Map<String, Object> searchData:resultList){
 <script type="text/javascript">
 
 $(document).ready(function(){
+	initPage();
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',

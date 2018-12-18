@@ -10,6 +10,7 @@
 <%
 CommonMasterDO packageDO=(CommonMasterDO)request.getAttribute("packageDO");
 if( packageDO==null ){ packageDO=new  CommonMasterDO(); } 
+int serviceId = packageDO.getParentId();
 
 String formName="pkg_frm_"+Math.abs( new Random().nextInt(9999) );
 
@@ -41,24 +42,23 @@ label.invalid{
 			</div>
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
-				<div class="form-body">
+				<div class="form-group">
+					<label for="<%=formName%>_serviceName">Service Name<span style="color: #f62d51;">*</span></label>
+					<select id="<%=formName%>_serviceName" class="form-control select2" placeholder="Service Name" name="serviceName" required="required">
+                   		<%-- <option <%=serviceId==0?"selected":"" %> disabled="disabled">-Please Select-</option> --%>
+						<option></option>
+						
+						<%=ServiceCreationController.serviceOption("", ""+serviceId) %>
+					</select>
+				</div>
 				
-								<label for="timesheetinput1">Service Name<span style="color: #f62d51;">*</span></label>
-									<select id="timesheetinput2" class="form-control" placeholder="Service Name" name="serviceName" required="required">
-	                            		<option></option>
-										<%=ServiceCreationController.serviceOption("", ""+packageDO.getParentId()) %>
-									</select>
-						</div>
-							<div class="form-group">
-								<label for="timesheetinput1">Package Name<span style="color: #f62d51;">*</span></label>
-									<input type="text" id="packageName" class="form-control" placeholder="Package Name" name="packageName" value="<%=AppUtil.getNullToEmpty(packageDO.getCmnMasterName() )%>" required="required">
-									<!-- <div class="form-control-position">
-										<i class="fas fa-unlock-alt"></i>
-									</div> -->
-								</div>
-								</div>
+				<div class="form-group">
+					<label for="packageName">Package Name<span style="color: #f62d51;">*</span></label>
+					<input type="text" id="packageName" class="form-control" placeholder="Package Name" name="packageName" value="<%=AppUtil.getNullToEmpty(packageDO.getCmnMasterName() )%>" required="required">
+				</div>
+			</div>
 			<div class="modal-footer">
-				 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+		 		<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
             	<button type="submit" class="btn btn-danger waves-effect waves-light">Save</button>
 			</div>
 		</form>
@@ -66,8 +66,9 @@ label.invalid{
 </div>
 
 <script type="text/javascript">
-
+initPage();
 $(document).ready( function(){
+	
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',

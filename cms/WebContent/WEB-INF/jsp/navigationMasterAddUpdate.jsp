@@ -51,11 +51,6 @@ label.invalid{
 			</div>
 			
 			<div class="form-group">
-			    <label for="navigationName" class="control-label">Navigation Name<span style="color: #f62d51;">*</span></label>
-			    <input type="text" name="navigationName" class="form-control" id="navigationName" value="<%=menunavDO.getNavigationName()%>" placeholder="Navigation Name">
-			</div>
-			
-			<div class="form-group">
 			    <!-- <label for="MenuAction" class="control-label">Is Menu</label> -->
 			    <div class="form-check">
 			    	<input type="checkbox" name="isMenu" class="form-check-input " value="1" id="isMenu" <%=menunavDO.getBoolIsMenu()?"checked":"" %>  >
@@ -63,13 +58,21 @@ label.invalid{
 			    </div>
 			</div>
 			
+			<div class="form-group" id="menu_div">
+	    		<label for="menuId" class="control-label">Menu<span style="color: #f62d51;">*</span></label>
+           		<div><select id="menuId" class="form-control select2" placeholder="Menu Name"  name="menuId" style="width: 100%; height:26px;" >
+					<option></option>
+					<%=MenuCreationController.parentMenuOption(""+menunavDO.getMenuId()) %>
+				</select></div>
+			</div>
 			
-				<div class="form-group" id="menu_div">
-			    <label for="menuId" class="control-label">Menu<span style="color: #f62d51;">*</span></label>
-			           <select id="menuId" class="form-control select2" placeholder="Menu Name"  name="menuId" style="width: 100%; height:26px;" >
-						                            		<option></option>
-															<%=MenuCreationController.parentMenuOption(""+menunavDO.getMenuId()) %>
-														</select>
+			<div class="form-group" id="<%=formName%>_nav_div">
+			    <label for="navigationName" class="control-label">Navigation Name<span style="color: #f62d51;">*</span></label>
+			    <input type="text" name="navigationName" class="form-control" id="navigationName" value="<%=menunavDO.getNavigationName()%>" placeholder="Navigation Name" required="required"">
+			</div>
+			<div class="form-group">
+			    <label for="navigationName" class="control-label">Order<span style="color: #f62d51;">*</span></label>
+			    <input type="text" name="menuOrder" class="form-control" id="menuOrder" value="<%=menunavDO.getMenuOrder()%>" placeholder="Order">
 			</div>
 			
         </div>
@@ -98,15 +101,24 @@ $(document).ready( function(){
 		
 		$('#<%=formName %>').on('change', '#isMenu', function(){
 		
-			if($(this).is(":checked")){
-			$('#<%=formName%> #menu_div').show();
-			$('#<%=formName%> #menuId').attr("required","required");
-		}
-		else{
-			$('#<%=formName%> #menu_div').hide();
-			$('#<%=formName%> #menuId').removeAttr("required","required");
-			 $('#<%=formName%> #menuId option:selected').removeAttr("selected");	$('#<%=formName%> #menuId option:selected').prop("selected",false); 
-		}
+			if($(this).is(":checked"))
+			{
+				$('#<%=formName%>_nav_div').hide();
+				$('#<%=formName%>_nav_div').removeAttr("required");
+				$('#<%=formName%> #menu_div').show();
+				$('#<%=formName%> #menuId').attr("required","required");
+				
+			}
+			else
+			{
+				$('#<%=formName%> #menu_div').hide();
+				$('#<%=formName%> #menuId').removeAttr("required");
+				$('#<%=formName%>_nav_div').show();
+				$('#<%=formName%>_nav_div').attr("required","required");
+				
+			 	$('#<%=formName%> #menuId option:selected').removeAttr("selected");	
+			 	$('#<%=formName%> #menuId option:selected').prop("selected",false); 
+			}
 			
 		});
 		$('#<%=formName%>').validate({

@@ -3,7 +3,11 @@ package com.cms.common.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,6 +25,16 @@ public class Test{
 		//	DevUtil.generateDOAndDAO(DBConnection.getConnection(), "admin_login_master");
 
 		
+		
+		Set<String> set = new LinkedHashSet<String>();
+		set.add("1");
+		set.add("2");
+		set.add("5");
+		set.add("9");
+		set.add("4");
+		
+		TreeSet<String> ssss=(TreeSet<String>) set;
+		System.out.println("Res : "+ssss);
 		
 	}
 	

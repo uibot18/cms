@@ -60,6 +60,10 @@ public class EmployeeController extends HttpServlet {
 			EmployeeSearchHandler.doEmployeeRightsSearch(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/employeeRightsSearch.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("loadDesignation")) 
+		{
+			EmployeeCreationHandler.loadEmployeeDesignation(request, response);
+		}
 		
 		
 		

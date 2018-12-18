@@ -95,12 +95,13 @@
                   <div class="card-body">
                       <h4 class="card-title">TIME SHEET LIST</h4>
                   </div>
-                  <form id="<%=formName %>_tble" class="form" action="#" method="post">
+                  <form id="<%=formName %>_tble" class="form" action="timesheet?action=approval" method="post">
                    <div class="table-responsive">
                        <table class="table table-bordered text-center">
                            <thead>
                                <tr>
                                    <th scope="col">#</th>
+                                   <th><label class=""><input type="checkbox" id="<%=formName %>idAll"></label> </th>
                                    <th scope="col">Start Time</th>
                                    <th scope="col">End Time</th>
                                    <th scope="col">Shift Name</th>
@@ -134,7 +135,12 @@
 									String approved_on=AppDateUtil.convertToAppDate((String)searchData.get("COL#11"), true, true); if(approved_on.contains("1000")){ approved_on=""; }
 								%>
 									<tr>
-										<th scope="row"><%=sno %></th>
+										<td scope="row"><%=sno %></td>
+										<td>
+										<%if(!status.equalsIgnoreCase("approved")){ %>
+										<label class=""><input type="checkbox" name="ids" class="<%=formName %>ids" value="<%=time_sheet_id%>"></label>
+										<%} %>
+										</td>
 										<td><%=start_date  %></td>
 										<td><%=end_date  %></td>
 										<td><%=shift_name  %></td>
@@ -154,6 +160,7 @@
                            </tbody>
                        </table>
                    </div>
+                   <button type="submit" id="<%=formName %>_btn_approve" class="btn btn-success m-r-10 m-t-10 float-right" style="display: none;">Map Rights</button>
                   </form>
               </div>
           </div>
@@ -196,6 +203,62 @@ $(document).ready(function(){
 	}
 	
 	
+	try{		
+		$('#<%=formName %>_tble').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+			},
+			messages: {
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-PAGE-CONTAINER').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-PAGE-CONTAINER').html(data);
+					}
+				}); 
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
+	
+	
+	
+	$('#<%=formName %>_tble').on('click', '#<%=formName %>idAll', function(){
+		if($(this).is(':checked')){
+			$('.<%=formName %>ids').prop('checked', true);
+		}else{
+			$('.<%=formName %>ids').prop('checked', false);
+		}
+		<%=formName%>_approvelBtnDiaplay();
+	});
+	
+	$('#<%=formName %>_tble').on('click', '.<%=formName %>ids', function(){
+		var total=$('.<%=formName %>ids').length;
+		var checked=$('.<%=formName %>ids:checked').length;
+		
+		if(total!=0){
+			if(checked==total){
+				$('#<%=formName %>idAll').prop('checked', true);
+			}else{
+				$('#<%=formName %>idAll').prop('checked', false);
+			}
+		}
+		<%=formName%>_approvelBtnDiaplay();
+	});
+	
+	
+	
 	$('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 		if(confirm("Do You Want Remove this ?")==true){
 			var params=$(this).attr("ahref");
@@ -211,6 +274,14 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function <%=formName%>_approvelBtnDiaplay(){
+	if($('.<%=formName %>ids:checked').length > 0){
+		$('#<%=formName %>_btn_approve').show();
+	}else{
+		$('#<%=formName %>_btn_approve').hide();
+	}
+}
 
 function <%=formName %>reset(){
 	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');

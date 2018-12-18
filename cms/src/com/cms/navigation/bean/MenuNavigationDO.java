@@ -7,6 +7,7 @@ private String navigationName="";
 private int parentNavigationId=0;
 private boolean boolIsMenu;
 private int menuId=0;
+private int menuOrder=0;
 private boolean boolDeleteStatus;
 private String createdUser="";
 private String createdDate="";
@@ -43,6 +44,12 @@ this.menuId=menuId;
 }
 public int getMenuId(){
 return this.menuId;
+}
+public int getMenuOrder() {
+	return menuOrder;
+}
+public void setMenuOrder(int menuOrder) {
+	this.menuOrder = menuOrder;
 }
 public void setBoolDeleteStatus(boolean boolDeleteStatus){
 this.boolDeleteStatus=boolDeleteStatus;

@@ -49,6 +49,11 @@ public class TimesheetController extends HttpServlet {
 		else if(action.equalsIgnoreCase("loadParticulars")){
 			TimesheetCreationController.doLoadParticulars(request, response);
 		}
+		else if(action.equalsIgnoreCase("approval")){
+			TimesheetCreationController.doApproval(request, response);
+			TimesheetSearchController.doSearch(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/timesheet/timesheetSearch.jsp").forward(request, response);
+		}
 		else {
 			System.out.println("service not available...");
 		}

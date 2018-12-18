@@ -937,8 +937,8 @@ select.form-control:not([size]):not([multiple]) {
 			<label for="">Designation</label>
 			<div class="position-relative has-icon-left">
 				<select id="" class="form-control esc_designation" placeholder="Designation" name="" >
-                        		<option></option>
-					<%=EmployeeCreationHandler.formDesignationOption(""+taskConfigDO.getDesignation() )%>
+                	<option></option>
+					<%=EmployeeCreationHandler.formDesignationOption("", ""+taskConfigDO.getDesignation() )%>
 				</select>
 			</div>
 		</div>

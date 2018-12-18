@@ -1,4 +1,7 @@
 <!-- Topbar header - style you can find in pages.scss -->
+<%@page import="com.cms.user.login.util.LoginUtil"%>
+<%@page import="com.cms.user.login.LoginDetail"%>
+<%@page import="com.cms.user.login.LoginEnum"%>
 <%@page import="com.application.util.MenuUtil"%>
 <%@page import="com.application.util.AppUtil"%>
 <%@page import="java.util.Random"%>
@@ -6,11 +9,24 @@
 <link href="./static/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./static/assets/libs/select2/dist/css/select2.min.css">
 <link href="./static/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
-    <link href="./static/assets/libs/jquery-steps/steps.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./static/assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+<link href="./static/assets/libs/jquery-steps/steps.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./static/assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+<style>
+.form-control.invalid{
+	border-color: #f62d51 !important;
+}
+label.invalid{
+	color: #f62d51 !important;
+}
+.form-control.valid{
+	border-color: #36bea6 !important;
+}
+
+</style>
     
 <%
 String rVal=""+Math.abs( new Random().nextInt(9999));
+LoginDetail loginDetail = LoginUtil.getLoginDetail(request);
 %>
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -199,19 +215,19 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class=""><img src="./static/assets/images/users/1.jpg" alt="user" class="img-circle" width="60"></div>
                             <div class="m-l-10">
-                                <h4 class="m-b-0">Admin</h4>
-                                <p class=" m-b-0">Admin@ui-bot.com</p>
+                                <h4 class="m-b-0"><%=AppUtil.getNullToEmpty( loginDetail.getUserName() )%></h4>
+                                <!-- <p class=" m-b-0">Admin@ui-bot.com</p> -->
                             </div>
                         </div>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                        <!-- <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                        <div class="dropdown-divider"></div>
-                        <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
+                        <!-- <div class="dropdown-divider"></div>
+                        <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div> -->
                     </div>
                 </li>
                 
@@ -240,7 +256,7 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                         <div class="user-pic"><img src="./static/assets/images/users/1.jpg" alt="users" class="rounded-circle" width="40" /></div>
                         <div class="user-content hide-menu m-l-10">
                             <a href="javascript:void(0)" class="" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="op-5 user-email">Admin@ui-bot.com</span>
+                                <span class="op-5 user-email"><%=AppUtil.getNullToEmpty( loginDetail.getUserName() )%></span>
                             </a>
                         </div>
                     </div>
@@ -248,7 +264,7 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
                 </li>
                 
                 
-                <%=MenuUtil.generateMenuItem()%>
+                <%=MenuUtil.generateMenuItem( request )%>
                 
                 
                                
@@ -292,6 +308,31 @@ String rVal=""+Math.abs( new Random().nextInt(9999));
 
 <!-- Popup Model Start -->
 <div id="CMS-POPUP-MODEL" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Service Creation</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Service Name:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger waves-effect waves-light">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popup Model End -->
+
+<!-- Popup Model Start -->
+<div id="CMS-POPUP-DISPLAY" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

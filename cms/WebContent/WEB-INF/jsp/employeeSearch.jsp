@@ -1,3 +1,4 @@
+<%@page import="com.cms.employee.handler.EmployeeCreationHandler"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Random"%>
@@ -46,7 +47,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Employee Name</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="employeeName" class="form-control" placeholder="Employee Name" name="employeeName" value="<%=employeeName%>">
+		                                            <input type="text" id="employeeName" class="form-control" placeholder="Employee Name" name="employeeName" value="<%=employeeName%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -54,7 +55,10 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Department</label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="department" class="form-control" placeholder="Department" name="department" value="<%=department%>">
+		                                        	<select id="<%=formName %>_department" class="form-control select2" placeholder="Department" name="department">
+														<option value="">-please Select-</option>
+														<%=EmployeeCreationHandler.formDepartmentOption( ""+department )%>
+													</select>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -64,7 +68,10 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Designation</label>
 		                                        <div class="col-sm-8">
-		                                          <input type="text" id="designation" class="form-control" placeholder="designation" name="designation" value="<%=designation%>">
+		                                        	<select id="<%=formName %>_designation" class="form-control select2" placeholder="Designation" name="designation">
+														<option value="">-Please Select-</option>
+														<%=EmployeeCreationHandler.formDesignationOption(""+department, ""+designation)%>
+													</select>
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -72,7 +79,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Qualification</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="qualification" class="form-control" placeholder="Qualification" name="qualification" value="<%=qualification%>">
+		                                            <input type="text" id="qualification" class="form-control" placeholder="Qualification" name="qualification" value="<%=qualification%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -82,7 +89,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">State</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="state" class="form-control" placeholder="State" name="state" value="<%=state%>">
+		                                            <input type="text" id="state" class="form-control" placeholder="State" name="state" value="<%=state%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -90,7 +97,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="city" class="form-control" placeholder="City" name="city" value="<%=city%>">
+		                                            <input type="text" id="city" class="form-control" placeholder="City" name="city" value="<%=city%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -100,7 +107,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="pinCode" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>">
+		                                            <input type="text" id="pinCode" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>" maxlength="8">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -108,7 +115,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Mobile</label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="mobile" class="form-control" placeholder="Mobile" name="mobile" value="<%=mobile%>">
+		                                           <input type="text" id="mobile" class="form-control" placeholder="Mobile" name="mobile" value="<%=mobile%>" maxlength="13">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -129,12 +136,6 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                             </div>
                         </div>
                     </div>
-   
-   
-   
-   
-   
-   
    
    
    
@@ -185,7 +186,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
 												<td>
 													<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="employee?action=edit&employeeId=<%=emp_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a class='<%=formName %>_delete' href="javascript:;" ahref="employee?action=delete&employeeId=<%=emp_id%>">delete</a>&nbsp;&nbsp;
-												<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="employee?action=view&employeeId=<%=emp_id%>" href="#">View</a> &nbsp;&nbsp;</td>
+												<a data-target="#CMS-POPUP-DISPLAY" data-toggle="modal"  data-url="employee?action=view&employeeId=<%=emp_id%>" href="#">View</a> &nbsp;&nbsp;</td>
 											</tr>
 										<%sno++;
 										} %>
@@ -202,9 +203,8 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
    
 <script type="text/javascript">
 
-
-
 $(document).ready(function(){
+	initPage();
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
@@ -213,8 +213,58 @@ $(document).ready(function(){
 				error.insertAfter(element);
 			},
 			rules: {
+				employeeName :{
+					lettersonly: true, 
+					minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					}
+				},
+				qualification:{
+					lettersonly: true, 
+					minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					}
+				},
+				state:{
+					lettersonly: true, 
+					minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					}
+				},
+				city:{
+					lettersonly: true, 
+					minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					}
+				},
+				pinCode:{
+					number: true
+					/* minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3 
+					} */
+				},
+				mobile:{
+					number: true,
+					minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					}
+				},
+				email:{
+					email: true,
+					/* minlength:{
+						depends: function(ele){ return !$.isEmptyObject(ele); },
+		                param: 3
+					} */
+				},
 			},
 			messages: {
+				
 			},
 			submitHandler: function(form) {
 				$.ajax({
@@ -226,27 +276,36 @@ $(document).ready(function(){
 					success:function(data){
 				 		$('#CMS-PAGE-CONTAINER').html(data);
 					}
-				}); 
+				});
 			}
 		});
 		
 	}catch(e){
 		alert('Something went wrong. Please Try Later..!');
 	}
+	
+	$('#<%=formName %>_department').change(function(){
+		loadDepartment( $(this).val(), $('#<%=formName %>_designation') );
+	});
+	
 });
+
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+	  return this.optional(element) || /^[a-z]+$/i.test(value);
+}, "Plese enter letters only"); 
+
 
 function <%=formName %>reset(){
 	
-	$('#<%=formName %> #employeeName').val('');$('#<%=formName %> #employeeName').attr('value', '');
-	$('#<%=formName %> #department').val('');$('#<%=formName %> #department').attr('value', '');
-	$('#<%=formName %> #designation').val('');$('#<%=formName %> #designation').attr('value', '');
+	$('#<%=formName %> #employeeName').val(''); $('#<%=formName %> #employeeName').attr('value', '');
+	$('#<%=formName %>_department').select2("val", [""]);
+	$('#<%=formName %>_designation').select2("val", [""]);
 	$('#<%=formName %> #qualification').val('');$('#<%=formName %> #qualification').attr('value', '');
 	$('#<%=formName %> #state').val('');$('#<%=formName %> #state').attr('value', '');
 	$('#<%=formName %> #city').val('');$('#<%=formName %> #city').attr('value', '');
 	$('#<%=formName %> #pinCode').val('');$('#<%=formName %> #pinCode').attr('value', '');
 	$('#<%=formName %> #mobile').val('');$('#<%=formName %> #mobile').attr('value', '');
 	$('#<%=formName %> #email').val('');$('#<%=formName %> #email').attr('value', '');
-	
 }
 
 
@@ -256,7 +315,8 @@ $('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 	var params=$(this).attr("ahref");
 	var trobj=$(this);
 	$.getJSON(params,function(data){
-		if(data.errorExists==true){
+		if(data.errorExists==true)
+		{
 		}
 		else{
 			$(trobj).closest("tr").remove();
@@ -265,5 +325,5 @@ $('#<%=formName %>_tble').on('click', '.<%=formName %>_delete', function(){
 	});
 	
 	}
-	});
+});
 </script>

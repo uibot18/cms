@@ -442,7 +442,7 @@ int bankId=branchDO.getBankId();
 									<div class="position-relative has-icon-left">
 										<select id="timesheetinput2" class="form-control" placeholder="Designation" name="designation" required="required">
 											<option></option>
-											<%=EmployeeCreationHandler.formDesignationOption( ""+employeeDO.getDesignationId())%>
+											<%=EmployeeCreationHandler.formDesignationOption("", ""+employeeDO.getDesignationId())%>
 										</select>
 										<div class="form-control-position">
 											<!-- <i class="la la-briefcase"></i> -->

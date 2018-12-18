@@ -60,7 +60,6 @@ $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
 	 	   },
 	 	   success:function(data){
 	 		   $('#CMS-POPUP-MODEL').html(data);
-	 		  initPage();
 	 	   }
 	    }); 
 	}
@@ -74,6 +73,28 @@ $("#CMS-POPUP-MODEL").on('hidden.bs.modal', function () {
 	$('#CMS-POPUP-MODEL').html('');
 	reloadBasePage();
 });
+
+$("#CMS-POPUP-DISPLAY").on('show.bs.modal', function (e) {
+	var target=$(e.relatedTarget).attr('data-target');
+	if(target=='#CMS-POPUP-DISPLAY'){
+		var url=$(e.relatedTarget).attr('data-url');
+		 //$('#CMS-POPUP-MODEL').load(url);
+		
+		 $.ajax({
+	 	   url:url,
+	 	   data:'',
+	 	   beforeSend:function(){
+	 		  $('#CMS-POPUP-DISPLAY').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+	 	   },
+	 	   success:function(data){
+	 		   $('#CMS-POPUP-DISPLAY').html(data);
+	 	   }
+	    }); 
+	}
+    
+});
+
+
 
 
 $('.cms_menu_item').click(function(){
@@ -107,7 +128,10 @@ function loadData(url, param, containerId){
 }
 
 function initPage(){
-	$('.select2').select2();
+	$('.select2').each(function(){
+		$(this).select2();
+	});
+	
 	$('.date_picker').datepicker({
 		autoclose:true,
 		todayBtn:'linked',
@@ -118,6 +142,21 @@ function initPage(){
 	$('.date_time_picker').bootstrapMaterialDatePicker({ 
 		format: 'DD/MM/YYYY HH:mm:ss' 
 	});
+}
+
+function loadDepartment(deptIds, ele){
+	
+	$(ele).html('<option vlaue="">-Please Select-</option>');
+	$.getJSON('employee?action=loadDesignation&deptIds='+deptIds,function(response){
+		if(!$.isEmptyObject(response.data))
+		{
+			$(ele).append(response.data);
+		}
+	});
+}
+
+function isEmptyElement(ele){
+	return $.isEmptyObject( $(ele).val() );
 }
 
 </script>

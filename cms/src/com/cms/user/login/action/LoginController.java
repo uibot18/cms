@@ -21,6 +21,7 @@ import com.cms.user.login.bean.AdminLoginMasterDO;
 import com.cms.user.login.bean.LoginMasterBean;
 import com.cms.user.login.dao.AdminLoginMasterDAO;
 import com.cms.user.login.dao.LoginMasterDAO;
+import com.cms.user.login.util.LoginUtil;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -67,27 +68,7 @@ public class LoginController extends HttpServlet {
 
 					HttpSession session = request.getSession();
 					LoginDetailImpl loginDetail=new LoginDetailImpl();
-					loginDetail.setLoginId( loginMasterDO.getLoginId() );
-					loginDetail.setRefType( loginMasterDO.getRefType() );
-					loginDetail.setUserName("Vijay");
-
-					if( loginMasterDO.getRefType().equalsIgnoreCase( UserType.ADMIN.getType() ) ) 
-					{
-						loginDetail.setMenuIdSet( MenuMasterDAO.getMenuIdSet( null ) );
-						loginDetail.setRightsIdSet( RightsMasterDAO.getAllRightsIdSet( null ) );
-					}
-					else 
-					{
-						RightsTemplateDO templateDO = RightsTemplateDAO.getRightsTemplateByRightsTemplateId(null, loginMasterDO.getRightsTemplateId(), false);
-						if(templateDO != null)
-						{
-							String[] menuIdArr = AppUtil.getNullToEmpty( templateDO.getMenuIds() ).split(",");
-							loginDetail.setMenuIdSet( AppUtil.convertStrArrayToSet( menuIdArr ) );
-
-							String[] rightsIdArr = AppUtil.getNullToEmpty( templateDO.getRightsIds() ).split(",");
-							loginDetail.setRightsIdSet( AppUtil.convertStrArrayToSet( rightsIdArr ) );
-						}
-					}
+					LoginUtil.loadUserDetail(request, response, loginMasterDO, loginDetail);
 					session.setAttribute( LoginEnum.LOGIN_DETAIL.getType(), loginDetail );
 				}
 				else

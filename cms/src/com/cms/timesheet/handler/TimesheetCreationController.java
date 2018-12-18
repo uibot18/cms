@@ -28,6 +28,7 @@ public class TimesheetCreationController {
 	public static void doAdd(HttpServletRequest request, HttpServletResponse response) {
 		TaskTimeSheetMasterDO timeSheetMstDO = new TaskTimeSheetMasterDO();
 		timeSheetMstDO.setShiftId( 1 );
+		timeSheetMstDO.setStatus("pending");
 
 		request.setAttribute("timeSheetMstDO", timeSheetMstDO);
 	}
@@ -71,7 +72,7 @@ public class TimesheetCreationController {
 
 		TaskTimeSheetMasterDO timeSheetMstDO = new TaskTimeSheetMasterDO();
 
-		timeSheetMstDO.setAssignedTo( AppUtil.getNullToEmpty( loginId ) );
+		timeSheetMstDO.setAssignedTo( ""+loginDetail.getRefId() );
 		timeSheetMstDO.setShiftId( AppUtil.getNullToInteger( request.getParameter("shiftId") ) );
 		timeSheetMstDO.setStatus( AppUtil.getNullToEmpty( request.getParameter("status"), "pending" ) );
 
@@ -222,5 +223,23 @@ public class TimesheetCreationController {
 		}
 
 		AjaxUtil.sendResponse(request, response, model);
+	}
+
+	public static void doApproval(HttpServletRequest request, HttpServletResponse response) {
+		
+		LoginDetail loginDetail = LoginUtil.getLoginDetail(request);
+		
+		String[] timeSheetIdArr = request.getParameterValues("ids");
+		String timeSheetIds = AppUtil.getNullToEmpty( AppUtil.convertArrayToString(timeSheetIdArr, ","), "0") ;
+		
+		if( !TaskTimeSheetMasterDAO.updateApproval(null, timeSheetIds, loginDetail.getLoginId(), "approved") ) 
+		{
+			request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Approve TimeSheet..");
+		}
+		else
+		{
+			request.setAttribute(PageAlertType.SUCCESS.getType(), "Timesheet Approved Successfully..");
+		}
+		
 	}
 }

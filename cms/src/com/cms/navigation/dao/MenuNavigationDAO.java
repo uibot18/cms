@@ -8,10 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
 import com.cms.common.db.connection.DBConnection;
 import com.cms.common.db.util.DBUtil;
@@ -19,9 +21,9 @@ import com.cms.navigation.bean.MenuNavigationDO;
 
 public class MenuNavigationDAO {
 
-	private static final String SELECT="select   navigation_id, navigation_name, parent_navigation_id, bool_is_menu, menu_id, bool_delete_status, created_user, created_date, update_user, update_date from menu_navigation ";
-	private static final String INSERT="insert into menu_navigation( navigation_id, navigation_name, parent_navigation_id, bool_is_menu, menu_id, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
-	private static final String UPDATE="update  menu_navigation set  navigation_name=?, parent_navigation_id=?, bool_is_menu=?, menu_id=?, bool_delete_status=?,  update_user=?, update_date=NOW() WHERE navigation_id=? ";
+	private static final String SELECT="select   navigation_id, navigation_name, parent_navigation_id, bool_is_menu, menu_id, menu_order, bool_delete_status, created_user, created_date, update_user, update_date from menu_navigation ";
+	private static final String INSERT="insert into menu_navigation( navigation_id, navigation_name, parent_navigation_id, bool_is_menu, menu_id, menu_order, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
+	private static final String UPDATE="update  menu_navigation set  navigation_name=?, parent_navigation_id=?, bool_is_menu=?, menu_id=?, menu_order=?, bool_delete_status=?,  update_user=?, update_date=NOW() WHERE navigation_id=? ";
 	private static final String DELETE_UPDATE="update  menu_navigation set  bool_delete_status=?, update_user=?, update_date=NOW() WHERE navigation_id=? ";
 
 	public static int insert(Connection preCon, MenuNavigationDO dto) {
@@ -38,11 +40,10 @@ public class MenuNavigationDAO {
 			stmt.setInt(i++, dto.getParentNavigationId() );
 			stmt.setBoolean(i++, dto.getBoolIsMenu() );
 			stmt.setInt(i++, dto.getMenuId() );
+			stmt.setInt(i++, dto.getMenuOrder() );
 			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
 			stmt.setString(i++, dto.getCreatedUser() );
-			/*stmt.setString(i++, dto.getCreatedDate() );*/
 			stmt.setString(i++, dto.getUpdateUser() );
-			/*stmt.setString(i++, dto.getUpdateDate() );*/
 			stmt.execute();
 			rs=stmt.getGeneratedKeys();
 			if(rs.next()) { insertId=rs.getInt(1); }
@@ -62,11 +63,9 @@ public class MenuNavigationDAO {
 			stmt.setInt(i++,dto.getParentNavigationId());
 			stmt.setBoolean(i++,dto.getBoolIsMenu());
 			stmt.setInt(i++,dto.getMenuId());
+			stmt.setInt(i++, dto.getMenuOrder() );
 			stmt.setBoolean(i++,dto.getBoolDeleteStatus());
-			/*stmt.setString(i++,dto.getCreatedUser());
-stmt.setString(i++,dto.getCreatedDate());*/
 			stmt.setString(i++,dto.getUpdateUser());
-			/*stmt.setString(i++,dto.getUpdateDate());*/
 			stmt.setInt(i++,dto.getNavigationId());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { return true; }
@@ -113,11 +112,12 @@ stmt.setString(i++,dto.getCreatedDate());*/
 			dto.setParentNavigationId(rs.getInt(i++));
 			dto.setBoolIsMenu(rs.getBoolean(i++));
 			dto.setMenuId(rs.getInt(i++));
+			dto.setMenuOrder( rs.getInt(i++) );
 			dto.setBoolDeleteStatus(rs.getBoolean(i++));
 			dto.setCreatedUser(rs.getString(i++));
-			dto.setCreatedDate(rs.getString(i++));
+			dto.setCreatedDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
 			dto.setUpdateUser(rs.getString(i++));
-			dto.setUpdateDate(rs.getString(i++));
+			dto.setUpdateDate( AppDateUtil.convertToAppDate(rs.getString(i++), true, true) );
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;
@@ -183,12 +183,12 @@ stmt.setString(i++,dto.getCreatedDate());*/
 
 
 	public static Set<String> getRootNavigationSet(Connection preCon) {
-		Set<String> navSet=new HashSet<String>();
+		Set<String> navSet=new LinkedHashSet<String>();
 		Connection con=null;
 		Statement stmt=null;
 		ResultSet rs=null;
 
-		String query="SELECT navigation_id FROM menu_navigation WHERE parent_navigation_id=0 AND bool_delete_status=0"; 
+		String query="SELECT navigation_id FROM menu_navigation WHERE parent_navigation_id=0 AND bool_delete_status=0 ORDER BY menu_order, created_date"; 
 		try {
 			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
@@ -208,10 +208,10 @@ stmt.setString(i++,dto.getCreatedDate());*/
 		Statement stmt=null;
 		ResultSet rs=null;
 
-		String query="SELECT parent_navigation_id, GROUP_CONCAT( navigation_id ) AS child_nav_ids " + 
+		String query="SELECT parent_navigation_id, GROUP_CONCAT( navigation_id ORDER BY menu_order) AS child_nav_ids " + 
 				" FROM menu_navigation " + 
 				" WHERE  bool_delete_status=0 " + 
-				" GROUP BY parent_navigation_id ORDER BY created_date DESC"; 
+				" GROUP BY parent_navigation_id "; 
 		try {
 			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();

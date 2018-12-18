@@ -28,6 +28,8 @@ label.invalid{
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
     	<form id="<%=formName%>" action="timesheet?action=save" method="post">
+    	<input type="hidden" name="shiftId" value="<%=timeSheetMstDO.getShiftId()%>">
+    	<input type="hidden" name="status" value="<%=timeSheetMstDO.getStatus()%>">
         <div class="modal-header">
             <h4 class="modal-title">TIME SHEET</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

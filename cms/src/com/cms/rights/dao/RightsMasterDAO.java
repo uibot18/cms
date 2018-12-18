@@ -158,7 +158,7 @@ public static Set<String> getAllRightsIdSet(Connection preCon) {
 	Statement stmt=null;
 	ResultSet rs=null;
 
-	String query="select rights_master FROM rights_master where 0=0 and bool_delete_status=0 ";
+	String query="select rights_master_id FROM rights_master where 0=0 and bool_delete_status=0 ";
 	try {
 		con=preCon==null?DBConnection.getConnection():preCon;
 		stmt=con.createStatement();

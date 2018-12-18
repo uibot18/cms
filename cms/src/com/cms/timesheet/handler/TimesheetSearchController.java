@@ -30,11 +30,11 @@ public class TimesheetSearchController {
 		String timeSheetFrom=AppUtil.getNullToEmpty( requestMap.get("timeSheetFrom") );
 		String timeSheetTo=AppUtil.getNullToEmpty( requestMap.get("timeSheetTo") );
 
-		String query="SELECT a.time_sheet_id, from_date, to_date, a.assigned_to, b.first_name AS assigned_to_name, "+
-				" a.shift_id, '' AS shift_name, a.status, a.approved_by, c.first_name AS approved_by_name, a.approved_on " + 
-				" FROM " + 
-				" (task_time_sheet_master a, adm_employee_master_view b) left join adm_employee_master_view c on a.approved_by=c.emp_id " + 
-				" WHERE a.assigned_to=b.emp_id  AND a.bool_delete_status=0 ";
+		String query="SELECT a.time_sheet_id, from_date, to_date, a.assigned_to, b.first_name AS assigned_to_name, \r\n" + 
+				"a.shift_id, c.shift_name, a.status, a.approved_by, d.first_name AS approved_by_name, a.approved_on \r\n" + 
+				"FROM \r\n" + 
+				"(task_time_sheet_master a, adm_employee_master_view b, admin_employee_shift_master c) LEFT JOIN adm_employee_master_view d ON a.approved_by=d.emp_id \r\n" + 
+				"WHERE a.assigned_to=b.emp_id AND a.shift_id=c.shift_id AND a.bool_delete_status=0 AND a.bool_delete_status=0 ";
 
 		if( !taskName.isEmpty() ) { query+=" "; }
 		if( assignedTo!=0 ) { query+=" AND a.assigned_to="+assignedTo+" "; }
