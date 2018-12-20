@@ -28,6 +28,7 @@ label.invalid{
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
     	<form id="<%=formName%>" action="timesheet?action=save" method="post">
+    	<input type="hidden" name="timesheetId" value="<%=timeSheetMstDO.getTimeSheetId()%>">
     	<input type="hidden" name="shiftId" value="<%=timeSheetMstDO.getShiftId()%>">
     	<input type="hidden" name="status" value="<%=timeSheetMstDO.getStatus()%>">
         <div class="modal-header">
@@ -52,10 +53,10 @@ label.invalid{
 								<th align="center"><div style="width: 30px;">
 								<button type="button" id="btn_addRow">+</button>
 								</div></th>
-								<th>Start Time</th>
-								<th>End Time</th>
-								<th>Type</th>
-								<th>Particular</th>
+								<th>Start Time <span style="color: #f62d51;">*</span></th>
+								<th>End Time <span style="color: #f62d51;">*</span></th>
+								<th>Type <span style="color: #f62d51;">*</span></th>
+								<th>Particular <span style="color: #f62d51;">*</span></th>
 								<th>Comments</th>
 								<th>Action</th>
 							</tr>
@@ -79,18 +80,19 @@ label.invalid{
 <script type="text/javascript">
 
 $(document).ready( function(){
+	initPage();
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
 			validClass: 'valid',
 			errorPlacement: function(error, element) {
-				error.insertAfter(element);
+				error.insertAfter($(element).parent().last());
 			},
 			rules: {
 				serviceName: { required: true }
 			},
 			messages: {
-				serviceName: { required: 'Service Name is required' }
+				startTime: { required: 'Service Name is required' }
 			},
 			submitHandler: function(form) {
 				$.ajax({
@@ -136,7 +138,7 @@ $(document).ready( function(){
 		var sno = (''+$(this).attr('id')).replace('<%=formName%>_refType_', '');
 		
 		var refTypeId=$(this).val();
-		$('#<%=formName%>_particularsId_'+sno).html('<option>-Please Select-</option>');
+		$('#<%=formName%>_particularsId_'+sno).html('<option value="">-Please Select-</option>');
 		if(refTypeId!=null && refTypeId!=''){
 			var param='action=loadParticulars&refTypeId='+refTypeId;
 			$.getJSON('timesheet?'+param,function(response){

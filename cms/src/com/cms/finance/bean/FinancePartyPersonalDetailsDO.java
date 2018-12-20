@@ -17,7 +17,7 @@ public class FinancePartyPersonalDetailsDO {
 	private String dob="";
 	private int age=0;
 	private int gender=0;
-	private String maritalStatus="single";
+	private String maritalStatus="none";
 	private String bloodGroup="none";
 	private boolean boolResidingWithPrimary=false;
 	private boolean boolDeleteStatus=false;

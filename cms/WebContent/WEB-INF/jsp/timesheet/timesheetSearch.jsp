@@ -149,8 +149,8 @@
 										<td><%=approved_by_name  %></td>
 										<td><%=approved_on  %></td>
 										<td>
-											<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="timesheet?action=edit&serviceId=<%=time_sheet_id%>" href="#">Edit</a> &nbsp;&nbsp;
-											<a class='<%=formName %>_delete' href="javascript:;" ahref="timesheet?action=delete&serviceId=<%=time_sheet_id%>">delete</a></td>
+											<a data-target="#CMS-POPUP-MODEL" data-toggle="modal"  data-url="timesheet?action=edit&timesheetId=<%=time_sheet_id%>" href="#">Edit</a> &nbsp;&nbsp;
+											<a class='<%=formName %>_delete' href="javascript:;" ahref="timesheet?action=delete&timesheetId=<%=time_sheet_id%>">delete</a></td>
 									</tr>
 								<%sno++;
 								} 

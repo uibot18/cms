@@ -140,12 +140,13 @@ function initPage(){
 	}); 
 	
 	$('.date_time_picker').bootstrapMaterialDatePicker({ 
-		format: 'DD/MM/YYYY HH:mm:ss' 
+		format: 'DD/MM/YYYY HH:mm' 
 	});
 }
 
+//common function
+
 function loadDepartment(deptIds, ele){
-	
 	$(ele).html('<option vlaue="">-Please Select-</option>');
 	$.getJSON('employee?action=loadDesignation&deptIds='+deptIds,function(response){
 		if(!$.isEmptyObject(response.data))
@@ -155,9 +156,64 @@ function loadDepartment(deptIds, ele){
 	});
 }
 
+function loadBankBranch(bankIds, ele){
+	$(ele).html('<option>-please Select-</option>');
+	if(bankIds!=null && bankIds!=''){
+		$.getJSON('employee?action=loadBranch&bankId='+bankIds, function(response){
+			if(!$.isEmptyObject(response.option))
+			{
+				$(ele).append(response.option);
+			}else{alert();}
+		})
+	}
+	
+}
+
 function isEmptyElement(ele){
 	return $.isEmptyObject( $(ele).val() );
 }
+
+//Validation
+
+jQuery.validator.addClassRules("jval_name", { lettersonly: true });
+jQuery.validator.addClassRules("jval_email", { email: true });
+jQuery.validator.addClassRules("jval_num", { number: true });
+jQuery.validator.addClassRules("jval_name_num", { lettersAndNumber: true });
+jQuery.validator.addClassRules("jval_addr", { address: true });
+jQuery.validator.addClassRules("jval_dob", { appDob: true });
+
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+	  return this.optional(element) || /^[a-z\s]+$/i.test(value);
+}, "Plese enter letters only"); 
+
+jQuery.validator.addMethod("lettersAndNumber", function(value, element) {
+	  return this.optional(element) || /^[a-z 0-9]+$/i.test(value);
+}, "Plese enter letters or number only"); 
+
+jQuery.validator.addMethod("address", function(value, element) {
+	  return this.optional(element) || /^[a-zA-Z0-9\s,\'-/]*$/i.test(value);
+}, "Plese enter letters or number or , / - 'only"); 
+
+jQuery.validator.addMethod("appDtFt", function(value, element) {
+	  return this.optional(element) || /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/i.test(value);
+}, "Invalid format. please enter dd/MM/yyyy"); 
+
+jQuery.validator.addMethod("appDob", function(value, element) {
+	var retVal=false;
+	if(/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/i.test(value)){
+		var dateArr=(''+value).split('/');
+		var d = parseInt(dateArr[0]);
+		var m = parseInt(dateArr[1]);
+		var y = parseInt(dateArr[2]);
+		var dt = new Date(y,m-1,d);
+		var currDt = new Date();
+		var dt1 = new Date(currDt.getFullYear(),currDt.getMonth(),currDt.getDate()-1);
+		if((dt1-dt)>=0){
+			retVal = true;
+		}
+	}
+	  return this.optional(element) || retVal;
+}, "Please enter valid DOB"); 
 
 </script>
  
