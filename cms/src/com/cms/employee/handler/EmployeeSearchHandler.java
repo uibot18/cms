@@ -24,22 +24,21 @@ public class EmployeeSearchHandler {
 
 	private static String constructQuery(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
 
-		   String employeeName=AppUtil.getNullToEmpty( requestMap.get("employeeName") );
-		   String department=AppUtil.getNullToEmpty( requestMap.get("department") );
-		   String designation=AppUtil.getNullToEmpty( requestMap.get("designation") );
-		   String qualification=AppUtil.getNullToEmpty( requestMap.get("qualification") );
-		   String state=AppUtil.getNullToEmpty( requestMap.get("state") );
-		   String city=AppUtil.getNullToEmpty( requestMap.get("city") );
-		   String pinCode=AppUtil.getNullToEmpty( requestMap.get("pinCode") );
-		   String email=AppUtil.getNullToEmpty( requestMap.get("email") );
-		   String mobile=AppUtil.getNullToEmpty( requestMap.get("mobile") );
+		String employeeName=AppUtil.getNullToEmpty( requestMap.get("employeeName") );
+		String department=AppUtil.getNullToEmpty( requestMap.get("department") );
+		String designation=AppUtil.getNullToEmpty( requestMap.get("designation") );
+		String qualification=AppUtil.getNullToEmpty( requestMap.get("qualification") );
+		String state=AppUtil.getNullToEmpty( requestMap.get("state") );
+		String city=AppUtil.getNullToEmpty( requestMap.get("city") );
+		String pinCode=AppUtil.getNullToEmpty( requestMap.get("pinCode") );
+		String email=AppUtil.getNullToEmpty( requestMap.get("email") );
+		String mobile=AppUtil.getNullToEmpty( requestMap.get("mobile") );
 
 		String query=" SELECT a.emp_id, CONCAT(c.first_name,' ', c.middle_name, ' ' ,c.last_name) AS emp_name, '' AS reporting_to, " + 
 				"f.cmn_master_name AS department, g.cmn_master_name AS designation, d.email1 AS email, d.mobile1 AS mobile  " + 
-				"FROM admin_employee_master a, finance_ledger_master b, finance_party_personal_details c, finance_party_contact_details d,  " + 
-				"finance_party_address_details e, common_master f, common_master g " + 
-				"WHERE a.ledger_id=b.ledger_id AND a.ledger_id=c.ledger_id AND a.ledger_id=d.ledger_id AND a.ledger_id=e.ledger_id " + 
-				"AND a.department_id=f.cmn_master_id AND a.designation_id=g.cmn_master_id ";
+				"FROM ((admin_employee_master a, finance_ledger_master b, finance_party_personal_details c, finance_party_contact_details d, " + 
+				"finance_party_address_details e) LEFT JOIN  common_master f ON a.department_id=f.cmn_master_id) LEFT JOIN  common_master g ON a.designation_id=g.cmn_master_id " + 
+				"WHERE a.bool_delete_status=0 and a.ledger_id=b.ledger_id AND a.ledger_id=c.ledger_id AND a.ledger_id=d.ledger_id AND a.ledger_id=e.ledger_id ";
 
 		if( !employeeName.isEmpty() ) { query+=" AND CONCAT(c.first_name,' ', c.middle_name, ' ' ,c.last_name)  like '%"+employeeName+"%' ";  }
 		if( !department.isEmpty() && !department.equals("0") ) { query+=" AND a.department_id="+department;  }
@@ -92,12 +91,12 @@ public class EmployeeSearchHandler {
 	}
 
 	private static String constructQuery_Rights(Map<String, String> requestMap, HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String query="SELECT a.emp_id, a.first_name, b.rights_template_id, c.rights_template_name " + 
 				"FROM (adm_employee_master_view a, admin_login_master b) " + 
 				"LEFT JOIN rights_template c ON b.rights_template_id=c.rights_template_id " + 
 				"WHERE b.ref_type='employee' AND b.ref_id=a.emp_id ";
-				
+
 		return query;
 	}
 

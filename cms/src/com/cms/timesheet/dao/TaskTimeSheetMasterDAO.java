@@ -17,7 +17,7 @@ public class TaskTimeSheetMasterDAO {
 
 	private static final String SELECT="select   time_sheet_id, assigned_to, shift_id, from_date, to_date, bool_delete_status, status, approved_by, approved_on, created_user, created_date, update_user, update_date from task_time_sheet_master ";
 	private static final String INSERT="insert into task_time_sheet_master( time_sheet_id, assigned_to, shift_id, from_date, to_date, bool_delete_status, status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
-	private static final String UPDATE="update  task_time_sheet_master set  assigned_to=?, shift_id=?, from_date=?, to_date=?, bool_delete_status=?, status=?, update_user=?, update_date=? WHERE time_sheet_id=? ";
+	private static final String UPDATE="update  task_time_sheet_master set  assigned_to=?, shift_id=?, from_date=?, to_date=?, bool_delete_status=?, status=?, update_user=?, update_date=NOW() WHERE time_sheet_id=? ";
 
 	public static int insert(Connection preCon, TaskTimeSheetMasterDO dto) {
 		int timeSheetId=0;
@@ -64,17 +64,16 @@ public class TaskTimeSheetMasterDAO {
 			stmt=con.prepareStatement(UPDATE);
 			stmt.setString(i++, dto.getAssignedTo());
 			stmt.setInt(i++, dto.getShiftId());
-			stmt.setString(i++, dto.getFromDate());
-			stmt.setString(i++, dto.getToDate());
+			stmt.setString(i++, AppDateUtil.convertToDBDate(dto.getFromDate(), true, true) );
+			stmt.setString(i++, AppDateUtil.convertToDBDate(dto.getToDate(), true, true) );
 			stmt.setBoolean(i++, dto.getBoolDeleteStatus());
 			stmt.setString(i++, dto.getStatus());
 			stmt.setString(i++, dto.getUpdateUser());
-			stmt.setString(i++, dto.getUpdateDate());
 			stmt.setInt(i++, dto.getTimeSheetId());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { 
 				TaskTimeSheetChildDAO.delete(con, dto.getTimeSheetId() );
-				if( !TaskTimeSheetChildDAO.insert(preCon, dto.getTimeSheetChildList(), dto.getTimeSheetId()) ) { System.out.println("Failed to Save TimeSheet Child"); con.rollback(); return false; }
+				if( !TaskTimeSheetChildDAO.insert(con, dto.getTimeSheetChildList(), dto.getTimeSheetId()) ) { System.out.println("Failed to Save TimeSheet Child"); con.rollback(); return false; }
 			}else {System.out.println("Failed to Save TimeSheet"); con.rollback(); return false;}
 			con.commit();
 			return true;

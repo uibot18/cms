@@ -31,8 +31,8 @@ public class TaskTimeSheetChildDAO {
 			int i=1;
 			stmt.setInt(i++, dto.getTimeSheetChildId() );
 			stmt.setInt(i++, dto.getTimeSheetId() );
-			stmt.setString(i++, dto.getStartTime() );
-			stmt.setString(i++, dto.getEndTime() );
+			stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getStartTime()+":00", true, true ) );
+			stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getEndTime()+":00", true, true ) );
 			stmt.setInt(i++, dto.getRefType() );
 			stmt.setInt(i++, dto.getParticularsId() );
 			stmt.setString(i++, dto.getComments() );
@@ -58,8 +58,8 @@ public class TaskTimeSheetChildDAO {
 				int i=1;
 				stmt.setInt(i++, dto.getTimeSheetChildId() );
 				stmt.setInt(i++, timeSheetId );
-				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getStartTime(), true, true ) );
-				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getEndTime(), true, true ) );
+				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getStartTime()+":00", true, true ) );
+				stmt.setString(i++, AppDateUtil.convertToDBDate( dto.getEndTime()+":00", true, true ) );
 				stmt.setInt(i++, dto.getRefType() );
 				stmt.setInt(i++, dto.getParticularsId() );
 				stmt.setString(i++, dto.getComments() );
@@ -139,8 +139,8 @@ public class TaskTimeSheetChildDAO {
 			int i=1;
 			dto.setTimeSheetChildId(rs.getInt(i++));
 			dto.setTimeSheetId(rs.getInt(i++));
-			dto.setStartTime(rs.getString(i++));
-			dto.setEndTime(rs.getString(i++));
+			dto.setStartTime(AppDateUtil.convertDate(rs.getString(i++), "yyyy-MM-dd HH:mm:ss", "dd/MM/yyyy HH:mm", "01/10/1000 00:00"));
+			dto.setEndTime(AppDateUtil.convertDate(rs.getString(i++), "yyyy-MM-dd HH:mm:ss", "dd/MM/yyyy HH:mm", "01/10/1000 00:00"));
 			dto.setRefType(rs.getInt(i++));
 			dto.setParticularsId(rs.getInt(i++));
 			dto.setComments(rs.getString(i++));

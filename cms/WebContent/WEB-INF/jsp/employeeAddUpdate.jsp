@@ -50,7 +50,7 @@
 int bankId=branchDO.getBankId();
  
  Map<String, String> bloodgroupMap=new HashMap<String, String>();
- bloodgroupMap.put("none", "None");
+ bloodgroupMap.put("none", "-Please Select-");
  bloodgroupMap.put("a+", "A+");
  bloodgroupMap.put("a-", "A-");
  bloodgroupMap.put("b+", "B+");
@@ -61,11 +61,13 @@ int bankId=branchDO.getBankId();
  bloodgroupMap.put("ab-", "AB-");
  
  Map<String, String> genderMap=new HashMap<String, String>();
+ genderMap.put("0", "-Please Select-");
  genderMap.put("25", "Male");
  genderMap.put("26", "Female");
  genderMap.put("27", "Trans Gender");
  
  Map<String, String> martialMap=new HashMap<String, String>();
+ martialMap.put("none", "-Please Select-");
  martialMap.put("single", "Single");
  martialMap.put("married", "Married");
  
@@ -93,6 +95,369 @@ int bankId=branchDO.getBankId();
 			</div>
 			<div class="modal-body">
 				<%=PageUtil.getAlert(request) %>
+				
+				<div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                            	<div class="form-body">
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="firstName" class="col-sm-4 p-t-5  control-label col-form-label">First Name<span style="color: #f62d51;">*</span></label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="firstName" class="form-control form-control-sm jval_name" placeholder="First Name" name="firstName" value="<%=personalDO.getFirstName()%>" required="required" maxlength="50">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="middleName" class="col-sm-4 p-t-5  control-label col-form-label">Middle Name</label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="middleName" class="form-control form-control-sm jval_name" placeholder="Middle Name" name="middleName" value="<%=personalDO.getMiddleName()%>" maxlength="50">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="lastName" class="col-sm-4 p-t-5  control-label col-form-label">Last Name</label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="lastName" class="form-control form-control-sm jval_name" placeholder="Last Name" name="lastName" value="<%=personalDO.getLastName()%>" maxlength="50">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="fatherName" class="col-sm-4 p-t-5  control-label col-form-label">Father's Name</label>
+                            	<div class="col-sm-8">
+                                	<input type="hidden" id="relationTypeId" class="form-control" placeholder="First Name" name="relationTypeId" value="22" required="required" maxlength="50">
+									<input type="text" id="fatherName" class="form-control form-control-sm jval_name" placeholder="Father's Name" name="fatherName" value="<%=personalDO.getFirstNameRel()%>">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="email" class="col-sm-4 p-t-5  control-label col-form-label">Email<span style="color: #f62d51;">*</span></label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="email" class="form-control form-control-sm jval_email" placeholder="Email" name="email" value="<%=contactDO.getEmail1()%>" required="required" maxlength="80">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="mobile" class="col-sm-4 p-t-5  control-label col-form-label">Mobile</label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="mobile" class="form-control form-control-sm jval_num" placeholder="Mobile" name="mobile" value="<%=contactDO.getMobile1()%>" maxlength="13">
+                            	</div>
+                        	</div>
+                  		</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="dob" class="col-sm-4 p-t-5  control-label col-form-label">Date of Birth</label>
+                            	<div class="col-sm-8">
+                                	<input type="text" id="dob" class="form-control form-control-sm date_picker jval_dob" placeholder="Date of Birth" name="dob" value="<%=personalDO.getDob()%>">
+                            	</div>
+                        	</div>
+                  		</div>
+						<% int gender=personalDO.getGender();  %>
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="gender" class="col-sm-4 p-t-5  control-label col-form-label">Gender</label>
+                            	<div class="col-sm-8">
+                                	<select id="gender" class="form-control custom-select select2" placeholder="Gender" name="gender" required="required" style="width: 100%; height:26px;">
+										<%=AppUtil.formOption( genderMap, ""+gender ) %>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="martialStatus" class="col-sm-4 p-t-5  control-label col-form-label">Martial Status</label>
+                            	<div class="col-sm-8">
+                                	<select id="martialStatus" class="form-control custom-select select2" placeholder="Martial Status" name="martialStatus" required="required" style="width: 100%; height:26px;">
+										<%=AppUtil.formOption( martialMap, ""+personalDO.getMaritalStatus() ) %>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+							
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="martialStatus" class="col-sm-4 p-t-5  control-label col-form-label">Blood Group</label>
+                            	<div class="col-sm-8">
+                                	<select id="bloodGroup" class="form-control custom-select select2" placeholder="Blood Group" name="bloodGroup" style="width: 100%; height:26px;">
+										<%=AppUtil.formOption(bloodgroupMap, personalDO.getBloodGroup()) %>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+					
+					</div>
+					
+					 <hr><h4 class="card-title">Office Details</h4>
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="<%=formName %>_reportingTo" class="col-sm-4 p-t-5  control-label col-form-label">Reporting To</label>
+                            	<div class="col-sm-8">
+                                	<select id="<%=formName %>_reportingTo" class="form-control custom-select select2" placeholder="Reporting To" name="reportingTo" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<%=EmployeeCreationHandler.formEmployeeOption(""+employeeDO.getReportingTo(), ""+employeeDO.getEmpId()) %>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="<%=formName %>_reportingTo" class="col-sm-4 p-t-5  control-label col-form-label">Department</label>
+                            	<div class="col-sm-8">
+                                	<select id="<%=formName %>_department" class="form-control custom-select select2" placeholder="Department" name="department" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<%=EmployeeCreationHandler.formDepartmentOption( ""+employeeDO.getDepartmentId() )%>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="<%=formName %>_designation" class="col-sm-4 p-t-5  control-label col-form-label">Designation</label>
+                            	<div class="col-sm-8">
+                                	<select id="<%=formName %>_designation" class="form-control custom-select select2" placeholder="Designation" name="designation" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<%=EmployeeCreationHandler.formDesignationOption(""+employeeDO.getDepartmentId(), ""+employeeDO.getDesignationId())%>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+					
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="esiNo" class="col-sm-4 p-t-5  control-label col-form-label">ESI.No</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="esiNo" class="form-control form-control-sm jval_name_num" placeholder="ESI.No" name="esiNo" value="<%=employeeDO.getEsiNo()%>" maxlength="20">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="epfNo" class="col-sm-4 p-t-5  control-label col-form-label">EPF.No</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="epfNo" class="form-control form-control-sm jval_name_num" placeholder="EPF.No" name="epfNo" value="<%=employeeDO.getEpfNo()%>" maxlength="20">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="<%=formName %>_bankName" class="col-sm-4 p-t-5  control-label col-form-label">Bank Name</label>
+                            	<div class="col-sm-8">
+                                	<select id="<%=formName %>_bankName" class="form-control custom-select select2" placeholder="Bank Name" name="bankName" style="width: 100%; height:26px;">
+										<%Map<String, String> bankMap=FinancePartyBankDetailsDAO.loadBankMap(null); if(bankMap==null){ bankMap=new HashMap<String, String>();  } %>
+										<option>-Please Select-</option>
+										<%=AppUtil.formOption(bankMap, ""+branchDO.getBankId())%>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="<%=formName %>_branchName" class="col-sm-4 p-t-5  control-label col-form-label">Branch Name</label>
+                            	<div class="col-sm-8">
+                                	<select id="<%=formName %>_branchName" class="form-control custom-select select2" placeholder="Branch Name" name="branchName" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<% Map<String, String> branchMap=FinancePartyBankBranchDetailsDAO.loadBranchMap(null, ""+branchDO.getBankId() ); %>
+										<%=AppUtil.formOption(branchMap, ""+branchDO.getBranchId())%>
+									</select>
+                            	</div>
+                        	</div>
+                  		</div>
+						
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="bankAccountNo" class="col-sm-4 p-t-5  control-label col-form-label">A/C.No</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="bankAccountNo" class="form-control form-control-sm jval_num" placeholder="A/C.No" name="bankAccountNo" value="<%=employeeDO.getBankAccountNo()%>" maxlength="20">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					 <hr><h4 class="card-title">Permanent Address</h4>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_doorNo" class="col-sm-4 p-t-5  control-label col-form-label">Door No</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_doorNo" class="form-control form-control-sm jval_addr" placeholder="Door No" name="per_doorNo" value="<%=permAddress.getDooNo()%>" maxlength="15">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_streetName" class="col-sm-4 p-t-5  control-label col-form-label">Street Name</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_streetName" class="form-control form-control-sm jval_name_num" placeholder="Street Name" name="per_streetName" value="<%=permAddress.getStreetName()%>" maxlength="80">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_roadName" class="col-sm-4 p-t-5  control-label col-form-label">Road Name</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_roadName" class="form-control form-control-sm jval_name_num" placeholder="Road Name" name="per_roadName" value="<%=permAddress.getRoadName()%>" maxlength="80">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_landMark" class="col-sm-4 p-t-5  control-label col-form-label">Land Mark</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_landMark" class="form-control form-control-sm jval_addr" placeholder="Land Mark" name="per_landMark" value="<%=permAddress.getLandMark()%>" maxlength="100">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_city" class="col-sm-4 p-t-5  control-label col-form-label">City</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_city" class="form-control form-control-sm jval_name" placeholder="City" name="per_city" value="<%=permAddress.getCity()%>" maxlength="50">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_state" class="col-sm-4 p-t-5  control-label col-form-label">State</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_state" class="form-control form-control-sm jval_name" placeholder="State" name="per_state" value="<%=permAddress.getState()%>" maxlength="50">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="per_pinCode" class="col-sm-4 p-t-5  control-label col-form-label">PIN Code</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="per_pinCode" class="form-control form-control-sm jval_num" placeholder="PIN Code" name="per_pinCode" value="<%=permAddress.getPincode()%>" maxlength="10">
+                            	</div>
+                        	</div>
+                  		</div>
+					</div>
+					
+				 	<hr><h4 class="card-title">Communication Address</h4>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_doorNo" class="col-sm-4 p-t-5  control-label col-form-label">Door No</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_doorNo" class="form-control form-control-sm jval_addr" placeholder="Door No" name="cmm_doorNo" value="<%=permAddress.getDooNo()%>" maxlength="15">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_streetName" class="col-sm-4 p-t-5  control-label col-form-label">Street Name</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_streetName" class="form-control form-control-sm jval_name_num" placeholder="Street Name" name="cmm_streetName" value="<%=permAddress.getStreetName()%>" maxlength="100">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_roadName" class="col-sm-4 p-t-5  control-label col-form-label">Road Name</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_roadName" class="form-control form-control-sm jval_name_num" placeholder="Road Name" name="cmm_roadName" value="<%=permAddress.getRoadName()%>" maxlength="100">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_landMark" class="col-sm-4 p-t-5  control-label col-form-label">Land Mark</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_landMark" class="form-control form-control-sm jval_addr" placeholder="Land Mark" name="cmm_landMark" value="<%=permAddress.getLandMark()%>" maxlength="100">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_city" class="col-sm-4 p-t-5  control-label col-form-label">City</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_city" class="form-control form-control-sm jval_name" placeholder="City" name="cmm_city" value="<%=permAddress.getCity()%>" maxlength="80">
+                            	</div>
+                        	</div>
+                  		</div>
+                  		
+                  		<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_city" class="col-sm-4 p-t-5  control-label col-form-label">State</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_state" class="form-control form-control-sm jval_name" placeholder="State" name="cmm_state" value="<%=permAddress.getState()%>" maxlength="80">
+                            	</div>
+                        	</div>
+                  		</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4">
+                  			<div class="form-group row">
+                            	<label for="cmm_pinCode" class="col-sm-4 p-t-5  control-label col-form-label">PIN Code</label>
+                            	<div class="col-sm-8">
+                            		<input type="text" id="cmm_pinCode" class="form-control form-control-sm jval_num" placeholder="PIN Code" name="cmm_pinCode" value="<%=permAddress.getPincode()%>" maxlength="10">
+                            	</div>
+                        	</div>
+                  		</div>
+					</div>
+				</div>
+                            </div>
+                        </div>
+                    </div>
+	            </div>
+				
 				
 				<%-- <form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
 					<input type="hidden" name="action" value="save">
@@ -271,459 +636,7 @@ int bankId=branchDO.getBankId();
                                     </section>
 								</form> --%>
 				
-				<div class="form-body">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput1">First Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="First Name" name="firstName" value="<%=personalDO.getFirstName()%>" required="required">
-									<div class="form-control-position">
-										<i class="ft-user"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Middle Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Middle Name" name="middleName" value="<%=personalDO.getMiddleName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Last Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Last Name" name="lastName" value="<%=personalDO.getLastName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput1">Father's Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="hidden" id="timesheetinput1" class="form-control" placeholder="First Name" name="relationTypeId" value="22" required="required">
-									<input type="text" id="timesheetinput1" class="form-control" placeholder="Father's Name" name="fatherName" value="<%=personalDO.getFirstNameRel()%>">
-									<div class="form-control-position">
-										<i class="ft-user"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Email</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Email" name="email" value="<%=contactDO.getEmail1()%>" required="required">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Mobile</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Mobile" name="mobile" value="<%=contactDO.getMobile1()%>" required="required">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Date of Birth</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control date_picker" placeholder="Date of Birth" name="dob" value="<%=personalDO.getDob()%>" required="required">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<% int gender=personalDO.getGender()==0?25:personalDO.getGender();  %>
-						
-						
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="timesheetinput2">Gender</label>
-									<div class="position-relative has-icon-left">
-										<select id="timesheetinput2" class="form-control" placeholder="Gender" name="gender" required="required">
-											<%=AppUtil.formOption( genderMap, ""+gender ) %>
-										</select>
-										<div class="form-control-position">
-											<!-- <i class="la la-briefcase"></i> -->
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="timesheetinput2">Martial Status</label>
-									<div class="position-relative has-icon-left">
-										<select id="timesheetinput2" class="form-control" placeholder="Gender" name="martialStatus" required="required">
-											<%=AppUtil.formOption( martialMap, ""+personalDO.getMaritalStatus() ) %>
-										</select>
-										<div class="form-control-position">
-											<!-- <i class="la la-briefcase"></i> -->
-										</div>
-									</div>
-								</div>
-							</div>
-						
-					</div>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Blood Group</label>
-								<div class="position-relative has-icon-left">
-									<select id="timesheetinput2" class="form-control" placeholder="Date of Birth" name="bloodGroup" ">
-										<%=AppUtil.formOption(bloodgroupMap, personalDO.getBloodGroup()) %>
-									</select>
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					 <hr><h4 class="card-title">Office Details</h4>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Reporting To</label>
-								<select id="reportingTo" class="form-control" placeholder="Reporting To" name="reportingTo" required="required">
-									<option></option>
-									<%=EmployeeCreationHandler.formEmployeeOption(""+employeeDO.getReportingTo(), ""+employeeDO.getEmpId()) %>
-								</select>
-								<div class="form-control-position">
-									<!-- <i class="la la-briefcase"></i> -->
-								</div>
-								
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-								<div class="form-group">
-									<label for="timesheetinput2">Department</label>
-									<div class="position-relative has-icon-left">
-										<select id="timesheetinput2" class="form-control" placeholder="Department" name="department" required="required">
-											<option></option>
-											<%=EmployeeCreationHandler.formDepartmentOption( ""+employeeDO.getDepartmentId() )%>
-										</select>
-										<div class="form-control-position">
-											<!-- <i class="la la-briefcase"></i> -->
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="timesheetinput2">Designation</label>
-									<div class="position-relative has-icon-left">
-										<select id="timesheetinput2" class="form-control" placeholder="Designation" name="designation" required="required">
-											<option></option>
-											<%=EmployeeCreationHandler.formDesignationOption("", ""+employeeDO.getDesignationId())%>
-										</select>
-										<div class="form-control-position">
-											<!-- <i class="la la-briefcase"></i> -->
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">ESI.No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="ESI.No" name="esiNo" value="<%=employeeDO.getEsiNo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">EPF.No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="EPF.No" name="epfNo" value="<%=employeeDO.getEpfNo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="bankName">Bank Name</label>
-								<div class="position-relative has-icon-left">
-									<select id="bankName" class="form-control" placeholder="Bank Name" name="bankName">
-										<%Map<String, String> bankMap=FinancePartyBankDetailsDAO.loadBankMap(null); if(bankMap==null){ bankMap=new HashMap<String, String>();  } %>
-										<option>-Please Select-</option>
-										<%=AppUtil.formOption(bankMap, ""+branchDO.getBankId())%>
-									</select>
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="branchName">Branch Name</label>
-								<div class="position-relative has-icon-left">
-									<select id="branchName" class="form-control" placeholder="Branch Name" name="branchName">
-										<option></option>
-										<%
-										Map<String, String> branchMap=FinancePartyBankBranchDetailsDAO.loadBranchMap(null, ""+branchDO.getBankId() ); if(bankMap==null){ bankMap=new HashMap<String, String>();  }
-										%>
-										<%=AppUtil.formOption(branchMap, ""+branchDO.getBranchId())%>
-									</select>
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">A/C.No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="A/C.No" name="bankAccountNo" value="<%=employeeDO.getBankAccountNo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-					
-					 <hr><h4 class="card-title">Permanent Address</h4>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Door No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Door No" name="per_doorNo" value="<%=permAddress.getDooNo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Street Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Street Name" name="per_streetName" value="<%=permAddress.getStreetName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Road Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Road Name" name="per_roadName" value="<%=permAddress.getRoadName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Land Mark</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Land Mark" name="per_landMark" value="<%=permAddress.getLandMark()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">City</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="City" name="per_city" value="<%=permAddress.getCity()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">State</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="State" name="per_state" value="<%=permAddress.getState()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-					<div class="row">
-					
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">PIN Code</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="PIN Code" name="per_pinCode" value="<%=permAddress.getPincode()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-				 	<hr><h4 class="card-title">Communication Address</h4>
-					
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Door No</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Door No" name="cmm_doorNo" value="<%=permAddress.getDooNo()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Street Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Street Name" name="cmm_streetName" value="<%=permAddress.getStreetName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Road Name</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Road Name" name="cmm_roadName" value="<%=permAddress.getRoadName()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-					
-					
-					<div class="row">
-						
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">Land Mark</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="Land Mark" name="cmm_landMark" value="<%=permAddress.getLandMark()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">City</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="City" name="cmm_city" value="<%=permAddress.getCity()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">State</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="State" name="cmm_state" value="<%=permAddress.getState()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					
-					<div class="row">
-					
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="timesheetinput2">PIN Code</label>
-								<div class="position-relative has-icon-left">
-									<input type="text" id="timesheetinput2" class="form-control" placeholder="PIN Code" name="cmm_pinCode" value="<%=permAddress.getPincode()%>">
-									<div class="form-control-position">
-										<!-- <i class="la la-briefcase"></i> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-				</div>
+				
 				
 				
 			</div>
@@ -867,6 +780,43 @@ if(employeeDO.getEmpId()!=0 && false){ %>
  
 <script type="text/javascript">
 $(document).ready(function(){
+	initPage();
+	try{		
+		$('#<%=formName%>').validate({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+			rules: {
+				
+			},
+			messages: {
+				lettersonly:'Plese enter letters only',
+				firstName:{ required:'First Name is required'},
+				email:{ required:"Email is required" }
+			},
+			submitHandler: function(form) {
+				$.ajax({
+					url:$(form).attr('action'),
+					data:$(form).serialize(),
+					beforeSend:function(){
+						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
+					},
+					success:function(data){
+				 		$('#CMS-POPUP-MODEL').html(data);
+					}
+				});
+			}
+		});
+		
+	}catch(e){
+		alert('Something went wrong. Please Try Later..!');
+	}
+	
+	$('#<%=formName %>_department').change(function(){
+		loadDepartment( $(this).val(), $('#<%=formName %>_designation') );
+	});
 	
 	/* $(".tab-wizard").steps({
 	    headerTag: "h6",
@@ -882,36 +832,14 @@ $(document).ready(function(){
 	    }
 	}); */
 	
-	$('#<%=formName%>').on('change', '#bankName', function(){
-		var bankId=$(this).val();
-		if(bankId!=null && bankId!=''){
-			$('#<%=formName%> #branchName').html('<option></option>');
-			$.getJSON('employee?action=loadBranch&bankId='+bankId, function(data){
-				$('#<%=formName%> #branchName').append(data.option);
-			})
-		}
-		
+	$('#<%=formName%>').on('change', '#<%=formName %>_bankName', function(){
+		loadBankBranch($(this).val(), $('#<%=formName %>_branchName'))
 	});
 	
 	$('#<%=qualificationForm%>_expand').click( function(){
 		
 	});
 	
-	$('#<%=formName%>').submit(function(e){
-		var frm=$(this);
-		$.ajax({
-		 	   url:$(frm).attr('action'),
-		 	   data:$(frm).serialize(),
-		 	   beforeSend:function(){
-		 		  $('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
-		 	   },
-		 	   success:function(data){
-		 		   $('#CMS-POPUP-MODEL').html(data);
-		 		  initPage();
-		 	   }
-		    }); 
-		e.preventDefault();
-	});
 	
 });
 

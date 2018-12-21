@@ -47,7 +47,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Employee Name</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="employeeName" class="form-control" placeholder="Employee Name" name="employeeName" value="<%=employeeName%>" maxlength="25">
+		                                            <input type="text" id="employeeName" class="form-control form-control-sm" placeholder="Employee Name" name="employeeName" value="<%=employeeName%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -55,7 +55,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Department</label>
 		                                        <div class="col-sm-8">
-		                                        	<select id="<%=formName %>_department" class="form-control select2" placeholder="Department" name="department">
+		                                        	<select id="<%=formName %>_department" class="form-control form-control-sm select2" placeholder="Department" name="department">
 														<option value="">-please Select-</option>
 														<%=EmployeeCreationHandler.formDepartmentOption( ""+department )%>
 													</select>
@@ -68,7 +68,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Designation</label>
 		                                        <div class="col-sm-8">
-		                                        	<select id="<%=formName %>_designation" class="form-control select2" placeholder="Designation" name="designation">
+		                                        	<select id="<%=formName %>_designation" class="form-control form-control-sm select2" placeholder="Designation" name="designation">
 														<option value="">-Please Select-</option>
 														<%=EmployeeCreationHandler.formDesignationOption(""+department, ""+designation)%>
 													</select>
@@ -79,7 +79,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Qualification</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="qualification" class="form-control" placeholder="Qualification" name="qualification" value="<%=qualification%>" maxlength="25">
+		                                            <input type="text" id="qualification" class="form-control form-control-sm" placeholder="Qualification" name="qualification" value="<%=qualification%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -89,7 +89,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">State</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="state" class="form-control" placeholder="State" name="state" value="<%=state%>" maxlength="25">
+		                                            <input type="text" id="state" class="form-control form-control-sm" placeholder="State" name="state" value="<%=state%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -97,7 +97,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">City</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="city" class="form-control" placeholder="City" name="city" value="<%=city%>" maxlength="25">
+		                                            <input type="text" id="city" class="form-control form-control-sm" placeholder="City" name="city" value="<%=city%>" maxlength="25">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -107,7 +107,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="pinCode" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>" maxlength="8">
+		                                            <input type="text" id="pinCode" class="form-control form-control-sm" placeholder="Pin Code" name="pinCode" value="<%=pinCode%>" maxlength="8">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -115,7 +115,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Mobile</label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="mobile" class="form-control" placeholder="Mobile" name="mobile" value="<%=mobile%>" maxlength="13">
+		                                           <input type="text" id="mobile" class="form-control form-control-sm" placeholder="Mobile" name="mobile" value="<%=mobile%>" maxlength="13">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -125,7 +125,7 @@ String formName="emp_frm_"+Math.abs( new Random().nextInt(9999) );
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Email</label>
 		                                        <div class="col-sm-8">
-		                                         <input type="text" id="email" class="form-control" placeholder="Email" name="email" value="<%=email%>">
+		                                         <input type="text" id="email" class="form-control form-control-sm" placeholder="Email" name="email" value="<%=email%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -289,10 +289,6 @@ $(document).ready(function(){
 	});
 	
 });
-
-jQuery.validator.addMethod("lettersonly", function(value, element) {
-	  return this.optional(element) || /^[a-z]+$/i.test(value);
-}, "Plese enter letters only"); 
 
 
 function <%=formName %>reset(){

@@ -33,8 +33,6 @@ import com.cms.user.login.UserType;
 import com.cms.user.login.dao.AdminLoginMasterDAO;
 import com.cms.user.login.util.LoginUtil;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
-
 public class EmployeeCreationHandler {
 
 	public static void doEmployeeAdd( HttpServletRequest request, HttpServletResponse response ) {

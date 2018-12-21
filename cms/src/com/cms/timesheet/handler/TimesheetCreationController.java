@@ -35,7 +35,7 @@ public class TimesheetCreationController {
 
 	public static void doEdit(HttpServletRequest request, HttpServletResponse response) {
 
-		int timeSheetId = AppUtil.getNullToInteger( request.getParameter("timeSheetId")  );
+		int timeSheetId = AppUtil.getNullToInteger( request.getParameter("timesheetId")  );
 		TaskTimeSheetMasterDO timeSheetMstDO=TaskTimeSheetMasterDAO.getTaskTimeSheetMasterByTimeSheetId(null, timeSheetId, true);
 		request.setAttribute("timeSheetMstDO", timeSheetMstDO);
 	}
@@ -71,7 +71,7 @@ public class TimesheetCreationController {
 		String loginId = loginDetail.getLoginId();
 
 		TaskTimeSheetMasterDO timeSheetMstDO = new TaskTimeSheetMasterDO();
-
+		timeSheetMstDO.setTimeSheetId( AppUtil.getNullToInteger( request.getParameter("timesheetId")) );
 		timeSheetMstDO.setAssignedTo( ""+loginDetail.getRefId() );
 		timeSheetMstDO.setShiftId( AppUtil.getNullToInteger( request.getParameter("shiftId") ) );
 		timeSheetMstDO.setStatus( AppUtil.getNullToEmpty( request.getParameter("status"), "pending" ) );
@@ -84,8 +84,8 @@ public class TimesheetCreationController {
 		for (String sno : snoSet) {
 			TaskTimeSheetChildDO childDO = new TaskTimeSheetChildDO();
 			childDO.setTimeSheetChildId( AppUtil.getNullToInteger( request.getParameter("timeSheetChildId_"+sno) ) );
-			childDO.setStartTime( AppUtil.getNullToEmpty(request.getParameter("startTime_"+sno), "10/10/1000 00:00:00") );
-			childDO.setEndTime( AppUtil.getNullToEmpty(request.getParameter("endTime_"+sno), "10/10/1000 00:00:00") );
+			childDO.setStartTime( AppUtil.getNullToEmpty(request.getParameter("startTime_"+sno), "10/10/1000 00:00") );
+			childDO.setEndTime( AppUtil.getNullToEmpty(request.getParameter("endTime_"+sno), "10/10/1000 00:00") );
 			childDO.setRefType( AppUtil.getNullToInteger( request.getParameter("refType_"+sno) ));
 			childDO.setParticularsId( AppUtil.getNullToInteger( request.getParameter("particularsId_"+sno) ) );
 			childDO.setComments( AppUtil.getNullToEmpty(request.getParameter("comments_"+sno)) );
@@ -93,7 +93,7 @@ public class TimesheetCreationController {
 			childDO.setUpdateUser(loginId);
 
 			timeSheetChildList.add( childDO );
-			timeset.add(childDO.getStartTime() ); timeset.add(childDO.getEndTime() );
+			timeset.add(childDO.getStartTime()+":00" ); timeset.add(childDO.getEndTime()+":00" );
 		}
 
 		String fromDate="01/10/1000 00:00:00";
@@ -144,16 +144,16 @@ public class TimesheetCreationController {
 		timeSheetRow.append("</td>");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<input type='text' id='startTime_"+sno+"' class='form-control input-sm date_time_picker startTime' placeholder='Start Time' name='startTime_"+sno+"' value='"+timeSheetChildDO.getStartTime()+"' required='required'>");
+		timeSheetRow.append("<input type='text' id='startTime_"+sno+"' class='form-control input-sm date_time_picker startTime' placeholder='Start Time' name='startTime_"+sno+"' value='"+timeSheetChildDO.getStartTime()+"' required='required' data-msg-required='Start Time is required'>");
 		timeSheetRow.append("</div></td>");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<input type='text' id='endTime_"+sno+"' class='form-control input-sm date_time_picker endTime' placeholder='End Time' name='endTime_"+sno+"' value='"+timeSheetChildDO.getEndTime()+"' required='required'>");
+		timeSheetRow.append("<input type='text' id='endTime_"+sno+"' class='form-control input-sm date_time_picker endTime' placeholder='End Time' name='endTime_"+sno+"' value='"+timeSheetChildDO.getEndTime()+"' required='required' data-msg-required='End Time is required'>");
 		timeSheetRow.append("</div></td>	");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<select id='"+formName+"_refType_"+sno+"' class='form-control input-sm select2 refType' placeholder='Package Name' name='refType_"+sno+"' required='required'>");
-		timeSheetRow.append("<option>-- please Select --</option>"+AppUtil.formOption(timeSheetProcessMap, ""+timeSheetChildDO.getRefType()));
+		timeSheetRow.append("<select id='"+formName+"_refType_"+sno+"' class='form-control input-sm select2 refType' placeholder='Type' name='refType_"+sno+"' required='required' data-msg-required='Type is required'>");
+		timeSheetRow.append("<option value=''>-Please Select-</option>"+AppUtil.formOption(timeSheetProcessMap, ""+timeSheetChildDO.getRefType()));
 		timeSheetRow.append("</select>");
 		timeSheetRow.append("</div></td>");
 
@@ -161,13 +161,13 @@ public class TimesheetCreationController {
 		if(timeSheetProcessChildMap==null) { timeSheetProcessChildMap = new HashMap<String, String>(); }
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<select id='"+formName+"_particularsId_"+sno+"' class='form-control input-sm select2 particularsId' placeholder='Process Name' name='particularsId_"+sno+"' required='required'>");
-		timeSheetRow.append("<option>-- please Select --</option>"+AppUtil.formOption(timeSheetProcessChildMap, ""+timeSheetChildDO.getParticularsId() ));
+		timeSheetRow.append("<select id='"+formName+"_particularsId_"+sno+"' class='form-control input-sm select2 particularsId' placeholder='Particular' name='particularsId_"+sno+"' required='required' data-msg-required='Particular is required'>");
+		timeSheetRow.append("<option value=''>-Please Select-</option>"+AppUtil.formOption(timeSheetProcessChildMap, ""+timeSheetChildDO.getParticularsId() ));
 		timeSheetRow.append("</select>");
 		timeSheetRow.append("</div></td>");
 
 		timeSheetRow.append("<td><div class='form-group'>");
-		timeSheetRow.append("<textarea  name='comments_"+sno+"' id='comments_"+sno+"' class='form-control' rows='1' cols='50' placeholder='Comments..' required='required'>"+AppUtil.getNullToEmpty( timeSheetChildDO.getComments() )+"</textarea>");
+		timeSheetRow.append("<textarea  name='comments_"+sno+"' id='comments_"+sno+"' class='form-control' rows='1' cols='50' placeholder='Comments..' >"+AppUtil.getNullToEmpty( timeSheetChildDO.getComments() )+"</textarea>");
 		timeSheetRow.append("</div></td>");
 		timeSheetRow.append("<td><span style='cursor:pointer;' id='del_row_"+sno+"' class='del_row'>Delete</span></td>");
 		timeSheetRow.append("</tr>");
