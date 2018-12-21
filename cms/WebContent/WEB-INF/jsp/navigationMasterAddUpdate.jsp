@@ -43,9 +43,9 @@ label.invalid{
 			<input type="hidden" name="navigationId" value="<%=menunavDO.getNavigationId()%>">
 	
 			<div class="form-group">
-		    	<label for="parent_navigationId" class="control-label">Parent Navigation Name</label>
+		    	<label for="parent_navigationId" class="control-label">Parent Navigation Name<span style="color: #f62d51;">*</span></label>
 		       	<select id="parent_navigationId" class="form-control " placeholder="Parent Navigation" name="parent_navigationId" >
-          			<option>Root</option>
+          			<option value='0'>Root</option>
 					<%=NavigationCreationController.parentNavigationOption( ""+menunavDO.getParentNavigationId(),""+menunavDO.getNavigationId()) %>
 				</select>
 			</div>
@@ -61,18 +61,18 @@ label.invalid{
 			<div class="form-group" id="menu_div">
 	    		<label for="menuId" class="control-label">Menu<span style="color: #f62d51;">*</span></label>
            		<div><select id="menuId" class="form-control select2" placeholder="Menu Name"  name="menuId" style="width: 100%; height:26px;" >
-					<option></option>
+					<option>---select---</option>
 					<%=MenuCreationController.parentMenuOption(""+menunavDO.getMenuId()) %>
 				</select></div>
 			</div>
 			
 			<div class="form-group" id="<%=formName%>_nav_div">
 			    <label for="navigationName" class="control-label">Navigation Name<span style="color: #f62d51;">*</span></label>
-			    <input type="text" name="navigationName" class="form-control" id="navigationName" value="<%=menunavDO.getNavigationName()%>" placeholder="Navigation Name" required="required"">
+			    <input type="text" name="navigationName" class="form-control" id="navigationName" value="<%=menunavDO.getNavigationName()%>" maxlength="240" placeholder="Navigation Name" required="required"">
 			</div>
 			<div class="form-group">
 			    <label for="navigationName" class="control-label">Order<span style="color: #f62d51;">*</span></label>
-			    <input type="text" name="menuOrder" class="form-control" id="menuOrder" value="<%=menunavDO.getMenuOrder()%>" placeholder="Order">
+			    <input type="text" name="menuOrder" class="form-control numbersonly" id="menuOrder" required="required" value="<%=menunavDO.getMenuOrder()%>" placeholder="Order">
 			</div>
 			
         </div>
@@ -85,7 +85,7 @@ label.invalid{
 </div>
 
 <script type="text/javascript">
-
+jQuery.validator.addMethod("numbersonly", function(value, element) { return this.optional(element) || value.match(/^[0-9-]+$/);	}, " Enter Numbers Only"); 
 $(document).ready( function(){
 	try{		
 		$('.select2').select2();
@@ -121,6 +121,28 @@ $(document).ready( function(){
 			}
 			
 		});
+		
+		
+		
+		
+		<%if(menunavDO.getBoolIsMenu()){%>
+		
+		$('#<%=formName%>_nav_div').hide();
+		$('#<%=formName%>_nav_div').removeAttr("required");
+		$('#<%=formName%> #menu_div').show();
+		$('#<%=formName%> #menuId').attr("required","required");
+		
+	<%}	else{%>
+		$('#<%=formName%> #menu_div').hide();
+		$('#<%=formName%> #menuId').removeAttr("required");
+		$('#<%=formName%>_nav_div').show();
+		$('#<%=formName%>_nav_div').attr("required","required");
+		
+	 	$('#<%=formName%> #menuId option:selected').removeAttr("selected");	
+	 	$('#<%=formName%> #menuId option:selected').prop("selected",false); 
+	<%}%>
+		
+		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
 			validClass: 'valid',
@@ -133,7 +155,8 @@ $(document).ready( function(){
 			},
 			messages: {
 				menuId: { required: 'Menu Name is required' },
-				navigationName: { required: 'Navigation Name is required' }
+				navigationName: { required: 'Navigation Name is required' },
+				menuOrder: {required:'Order is required' }
 			
 			},
 			submitHandler: function(form) {

@@ -1,3 +1,5 @@
+<%@page import="com.cms.navigation.handler.NavigationCreationController"%>
+<%@page import="com.cms.navigation.dao.MenuNavigationDAO"%>
 <%@page import="com.cms.menu.handler.MenuCreationController"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -18,6 +20,19 @@
    String naviationName=AppUtil.getNullToEmpty( requestMap.get("navigationName") );
    String parentnavigationName=AppUtil.getNullToEmpty( requestMap.get("parentnavigationName") );
    String formName="navi_frm_"+Math.abs( new Random().nextInt(9999));
+   
+   HashMap<String,Map<String, Object>> all_map=new HashMap<String,Map<String, Object>>();
+   List<Map<String, Object>> resultList2=(List<Map<String, Object>>)resultMap.get( SearchEnum.RESULT_LIST.getKeyName() );
+	if(resultList2==null){ resultList2= new ArrayList<Map<String, Object>>();  }
+	String nav="0";
+	for(Map<String, Object> searchData:resultList2){
+		int nav_id=AppUtil.getNullToInteger( (String)searchData.get("COL#1") );
+		nav=nav+","+nav_id;
+		all_map.put(""+nav_id, searchData);
+	}
+	
+	Map<String,String> parentmap=MenuNavigationDAO.getParentNavigationMap(null,nav);
+	parentmap=parentmap==null?new HashMap<String,String>():parentmap;
    %>
 
 <div class="container-fluid">
@@ -38,7 +53,7 @@
                       			<div class="form-group row">
                                 <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Navigation Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="navigationName" class="form-control form-control-sm" id="navigationName" value="<%=naviationName %>" placeholder="Navigation Name">
+                                    <input type="text" name="navigationName" class="form-control form-control-sm" id="navigationName" value="<%=naviationName %>" maxlength="240" placeholder="Navigation Name">
                                 </div>
              		 			</div>
                       		</div>
@@ -46,10 +61,11 @@
                       			<div class="form-group row">
                                 <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Menu Name</label>
                                 <div class="col-sm-8">
-                                   <select id="menuName" class="form-control select2" placeholder="Menu Name" name="menuName" >
+                                   <%-- <select id="menuName" class="form-control select2" placeholder="Menu Name" name="menuName" >
 						                            		<option></option>
 															<%=MenuCreationController.parentMenuOption( menuName) %>
-														</select>
+														</select> --%>
+														 <input type="text" name="menuName" class="form-control form-control-sm" id="menuName" value="<%=menuName %>" maxlength="240" placeholder="Menu Name">
                                 </div>
                             </div>
                       		</div>
@@ -67,7 +83,7 @@
                   </div>
                   <form id="<%=formName %>_tble" class="form" action="#" method="post">
                    <div class="table-responsive">
-                       <table class="table table-bordered text-center">
+                       <table class="table table-bordered text-center <%=formName %>_proctble">
                            <thead>
                                <tr>
                                    <th scope="col">#</th>
@@ -78,7 +94,7 @@
                                </tr>
                            </thead>
                            <tbody>
-                           <%
+                   <%--        <%
 							List<Map<String, Object>> resultList=(List<Map<String, Object>>)resultMap.get( SearchEnum.RESULT_LIST.getKeyName() );
 							if(resultList==null){ resultList= new ArrayList<Map<String, Object>>();  }
 							int sno=1;
@@ -98,7 +114,10 @@
 										<a class='<%=formName %>_delete' href="javascript:;" ahref="navigation?action=delete&navigationId=<%=nav_id%>">delete</a></td>
 								</tr>
 							<%sno++;
-							} %>
+							} %> --%> 
+							
+							
+							<%NavigationCreationController.OutnavDisplay(out,"","","0",all_map,parentmap,formName); %>
                            </tbody>
                        </table>
                    </div>
@@ -113,6 +132,9 @@
 
 $(document).ready(function(){
 	
+<%-- 	$("#<%=formName%>_tablefrm .<%=formName%>_proctble").treetable(
+   			{persist: true, persistStoreName: "files",expandable: true}
+   		); --%>
 	try{		
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
@@ -161,7 +183,8 @@ $(document).ready(function(){
 
 function <%=formName %>reset(){
 	$('#<%=formName %> #navigationName').val('');$('#<%=formName %> #navigationName').attr('value', '');
-	$('#<%=formName%> #menuName option:selected').removeAttr("selected");	$('#<%=formName%> #menuName option:selected').prop("selected",false);
+	$('#<%=formName %> #menuName').val('');$('#<%=formName %> #menuName').attr('value', '');
+	<%-- $('#<%=formName%> #menuName option:selected').removeAttr("selected");	$('#<%=formName%> #menuName option:selected').prop("selected",false); --%>
 }
 </script>
 

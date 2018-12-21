@@ -1,10 +1,15 @@
 package com.cms.navigation.handler;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
 
 import com.application.util.AjaxModel;
 import com.application.util.AjaxUtil;
@@ -116,4 +121,78 @@ public class NavigationCreationController {
 		AjaxUtil.sendResponse(request, response, model);
 
 	}
+	
+	
+	/*Search listing*/
+	public static void OutnavDisplay(JspWriter out,String sno,String childSno,String navi_id,HashMap<String,Map<String, Object>> navMap,Map<String,String> ParentMap,String formname) throws IOException{
+		
+		
+		String childIDS = AppUtil.getNullToEmpty(""+ParentMap.get(""+navi_id));
+		
+		List<String> naviationIds  = AppUtil.convertStrArrayToOrderedList(childIDS.split(","));
+		
+		if(naviationIds.size()>0){
+			int i=1;
+			for(String nav_id : naviationIds){
+				
+				String newchildSno="";
+				if(sno.equalsIgnoreCase(""))
+					newchildSno=""+i;
+				else
+					newchildSno=sno+"."+i;
+				
+				Map<String, Object> map=navMap.get(""+nav_id);
+				int parentid=AppUtil.getNullToInteger( (String)map.get("COL#3") );
+				
+				String parent=parentid!=0? "data-tt-parent-id='"+parentid+"'":"";
+				
+				String rowvalue="";
+				rowvalue=geNavigationList(newchildSno,parent,map,formname);
+				out.print(rowvalue);
+				i++;
+				if(ParentMap.containsKey(""+nav_id))
+				{
+					String masterhildlist=AppUtil.getNullToEmpty(""+ParentMap.get(""+navi_id));
+					List<String> masterchilds  = AppUtil.convertStrArrayToOrderedList(masterhildlist.split(","));
+					
+					if(masterchilds!=null && masterchilds.size()!=0){
+						if(masterchilds.size()>0){							
+							OutnavDisplay(out,newchildSno,newchildSno,nav_id+"",navMap,ParentMap,formname);
+						}
+				}
+			
+			
+			}
+		 }
+		
+	  }
+	}
+	
+	
+	public static String geNavigationList(String sno,String parent,Map<String, Object> searchData,String fromname) {
+		StringBuffer sb=new StringBuffer();
+		
+		
+		
+		/* SELECT cmn_master_id, cmn_group_id, parent_id, cmn_master_name AS service_name, level_no */
+		int nav_id=AppUtil.getNullToInteger( (String)searchData.get("COL#1") );
+		String nav_name=AppUtil.getNullToEmpty( (String)searchData.get("COL#2") );
+		String menu_name=AppUtil.getNullToEmpty( (String)searchData.get("COL#11") );
+		
+	
+sb.append("<tr data-tt-id='"+nav_id+"' "+parent+">");
+sb.append("	<th scope='row'>"+sno+"</th>");
+sb.append("<td>"+nav_name+"</td>");
+sb.append("	<td>"+menu_name+"</td>");
+sb.append("<td>");
+sb.append("	<a data-target='#CMS-POPUP-MODE' data-toggle='modal'  data-url='navigation?action=edit&navigationId="+nav_id+"' href='#'>Edit</a> &nbsp;&nbsp;");
+sb.append("<a class='"+fromname+"_delete' href='javascript:;' ahref='navigation?action=delete&navigationId="+nav_id+"'>delete</a></td>");
+sb.append("<tr>");
+
+		
+		
+		return sb.toString();
+	}
+	
+	
 }

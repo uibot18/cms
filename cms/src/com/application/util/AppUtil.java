@@ -1,8 +1,10 @@
 package com.application.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -124,7 +126,19 @@ public class AppUtil {
 		}
 		return valueSet;
 	}
-	
+	public static List<String> convertStrArrayToOrderedList(String[] array){
+		List<String> valueSet = new ArrayList<String>();
+		try {
+			if(array!=null && array.length > 0) {
+				for (String stringVal : array) {
+					valueSet.add(stringVal);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return valueSet;
+	}	
 	public static Set<String> convertStrArrayToSet(String[] array){
 		Set<String> valueSet = new LinkedHashSet<String>();
 		try {

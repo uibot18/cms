@@ -166,6 +166,14 @@ public class TaskConfigCreationController {
 		return AppUtil.formOption( TaskConfigMasterDAO.getTaskNameMapBySubQry( null, subQry ), selTaskIds);
 	}
 
+	public static String taskDisplay( String selTaskIds, String excludeTaskIds ) {
+		excludeTaskIds=AppUtil.getNullToEmpty(excludeTaskIds);
+		selTaskIds=AppUtil.getNullToEmpty(selTaskIds);
+		String subQry="";
+		if(selTaskIds.isEmpty()==false) { subQry+=" AND task_config_id  IN("+selTaskIds+") "; }
+
+		return AppUtil.formDisplay( TaskConfigMasterDAO.getTaskNameMapBySubQry( null, subQry ), selTaskIds);
+	}
 	public static void doDelete(HttpServletRequest request, HttpServletResponse response) {
 		String loginId="Admin";
 		int taskConfigId=AppUtil.getNullToInteger( request.getParameter("taskConfigId")  );

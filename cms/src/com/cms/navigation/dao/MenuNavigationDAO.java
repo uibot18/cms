@@ -225,4 +225,27 @@ public class MenuNavigationDAO {
 		return parentNavMap;
 	}
 	
+	public static Map<String, String> getParentNavigationMap(Connection preCon,String navigation_ids) {
+		Map<String, String> parentNavMap=new HashMap<String, String>();
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+
+		String query="SELECT parent_navigation_id, GROUP_CONCAT( navigation_id ORDER BY menu_order) AS child_nav_ids " + 
+				" FROM menu_navigation " + 
+				" WHERE  bool_delete_status=0  and navigation_id in ("+navigation_ids+")" + 
+				" GROUP BY parent_navigation_id "; 
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery(query);
+			while(rs.next()) {
+				parentNavMap.put(""+rs.getInt(1), rs.getString(2));
+			}
+
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( stmt, preCon==null?con:null, rs  ); }
+		return parentNavMap;
+	}
+	
 }

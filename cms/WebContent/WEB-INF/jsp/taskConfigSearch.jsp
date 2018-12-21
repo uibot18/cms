@@ -136,6 +136,7 @@ String formName="Proc_frm_"+Math.abs( new Random().nextInt(9999));
 												<td>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskConfig?action=edit&taskConfigId=<%=task_config_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a class='<%=formName %>_delete' href="javascript:;" ahref="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp;
+													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskConfig?action=view&taskConfigId=<%=task_config_id%>" href="#">View</a> &nbsp;&nbsp;
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="taskQuestionnaire?action=add&taskConfigId=<%=task_config_id%>" href="#">Questionnaire</a> </td>
 											</tr>
 										<%sno++;
