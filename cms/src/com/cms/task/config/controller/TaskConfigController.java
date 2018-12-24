@@ -40,6 +40,10 @@ public class TaskConfigController extends HttpServlet {
 			TaskConfigCreationController.doEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/taskConfigAddUpdate.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("view")){
+			TaskConfigCreationController.doEdit(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/taskConfigView.jsp").forward(request, response);
+		}
 		else if(action.equalsIgnoreCase("delete")){
 			TaskConfigCreationController.doDelete(request, response);
 		}

@@ -142,5 +142,24 @@ public class AdminHolidayTypeDAO {
 		return typeMap;
 	} 
 
+	public static Map<String, String> getHolidayTypeMap(Connection preCon,String subqry) {
+		Map<String, String> typeMap=new HashMap<String, String>();
+		Connection con=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		
+		String query=" SELECT holiday_type_id, holiday_type FROM admin_holiday_type WHERE bool_delete_status=0 "+subqry;
+		
+		try {
+			con=preCon==null?DBConnection.getConnection():preCon;
+			stmt=con.createStatement();
+			rs=stmt.executeQuery( query );
+			while(rs.next()) { 
+				typeMap.put(""+rs.getInt(1), ""+rs.getString(2));
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+		finally { DBUtil.close( rs, stmt, preCon==null?con:null ); }
+		return typeMap;
+	} 
 
 }

@@ -34,7 +34,7 @@ public class NavigationSearchHandler {
 				"WHERE 0=0 and a.bool_delete_status=0 ";
 		
 		if( !navigationName.isEmpty() ) { query+=" AND a.navigation_name like '%"+navigationName+"%' ";  }
-		if( !menuName.isEmpty() ) { query+=" AND a.menu_id in("+menuName+") ";  }
+		if( !menuName.isEmpty() ) { /*query+=" AND a.menu_id in("+menuName+") "; */ query+=" AND IFNULL(b.menu_name,'') like '%"+menuName+"%' ";}
 	
 		
 		
