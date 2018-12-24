@@ -10,7 +10,8 @@
 <link rel="stylesheet" type="text/css" href="./static/assets/libs/select2/dist/css/select2.min.css">
 <link href="./static/assets/libs/jquery-steps/jquery.steps.css" rel="stylesheet">
 <link href="./static/assets/libs/jquery-steps/steps.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./static/assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+<!-- <link rel="stylesheet" type="text/css" href="./static/assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"> -->
+<link rel="stylesheet" type="text/css" href="./static/plugin/datetimepicker/css/bootstrap-datetimepicker.css">
 <style>
 .form-control.invalid{
 	border-color: #f62d51 !important;

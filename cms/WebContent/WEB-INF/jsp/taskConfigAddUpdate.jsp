@@ -142,10 +142,10 @@ select.form-control:not([size]):not([multiple]) {
 					<div class="row mb-2">
 						<div class="col-md-4">
 							<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Service Name</label>
+						<label class="col-md-4 label-control" for="<%=formName %>_serviceName">Service Name</label>
 						<div class="col-md-8">
-	                       <select id="serviceName" class="form-control" placeholder="Service Name" name="serviceName" >
-                           		<option></option>
+	                       <select id="<%=formName %>_serviceName" class="form-control select2" placeholder="Service Name" name="serviceName" >
+                           		<option value="">-Please Select-</option>
 								<%=ServiceCreationController.serviceOption("", ""+serviceDO.getCmnMasterId() ) %>
 							</select>
 	                    </div>
@@ -154,10 +154,10 @@ select.form-control:not([size]):not([multiple]) {
 						
 						<div class="col-md-4">
 							<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Package Name</label>
+						<label class="col-md-4 label-control" for="<%=formName %>_packageName">Package Name</label>
 						<div class="col-md-8">
-	                       <select id="packageName" class="form-control" placeholder="Package Name" name="packageName" >
-                           		<option></option>
+	                       <select id="<%=formName %>_packageName" class="form-control select2" placeholder="Package Name" name="packageName" >
+                           		<option value="">-Please Select-</option>
 								<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+serviceDO.getCmnMasterId(), ""+packageDO.getCmnMasterId()) %>
 							</select>
 	                    </div>
@@ -165,10 +165,10 @@ select.form-control:not([size]):not([multiple]) {
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Process Name</label>
+						<label class="col-md-4 label-control" for="<%=formName %>_processName">Process Name</label>
 						<div class="col-md-8">
-	                       <select id="processName" class="form-control" placeholder="Process Name" name="processName" >
-                           		<option></option>
+	                       <select id="<%=formName %>_processName" class="form-control select2" placeholder="Process Name" name="processName" >
+                           		<option value="">-Please Select-</option>
 								<%=CommonAjaxUtil.commonmasteroptionbyparentId( ""+packageDO.getCmnMasterId(),""+processDO.getCmnMasterId() ) %>
 							</select>
 	                    </div>
@@ -201,8 +201,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="form-group">
 						<label class="col-md-4 label-control" for="projectinput5">Department</label>
 						<div class="col-md-8">
-	                       <select id="departmentName" class="form-control" placeholder="Department" name="department" >
-                           		<option></option>
+	                       <select id="<%=formName %>_departmentName" class="form-control select2" placeholder="Department" name="department" >
+                           		<option value="">-Please Select-</option>
 								<%=EmployeeCreationHandler.formDepartmentOption(""+taskConfigDO.getDepartment() )%>
 							</select>
 	                    </div>
@@ -211,24 +211,23 @@ select.form-control:not([size]):not([multiple]) {
 						<div class="col-md-4">
 							
 							<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Designation</label>
+						<label class="col-md-4 label-control" for="<%=formName %>_designation">Designation</label>
 						<div class="col-md-8">
-	                       <select id="designation" class="form-control" placeholder="Designation" name="designation" >
-                           		<option></option>
-									<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+taskConfigDO.getDepartment(), ""+taskConfigDO.getDesignation()) %>
+	                       <select id="<%=formName %>_designation" class="form-control select2" placeholder="Designation" name="designation" >
+                           		<option value="">-Please Select-</option>
+								<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+taskConfigDO.getDepartment(), ""+taskConfigDO.getDesignation()) %>
 							</select>
 	                    </div>
                     </div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Employee</label>
+						<label class="col-md-4 label-control" for="<%=formName %>_empId">Employee</label>
 						<div class="col-md-8">
-                       <select id="empId" class="form-control" placeholder="Employee" name="empId" >
-                          		<option></option>
-							
-							<%=AppUtil.formOption(emp_name_map, ""+taskConfigDO.getEmpId()) %>
-						</select>
+                       		<select id="<%=formName %>_empId" class="form-control select2" placeholder="Employee" name="empId" >
+                      			<option value="">-Please Select-</option>
+								<%=AppUtil.formOption(emp_name_map, ""+taskConfigDO.getEmpId()) %>
+							</select>
 	                    </div>
                     </div>
 						</div>
@@ -236,18 +235,18 @@ select.form-control:not([size]):not([multiple]) {
 						<div class="row mb-2">
 								<div class="col-md-4">
 								<div class="form-group">
-						<label class="col-md-4 label-control" for="projectinput5">Ticket Duration</label>
+						<label class="col-md-4 label-control" for="">Ticket Duration</label>
 						<div class="col-md-4">
                        <input type="text" id="ticketDuration" class="form-control" placeholder="" name="ticketDuration" value="<%=taskConfigDO.getTicketDuration() %>"  >
 	                    </div>
 	                    <div class="col-md-4">
-								<div class="form-group">
-                       <select id="ticketDurationUom" class="form-control" placeholder="" name="ticketDurationUom" >
-	                  		<option value="na">--select--</option>
-	                  		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTicketDurationUom()) %>
-						</select>
-                    </div>
-							</div>
+							<div class="form-group">
+                       			<select id="<%=formName %>_ticketDurationUom" class="form-control select2" placeholder="" name="ticketDurationUom" >
+	                  				<option value="na">-Please Select-</option>
+	                  				<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTicketDurationUom()) %>
+								</select>
+                    	</div>
+					</div>
                     </div>
 							</div>
 					</div>
@@ -383,80 +382,7 @@ select.form-control:not([size]):not([multiple]) {
 						</div>
 					</div>
 					<div id="escalationContainer">
-					
-					<%
-					int sno=1;
-					for(TaskConfigEscalationChildDO escalationChild : escalationChildList){
-						
-						Map<String,String> esc_emp_name_map=null;
-						if(!escalationChild.getDepartment().equalsIgnoreCase("0") && !escalationChild.getDesignation().equalsIgnoreCase("0") && !escalationChild.getDepartment().equalsIgnoreCase("") && !escalationChild.getDesignation().equalsIgnoreCase("")){
-						String subqry="  and a.department_id ="+escalationChild.getDepartment()+" AND a.designation_id="+escalationChild.getDesignation()+" ";
-						esc_emp_name_map=AdmEmployeeMasterDAO.EmpNameMapBySubry(null,subqry);
-						 }
-						if(esc_emp_name_map==null) { esc_emp_name_map=new HashMap<String, String>(); }
-						%>
-						<div class="row esc_row esc_row_style">
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="">Department</label>
-									<div class="position-relative has-icon-left">
-										<select id="esc_department_<%=sno %>" class="form-control esc_department" placeholder="Department" name="esc_department_<%=sno %>" >
-		                            		<option></option>
-											<%=EmployeeCreationHandler.formDepartmentOption(""+escalationChild.getDepartment() )%>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="">Designation</label>
-									<div class="position-relative has-icon-left">
-										<select id="esc_designation_<%=sno %>" class="form-control esc_designation" placeholder="Designation" name="esc_designation_<%=sno %>" >
-		                            		<option></option>
-											<%-- <%=EmployeeCreationHandler.formDesignationOption(""+escalationChild.getDesignation() )%> --%>
-											<%=CommonAjaxUtil.commonmasteroptionbyparentId(""+escalationChild.getDepartment(), ""+escalationChild.getDesignation()) %>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="">Employee</label>
-									<div class="position-relative has-icon-left">
-										<select id="esc_empId_<%=sno %>" class="form-control" placeholder="Employee" name="esc_empId_<%=sno %>" >
-		                            		<option></option>
-											
-											<%=AppUtil.formOption(esc_emp_name_map, ""+taskConfigDO.getEmpId()) %>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label for="timesheetinput1">Ticket Duration</label>
-									<div class="position-relative ">
-										<input type="text" id="esc_ticketDuration_<%=sno %>" class="form-control esc_ticketDuration" placeholder="" name="esc_ticketDuration_<%=sno %>" value="<%=escalationChild.getTicketDuration() %>"  >
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-								<label for="timesheetinput1">&nbsp;</label>
-									<div class="position-relative has-icon-left">
-										<select id="esc_ticketDurationUom_<%=sno %>" class="form-control esc_ticketDurationUom" placeholder="" name="esc_ticketDurationUom_<%=sno %>" >
-					                  		<option value="na">--select--</option>
-					                  		<%=AppUtil.formOption(durationMap, ""+escalationChild.getTicketDurationUom()) %>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					<%	
-					sno++;
-					}
-					
-					%>
+						<%=TaskConfigCreationController.generateTaskEscChildTable(request, formName, taskConfigDO) %>
 					</div>
 					
 					<hr>
@@ -609,8 +535,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="monthlyEveryWeek" class="form-control" placeholder="" name="monthlyEveryWeek" >
-		                            		<option></option>
+										<select id="monthlyEveryWeek" class="form-control select2" placeholder="" name="monthlyEveryWeek" >
+		                            		<option value="">-Please Select-</option>
 											<%=AppUtil.formOption( monthlyEveryWeekMap, taskConfigDO.getMonthlyEveryWeek())%>
 										</select>
 									</div>
@@ -619,8 +545,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="monthlyEveryWeekWeekday" class="form-control" placeholder="" name="monthlyEveryWeekWeekday" >
-		                            		<option></option>
+										<select id="monthlyEveryWeekWeekday" class="form-control select2" placeholder="" name="monthlyEveryWeekWeekday" >
+		                            		<option value="">-Please Select-</option>
 											<%=AppUtil.formOption( dayMap, taskConfigDO.getMonthlyEveryWeekWeekday())%>
 										</select>
 									</div>
@@ -685,8 +611,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="yearlyEveryWeek" class="form-control" placeholder="" name="yearlyEveryWeek" >
-		                            		<option></option>
+										<select id="yearlyEveryWeek" class="form-control select2" placeholder="" name="yearlyEveryWeek" >
+		                            		<option value="">-Please Select-</option>
 											<%=AppUtil.formOption( monthlyEveryWeekMap, taskConfigDO.getYearlyEveryWeek() )%>
 										</select>
 									</div>
@@ -695,8 +621,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="yearlyEveryWeekWeek" class="form-control" placeholder="" name="yearlyEveryWeekWeek" >
-		                            		<option></option>
+										<select id="yearlyEveryWeekWeek" class="form-control select2" placeholder="" name="yearlyEveryWeekWeek" >
+		                            		<option value="">-Please Select-</option>
 											<%=AppUtil.formOption( dayMap, taskConfigDO.getYearlyEveryWeekWeek() )%>
 										</select>
 									</div>
@@ -709,8 +635,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="yearlyEveryMonth" class="form-control" placeholder="" name="yearlyEveryMonth" >
-		                            		<option></option>
+										<select id="yearlyEveryMonth" class="form-control select2" placeholder="" name="yearlyEveryMonth" >
+		                            		<option value="">-Please Select-</option>
 											<%=AppUtil.formOption( monthMap, ""+taskConfigDO.getYearlyEveryMonth() )%>
 										</select>
 									</div>
@@ -734,10 +660,10 @@ select.form-control:not([size]):not([multiple]) {
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-								<label for="timesheetinput1">Holiday Type</label>
+								<label for="holidayIds">Holiday Type</label>
 									<div class="position-relative ">
 										<select id="holidayIds" class="form-control" placeholder="" name="holidayIds" multiple="multiple" >
-		                            		<option></option>
+		                            		<option value="">-Please Select-</option>
 											<%=HolidayTypeCreationController.formHolidayTypeOption(""+taskConfigDO.getHolidayIds() )%>
 										</select>
 									</div>
@@ -769,7 +695,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="taskExeUnitUom" class="form-control" placeholder="" name="taskExeUnitUom" >
+										<select id="taskExeUnitUom" class="form-control select2" placeholder="" name="taskExeUnitUom" >
+											<option value="">-Please Select-</option>
 		                            		<%=AppUtil.formOption(durationMap, ""+taskConfigDO.getTaskExeUnitUom()) %>
 										</select>
 									</div>
@@ -794,8 +721,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="refTaskConfigId1" class="form-control" placeholder="" name="refTaskConfigId1" >
-		                            		<option value="na">-- N/A--</option>
+										<select id="refTaskConfigId1" class="form-control select2" placeholder="" name="refTaskConfigId1" >
+		                            		<option value="na">-Please Select-</option>
 											<%=TaskConfigCreationController.taskOption(""+refTaskConfigId1, ""+taskConfigDO.getTaskConfigId())%>
 										</select>
 									</div>
@@ -814,8 +741,8 @@ select.form-control:not([size]):not([multiple]) {
 							<div class="col-md-2">
 								<div class="form-group">
 									<div class="position-relative ">
-										<select id="refTaskConfigId2" class="form-control" placeholder="" name="refTaskConfigId2" >
-		                            		<option value="na">-- N/A--</option>
+										<select id="refTaskConfigId2" class="form-control select2" placeholder="" name="refTaskConfigId2" >
+		                            		<option value="na">-Please Select-</option>
 											<%=TaskConfigCreationController.taskOption(""+refTaskConfigId2, ""+taskConfigDO.getTaskConfigId())%>
 										</select>
 									</div>
@@ -897,8 +824,8 @@ select.form-control:not([size]):not([multiple]) {
 						<div class="col-md-1">
 							<div class="form-group">
 								<div class="position-relative ">
-									<select id="durationType" class="form-control" placeholder="" name="durationType" >
-	                            		<option value="na">-- N/A--</option>
+									<select id="durationType" class="form-control select2" placeholder="" name="durationType" >
+	                            		<option value="na">-Please Select-</option>
 										<%=AppUtil.formOption( durationMap,""+taskConfigDO.getDurationType() )%>
 									</select>
 								</div>
@@ -918,70 +845,12 @@ select.form-control:not([size]):not([multiple]) {
 	</div>
 </div>
 
-
-   
-<div class="row esc_row esc_row_style" id="<%=formName%>_emp_esc_row" style="display: none;">
-	<div class="col-md-4">
-		<div class="form-group">
-			<label for="">Department</label>
-			<div class="position-relative has-icon-left">
-				<select id="" class="form-control esc_department" placeholder="Department" name="" >
-              			<option></option>
-					<%=EmployeeCreationHandler.formDepartmentOption(""+taskConfigDO.getDepartment() )%>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			<label for="">Designation</label>
-			<div class="position-relative has-icon-left">
-				<select id="" class="form-control esc_designation" placeholder="Designation" name="" >
-                	<option></option>
-					<%=EmployeeCreationHandler.formDesignationOption("", ""+taskConfigDO.getDesignation() )%>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			<label for="timesheetinput1">Employee</label>
-			<div class="position-relative has-icon-left">
-				<select id="" class="form-control esc_empId" placeholder="Employee" name="" >
-                        		<option></option>
-					<%=EmployeeCreationHandler.formEmployeeOption(""+taskConfigDO.getEmpId() )%>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-2">
-		<div class="form-group">
-			<label for="timesheetinput1">Ticket Duration</label>
-			<div class="position-relative ">
-				<input type="text" id="" class="form-control esc_ticketDuration" placeholder="" name="" value=""  >
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-		<label for="timesheetinput1">&nbsp;</label>
-			<div class="position-relative has-icon-left">
-				<select id="" class="form-control esc_ticketDurationUom" placeholder="" name="" >
-                 		<option value="na">--select--</option>
-                 		<option value="day">Day</option>
-                 		<option value="hour">Hour</option>
-                 		<option value="minute">Minute</option>
-				</select>
-			</div>
-		</div>
-	</div>
-</div>
-   
    
   </body>
 <script type="text/javascript">
 
 $(document).ready( function(){
+	initPage();
 	$('#<%=formName %> #configType_<%=taskConfigDO.getConfigType()%>').prop('checked', 'checked');
 	$('#configType_div_<%=taskConfigDO.getConfigType()%>').show();
 	
@@ -1020,26 +889,17 @@ $(document).ready( function(){
 		$(this).css('pointer-events', 'none');
 		var sno=$('#<%=formName %> #esc_rowCount').val(); if(isNaN(sno) || sno==''){ sno=0;}
 		sno=parseInt(sno)+1;
-		var escRow=$('#<%=formName%>_emp_esc_row').clone();
-		$(escRow).removeAttr('style');
-		$(escRow).find('.esc_department').attr('name', 'esc_department_'+sno);
-		$(escRow).find('.esc_department').attr('id', 'esc_department_'+sno);
 		
-		$(escRow).find('.esc_designation').attr('name', 'esc_designation_'+sno);
-		$(escRow).find('.esc_designation').attr('id', 'esc_designation_'+sno);
+		var param='?action=loadEscRow&formName=<%=formName %>&sno='+sno;
+		$.getJSON('taskConfig'+param,function(response){
+			if(!$.isEmptyObject(response) && response.errorExists==false){
+				$('#<%=formName %> #escalationContainer').append(response.data);
+				$('#<%=formName %> #esc_rowCount').val(sno);
+				$(this).css('pointer-events', '');
+				initPage();
+			}
+		});
 		
-		$(escRow).find('.esc_empId').attr('name', 'esc_empId_'+sno);
-		$(escRow).find('.esc_empId').attr('id', 'esc_empId_'+sno);
-		
-		$(escRow).find('.esc_ticketDuration').attr('name', 'esc_ticketDuration_'+sno);
-		$(escRow).find('.esc_ticketDuration').attr('id', 'esc_ticketDuration_'+sno);
-		
-		$(escRow).find('.esc_ticketDurationUom').attr('name', 'esc_ticketDurationUom_'+sno);
-		$(escRow).find('.esc_ticketDurationUom').attr('id', 'esc_ticketDurationUom_'+sno);
-		
-		$('#<%=formName %> #escalationContainer').append(escRow);
-		$('#<%=formName %> #esc_rowCount').val(sno);
-		$(this).css('pointer-events', '');
 	});
 	$('#<%=formName %>').on('click','#btn_escalationDelete', function(){
 		if($("#<%=formName %> .esc_row").length>0){
@@ -1070,75 +930,73 @@ $(document).ready( function(){
 });
 
 function <%=formName %>reset(){
-	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');
+	$('#<%=formName %> #<%=formName %>_serviceName').val('');$('#<%=formName %> #<%=formName %>_serviceName').attr('value', '');
 }
 
-$('#<%=formName %>').on('change', '#serviceName', function(){
-	var service_name_value=$('#serviceName').val();
-	console.log(service_name_value);
-	$('#packageName option:selected').remove();
-	$('#packageName').find('option').remove();
-	$('#packageName').append('<option ></option>');
-	$('#processName option:selected').remove();
-	$('#processName').find('option').remove();
-	$('#processName').append('<option ></option>');
+$('#<%=formName %>').on('change', '#<%=formName %>_serviceName', function(){
+	var service_name_value=$('#<%=formName %>_serviceName').val();
+	$('#<%=formName %>_packageName option:selected').remove();
+	$('#<%=formName %>_packageName').find('option').remove();
+	$('#<%=formName %>_packageName').append('<option value="">-Please Select-</option>');
+	$('#<%=formName %>_processName option:selected').remove();
+	$('#<%=formName %>_processName').find('option').remove();
+	$('#<%=formName %>_processName').append('<option value="">-Please Select-</option>');
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+service_name_value,function(data){
 		$.each(data.result,function(index,item){
 			console.log(item.id+":::"+item.value);
-			$('#packageName').append('<option value='+item.id+'>'+item.value+'</option>');
+			$('#<%=formName %>_packageName').append('<option value='+item.id+'>'+item.value+'</option>');
 		});
 		
 	});
 });
 
 
-$('#<%=formName %>').on('change', '#packageName', function(){
-	var package_name_value=$('#packageName').val();
-	console.log(package_name_value);
-	$('#processName option:selected').remove();
-	$('#processName').find('option').remove();
-	$('#processName').append('<option ></option>');
+$('#<%=formName %>').on('change', '#<%=formName %>_packageName', function(){
+	var package_name_value=$('#<%=formName %>_packageName').val();
+	$('#<%=formName %>_processName option:selected').remove();
+	$('#<%=formName %>_processName').find('option').remove();
+	$('#<%=formName %>_processName').append('<option value="">-Please Select-</option>');
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+package_name_value,function(data){
 		$.each(data.result,function(index,item){
-			$('#processName').append('<option value='+item.id+'>'+item.value+'</option>');
+			$('#<%=formName %>_processName').append('<option value='+item.id+'>'+item.value+'</option>');
 		});
 		
 	});
 });
 
 
-$('#<%=formName %>').on('change', '#departmentName', function(){
-	var depart_name_value=$('#departmentName').val();
+$('#<%=formName %>').on('change', '#<%=formName %>_departmentName', function(){
+	var depart_name_value=$('#<%=formName %>_departmentName').val();
 	
-	$('#designation option:selected').remove();
-	$('#designation').find('option').remove();
-	$('#designation').append('<option ></option>');
+	$('#<%=formName %>_designation option:selected').remove();
+	$('#<%=formName %>_designation').find('option').remove();
+	$('#<%=formName %>_designation').append('<option value="">-Please Select-</option>');
 	
-	$('#empId option:selected').remove();
-	$('#empId').find('option').remove();
-	$('#empId').append('<option ></option>');
+	$('#<%=formName %>_empId option:selected').remove();
+	$('#<%=formName %>_empId').find('option').remove();
+	$('#<%=formName %>_empId').append('<option value="">--Please Select</option>');
 	
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+depart_name_value,function(data){
 		
 		$.each(data.result,function(index,item){
 			console.log(item.id+":::"+item.value);
-			$('#designation').append('<option value='+item.id+'>'+item.value+'</option>');
+			$('#<%=formName %>_designation').append('<option value='+item.id+'>'+item.value+'</option>');
 		});
 		
 	});
 });
 
 
-$('#<%=formName %>').on('change', '#designation', function(){
-	var designation_value=$('#designation').val();
-	var department_value=$('#departmentName').val();
+$('#<%=formName %>').on('change', '#<%=formName %>_designation', function(){
+	var designation_value=$('#<%=formName %>_designation').val();
+	var department_value=$('#<%=formName %>_departmentName').val();
 	
-	$('#empId option:selected').remove();
-	$('#empId').find('option').remove();
-	$('#empId').append('<option ></option>');
+	$('#<%=formName %>_empId option:selected').remove();
+	$('#<%=formName %>_empId').find('option').remove();
+	$('#<%=formName %>_empId').append('<option value="">-Please Select-</option>');
 	$.getJSON('commonajax?action=ajax&type=employee&department='+department_value+'&designation='+designation_value,function(data){
 		
-		$('#<%=formName%> #empId').append(data.option);
+		$('#<%=formName%> #<%=formName %>_empId').append(data.option);
 	
 		
 	});
@@ -1154,10 +1012,10 @@ $('#<%=formName %>').on('change', '.esc_department', function(){
 	
 	$('#'+des_id+' option:selected').remove();
 	$('#'+des_id).find('option').remove();
-	$('#'+des_id).append('<option ></option>');
+	$('#'+des_id).append('<option value="">-Please Select-</option>');
 	$('#'+emp_id+' option:selected').remove();
 	$('#'+emp_id).find('option').remove();
-	$('#'+emp_id).append('<option ></option>');
+	$('#'+emp_id).append('<option value="">-Please Select-</option>');
 	
 	$.getJSON('commonajax?action=ajax&type=cmn_master&parentid='+department_value,function(data){
 		$.each(data.result,function(index,item){
@@ -1177,7 +1035,7 @@ $('#<%=formName %>').on('change', '.esc_designation', function(){
 	
 	$('#'+emp_id+' option:selected').remove();
 	$('#'+emp_id).find('option').remove();
-	$('#'+emp_id).append('<option ></option>');
+	$('#'+emp_id).append('<option value="">-Please Select-</option>');
 	
 	$.getJSON('commonajax?action=ajax&type=employee&department='+department_value+'&designation='+designation_value,function(data){
 		

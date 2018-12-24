@@ -94,6 +94,7 @@ public class CommonMasterDAO {
 
 	public static List<CommonMasterDO> getCommonMasterBySubqry(Connection preCon, String subqry, boolean needChild) {
 		String query=SELECT +" where 0=0 "+subqry;
+		System.out.println("query: "+query);
 		List<CommonMasterDO> dtoList =getCommonMaster(preCon, query, needChild);
 		if( dtoList==null ) { dtoList=new ArrayList<CommonMasterDO>(); }
 		return dtoList;

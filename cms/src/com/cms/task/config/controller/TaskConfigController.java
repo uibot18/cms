@@ -43,6 +43,9 @@ public class TaskConfigController extends HttpServlet {
 		else if(action.equalsIgnoreCase("delete")){
 			TaskConfigCreationController.doDelete(request, response);
 		}
+		else if(action.equalsIgnoreCase("loadEscRow")){
+			TaskConfigCreationController.doLoadEscRow(request, response);
+		}
 	}
 
 }

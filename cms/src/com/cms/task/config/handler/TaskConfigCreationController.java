@@ -1,7 +1,9 @@
 package com.cms.task.config.handler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import com.application.util.AjaxModel;
 import com.application.util.AjaxUtil;
 import com.application.util.AppUtil;
 import com.application.util.PageAlertType;
+import com.cms.employee.handler.EmployeeCreationHandler;
 import com.cms.task.config.bean.TaskConfigEscalationChildDO;
 import com.cms.task.config.bean.TaskConfigMasterDO;
 import com.cms.task.config.dao.TaskConfigMasterDAO;
@@ -136,10 +139,10 @@ public class TaskConfigCreationController {
 		taskConfigDO.setStartTime( AppUtil.getNullToEmpty( request.getParameter("startTime"), "00:00:00") );
 		taskConfigDO.setDuration( AppUtil.getNullToInteger( request.getParameter("duration") ) );
 		taskConfigDO.setDurationType( AppUtil.getNullToEmpty( request.getParameter("durationType")) );
-		
+
 		taskConfigDO.setCreatedUser(loginId);
 		taskConfigDO.setUpdateUser(loginId);
-		
+
 		List<TaskConfigEscalationChildDO> escChildList=new ArrayList<TaskConfigEscalationChildDO>();
 		int escRowCount=AppUtil.getNullToInteger( request.getParameter("esc_rowCount") );
 		for (int i = 1; i <= escRowCount; i++) {
@@ -170,11 +173,11 @@ public class TaskConfigCreationController {
 		String loginId="Admin";
 		int taskConfigId=AppUtil.getNullToInteger( request.getParameter("taskConfigId")  );
 		TaskConfigMasterDO taskConfigDO=new TaskConfigMasterDO();
-		
+
 		taskConfigDO.setBoolDeleteStatus(true);
 		taskConfigDO.setUpdateUser(loginId);
 		taskConfigDO.setTaskConfigId(taskConfigId);
-		
+
 		AjaxModel model=new AjaxModel();
 		if(TaskConfigMasterDAO.deleteupdate(null, taskConfigDO)) {
 			model.setMessage(" Deleted Successfully");
@@ -183,4 +186,92 @@ public class TaskConfigCreationController {
 		}
 		AjaxUtil.sendResponse(request, response, model);
 	}
+
+
+	public static  String generateTaskEscChildTable(HttpServletRequest request, String formName, TaskConfigMasterDO taskConfigDO) {
+		StringBuffer escTable = new StringBuffer();
+		List<TaskConfigEscalationChildDO> escalationChildDOs = taskConfigDO.getEscalationChildList();
+
+		if(escalationChildDOs != null && !escalationChildDOs.isEmpty()) {
+			int sno=1;
+			for (TaskConfigEscalationChildDO escChildDO : escalationChildDOs) {
+				escTable.append( generateTaskEscChildRow(request, formName, taskConfigDO, escChildDO, sno ) );
+				sno++;
+			}
+
+		}else {
+
+		}
+		return escTable.toString();
+	}
+
+	private static String generateTaskEscChildRow(HttpServletRequest request, String formName, TaskConfigMasterDO taskConfigDO, TaskConfigEscalationChildDO escChildDO, int sno) {
+
+		Map<String, String> durationMap = new HashMap<String, String>();
+		durationMap.put("na", "-Please Select-");
+		durationMap.put("day", "Day");
+		durationMap.put("hour", "Hour");
+		durationMap.put("minute", "Minute");
+		
+		StringBuffer escChildRow = new StringBuffer();
+
+		escChildRow.append("<div class='row esc_row esc_row_style'>");
+
+		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for='esc_department_"+sno+"'>Department</label>");
+		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<select id='esc_department_"+sno+"' class='form-control esc_department select2' placeholder='Department' name='esc_department_"+sno+"' >");
+		escChildRow.append("<option value=''>-Please Select-</option>" );
+		escChildRow.append(EmployeeCreationHandler.formDepartmentOption(""+escChildDO.getDepartment() ) );
+		escChildRow.append("</select></div></div></div>");
+		
+		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for=''>Designation</label>");
+		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<select id='esc_designation_"+sno+"' class='form-control esc_designation select2' placeholder='Designation' name='esc_designation_"+sno+"' >");
+		escChildRow.append("<option value=''>-Please Select-</option>");
+		escChildRow.append(EmployeeCreationHandler.formDesignationOption("", ""+escChildDO.getDesignation() ));
+		escChildRow.append("</select></div></div></div>");
+		
+		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for='esc_empId_"+sno+"'>Employee</label>");
+		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<select id='esc_empId_"+sno+"' class='form-control esc_empId select2' placeholder='Employee' name='esc_empId_"+sno+"' >");
+		escChildRow.append("<option value=''>-Please Select-</option>");
+		escChildRow.append( EmployeeCreationHandler.formEmployeeOption(""+escChildDO.getEmpId() ) );
+		escChildRow.append("</select></div></div></div>");
+		
+		escChildRow.append("<div class='col-md-2'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for='esc_ticketDuration_"+sno+"'>Ticket Duration</label>");
+		escChildRow.append("<div class='position-relative '>");
+		escChildRow.append("<input type='text' id='esc_ticketDuration_"+sno+"' class='form-control esc_ticketDuration' placeholder='Ticket Duration' name='esc_ticketDuration_"+sno+"' value='"+escChildDO.getTicketDuration()+"'>");
+		escChildRow.append("</div></div></div>");
+		
+		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for='esc_ticketDurationUom_"+sno+"'>&nbsp;</label>");
+		escChildRow.append("<div class='position-relative '>");
+		escChildRow.append("<select id='esc_ticketDurationUom_"+sno+"' class='form-control esc_ticketDurationUom select2' placeholder='UOM' name='esc_ticketDurationUom_"+sno+"' >");
+		escChildRow.append( AppUtil.formOption(durationMap, escChildDO.getTicketDurationUom()) );
+		escChildRow.append("</select></div></div></div>");
+		
+		escChildRow.append("</div>");
+		return escChildRow.toString();
+	}
+
+	public static void doLoadEscRow(HttpServletRequest request, HttpServletResponse response) {
+		AjaxModel model = new AjaxModel();
+		int sno=AppUtil.getNullToInteger( request.getParameter("sno") );
+		String formName = AppUtil.getNullToEmpty( request.getParameter("formName") );
+		model.setData( generateTaskEscChildRow(request, formName, null, new TaskConfigEscalationChildDO(), sno) );
+		AjaxUtil.sendResponse(request, response, model);
+		
+	}
+
+
+
 }
