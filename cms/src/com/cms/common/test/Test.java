@@ -25,7 +25,6 @@ public class Test{
 		//	DevUtil.generateDOAndDAO(DBConnection.getConnection(), "admin_login_master");
 
 		
-		
 		Set<String> set = new LinkedHashSet<String>();
 		set.add("1");
 		set.add("2");
@@ -37,23 +36,12 @@ public class Test{
 		System.out.println("Res : "+ssss);
 		
 	}
-	
-	
-	
-	
-	
+		
 	public static String generateMenuItem() {
 		return null;
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-
 	private static void sendMail() {
 		final String username = "uibot18@gmail.com";
 		final String password = "ui@12345";
@@ -94,8 +82,6 @@ public class Test{
 		i++;
 		System.out.println("i:ssss"+i);
 	}
-
-
 
 
 

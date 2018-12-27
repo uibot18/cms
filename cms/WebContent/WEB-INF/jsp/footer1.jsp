@@ -43,7 +43,8 @@
     <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     
     <script src="./static/assets/libs/moment/moment.js"></script>
-    <script src="./static/assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js"></script>
+    <!-- <script src="./static/assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js"></script> -->
+    <script src="./static/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
 
 $("#CMS-POPUP-MODEL").on('show.bs.modal', function (e) {
@@ -139,8 +140,11 @@ function initPage(){
 		format:'dd/mm/yyyy'
 	}); 
 	
-	$('.date_time_picker').bootstrapMaterialDatePicker({ 
+/* 	$('.date_time_picker').datetimepicker({ 
 		format: 'DD/MM/YYYY HH:mm' 
+	}); */
+	$(".date_time_picker").datetimepicker({
+		format: 'dd/mm/yyyy hh:ii'
 	});
 }
 

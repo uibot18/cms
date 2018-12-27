@@ -36,6 +36,9 @@ public class TaskSearchHandler {
 
 		taskDateFrom=AppDateUtil.convertToDBDate(taskDateFrom, false, false);
 		taskDateTo=AppDateUtil.convertToDBDate(taskDateTo, false, false);
+		
+		if(taskDateFrom.contains("1000")) { taskDateFrom="";}
+		if(taskDateTo.contains("1000")) { taskDateTo="";}
 
 		String query="SELECT a.task_id, a.task_date_from, a.task_date_to, a.task_config_id, b.task_config_name, a.assigned_to, c.first_name, a.task_status " + 
 				"FROM task_master a, task_config_master b, adm_employee_master_view c " + 
