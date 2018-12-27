@@ -7,6 +7,7 @@ public class TaskConfigEscalationChildDO {
 	private String department="";
 	private String designation="";
 	private String empId="";
+	private int level=0;
 	private int ticketDuration=0;
 	private String ticketDurationUom="na";
 	private boolean boolDeleteStatus;
@@ -45,6 +46,12 @@ public class TaskConfigEscalationChildDO {
 	}
 	public String getEmpId(){
 		return this.empId;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	public void setTicketDuration(int ticketDuration){
 		this.ticketDuration=ticketDuration;

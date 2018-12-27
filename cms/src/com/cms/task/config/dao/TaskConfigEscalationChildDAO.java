@@ -14,9 +14,9 @@ import com.cms.task.config.bean.TaskConfigEscalationChildDO;
 
 public class TaskConfigEscalationChildDAO {
 
-	private static final String SELECT="select   task_config_escalation_id, task_config_id, department, designation, emp_id, ticket_duration, ticket_duration_uom, bool_delete_status, created_user, created_date, update_user, update_date from task_config_escalation_child ";
-	private static final String INSERT="insert into task_config_escalation_child( task_config_escalation_id, task_config_id, department, designation, emp_id, ticket_duration, ticket_duration_uom, bool_delete_status, created_user, created_date, update_user, update_date)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW() ) ";
-	private static final String UPDATE="update  task_config_escalation_child set  task_config_id=?, department=?, designation=?, emp_id=?, ticket_duration=?, ticket_duration_uom=?, bool_delete_status=?,  update_user=?, update_date=NOW() WHERE task_config_escalation_id=? ";
+	private static final String SELECT="select   task_config_escalation_id, task_config_id, department, designation, emp_id, ticket_duration, ticket_duration_uom, bool_delete_status, created_user, created_date, update_user, update_date, level from task_config_escalation_child ";
+	private static final String INSERT="insert into task_config_escalation_child( task_config_escalation_id, task_config_id, department, designation, emp_id, ticket_duration, ticket_duration_uom, bool_delete_status, created_user, created_date, update_user, update_date, level)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ? ) ";
+	private static final String UPDATE="update  task_config_escalation_child set  task_config_id=?, department=?, designation=?, emp_id=?, ticket_duration=?, ticket_duration_uom=?, bool_delete_status=?,  update_user=?, update_date=NOW(), level=? WHERE task_config_escalation_id=? ";
 	private static final String DELETE_BY_TASK_CONGIG_ID="delete from  task_config_escalation_child where task_config_id=?";
 	
 	public static int insert(Connection preCon, TaskConfigEscalationChildDO dto) {
@@ -38,6 +38,7 @@ public class TaskConfigEscalationChildDAO {
 			stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
 			stmt.setString(i++, dto.getCreatedUser() );
 			stmt.setString(i++, dto.getUpdateUser() );
+			stmt.setInt(i++, dto.getLevel() );
 			stmt.execute();
 			rs=stmt.getGeneratedKeys();
 			if(rs.next()) { insertId=rs.getInt(1); }
@@ -64,6 +65,7 @@ public class TaskConfigEscalationChildDAO {
 				stmt.setBoolean(i++, dto.getBoolDeleteStatus() );
 				stmt.setString(i++, dto.getCreatedUser() );
 				stmt.setString(i++, dto.getUpdateUser() );
+				stmt.setInt(i++, dto.getLevel() );
 				System.out.println("stmt : "+stmt.toString());
 				stmt.addBatch();
 			}
@@ -92,6 +94,7 @@ public class TaskConfigEscalationChildDAO {
 			stmt.setString(i++,dto.getTicketDurationUom());
 			stmt.setBoolean(i++,dto.getBoolDeleteStatus());
 			stmt.setString(i++,dto.getCreatedUser());
+			stmt.setInt(i++, dto.getLevel() );
 			stmt.setInt(i++,dto.getTaskConfigEscalationId());
 			int rowAffect=stmt.executeUpdate();
 			if(rowAffect!=0) { return true; }
@@ -168,6 +171,7 @@ public class TaskConfigEscalationChildDAO {
 			dto.setCreatedDate(rs.getString(i++));
 			dto.setUpdateUser(rs.getString(i++));
 			dto.setUpdateDate(rs.getString(i++));
+			dto.setLevel(rs.getInt(i++));
 		} catch (SQLException e) { e.printStackTrace(); }
 		finally { }
 		return dto;

@@ -13,18 +13,6 @@ if(timeSheetMstDO==null){ timeSheetMstDO=new TaskTimeSheetMasterDO(); }
 
 String formName="tim_sht_frm_"+Math.abs( new Random().nextInt(9999) );
 %>
-<style>
-.form-control.invalid{
-	border-color: #f62d51 !important;
-}
-label.invalid{
-	color: #f62d51 !important;
-}
-.form-control.valid{
-	border-color: #36bea6 !important;
-}
-
-</style>
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
     	<form id="<%=formName%>" action="timesheet?action=save" method="post">
@@ -38,10 +26,16 @@ label.invalid{
         <div class="modal-body">
         <%=PageUtil.getAlert(request) %>
 			<input type="hidden" name="action" value="save">
-			
+			<div class="row">
+				<div class='col-sm-3'>
+		            <input type='text' class="form-control date_time_picker" id='datetimepicker1'>
+		        </div>
+			</div>
+			<br>
+			<div style="clear: both;"></div>
 			<div class="row">
 			<div class="col-md-12">
-				<div class="table-responsive">
+				<div class="table-responsive" style="overflow: visible !important;">
 				<%
 					int childSize=timeSheetMstDO.getTimeSheetChildList().size();
 					//if(childSize==0){ childSize=1; }

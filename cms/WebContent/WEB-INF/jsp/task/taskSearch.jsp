@@ -1,3 +1,4 @@
+<%@page import="com.application.util.AppDateUtil"%>
 <%@page import="com.cms.task.config.handler.TaskConfigCreationController"%>
 <%@page import="com.cms.customer.handler.CustomerCreationController"%>
 <%@page import="com.cms.employee.handler.EmployeeCreationHandler"%>
@@ -170,6 +171,7 @@
 												<!-- <th scope="col">Priority</th> -->
 												<th scope="col">Status</th>
 												<th scope="col">Assign To</th>
+												<th scope="col"></th>
 												<th scope="col">Action</th>
 	                                        </tr>
 	                                    </thead>
@@ -181,13 +183,19 @@
 										for(Map<String, Object> searchData:resultList){
 											//a.task_id, a.task_date_from, a.task_date_to, a.task_config_id, b.task_config_name, a.assigned_to, c.first_name
 											int task_id=AppUtil.getNullToInteger( (String)searchData.get("COL#1") );
-											String task_date_from=AppUtil.getNullToEmpty( (String)searchData.get("COL#2") );
-											String task_date_to=AppUtil.getNullToEmpty( (String)searchData.get("COL#3") );
+											String task_date_from = AppDateUtil.convertToAppDate( (String)searchData.get("COL#2"), true, true);
+											if(task_date_from.contains("1000")){ task_date_from="-"; }
+											
+											String task_date_to = AppDateUtil.convertToAppDate((String)searchData.get("COL#3"), true, true);
+											if(task_date_to.contains("1000")){ task_date_to=""; }
+											
 											int task_config_id=AppUtil.getNullToInteger( (String)searchData.get("COL#4") );
 											String task_config_name=AppUtil.getNullToEmpty( (String)searchData.get("COL#5") );
 											int assigned_to=AppUtil.getNullToInteger( (String)searchData.get("COL#6") );
 											String assigned_to_name=AppUtil.getNullToEmpty( (String)searchData.get("COL#7") );
 											String task_status=AppUtil.getNullToEmpty( (String)searchData.get("COL#8") );
+											String pause_time_start = AppDateUtil.convertToAppDate((String)searchData.get("COL#9"), true, true);
+											if(pause_time_start.contains("1000")){ pause_time_start=""; }
 											
 										%>
 											<tr>
@@ -202,13 +210,25 @@
 												<td><%=task_date_to %></td>
 												<td><%=task_config_name %></td>
 												<%-- <td><%=priority %></td> --%>
-												<td><%=task_status %></td>
+												<td id="task_status_<%=task_id%>"><%=task_status %></td>
 												<td><%=assigned_to_name %></td>
+												<td id="task_action_div_<%=task_id%>">
+												<%
+												if(task_status.equalsIgnoreCase("close")){%>
+													-
+												<%}else if( task_status.equalsIgnoreCase("open") ){%>
+													<i class="task_action fa fa-play" data-id="<%=task_id%>" data-type="started" style="padding: 0px 3px; cursor: pointer;"></i>
+												<%}else if( task_status.equalsIgnoreCase("pause") ){ %>
+													<i class="task_action fa fa-play" data-id="<%=task_id%>" data-type="resume" style="padding: 0px 3px; cursor: pointer;"></i>
+												<%} else if( task_status.equalsIgnoreCase("started") ){ %>
+													<i class="task_action fa fa-pause" data-id="<%=task_id%>" data-type="pause" style="padding: 0px 3px; cursor: pointer;"></i>
+													<i class="task_action fa fa-stop" data-id="<%=task_id%>" data-type="close" style="padding: 0px 3px; cursor: pointer;"></i>
+												<%} %>
+												</td>
 												<td>
 												<%if(task_status.equalsIgnoreCase("pending")){ %>
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=edit&taskId=<%=task_id%>" href="#">Edit</a> &nbsp;&nbsp;
 													<a data-toggle="modal" data-target="#CMS-POPUP-MODEL" data-url="task?action=questionnaire&taskId=<%=task_id%>" href="#">Questionnaire</a> &nbsp;&nbsp;
-													<a class="btn_taskAction" data-type="start" href="javascript:;" ahref="task?action=taskAction&type=start&taskId=<%=task_id%>">start</a> &nbsp;
 													
 													<%-- <a href="taskConfig?action=delete&taskConfigId=<%=task_config_id%>">delete</a>&nbsp;&nbsp; --%>
 												<%} %>
@@ -270,39 +290,18 @@ $(document).ready(function(){
 		alert('Something went wrong. Please Try Later..!');
 	}
 	
-	<%-- try{		
-		$('#<%=formName%>_tble').validate({
-			errorClass: 'invalid',
-			validClass: 'valid',
-			errorPlacement: function(error, element) {
-				error.insertAfter(element);
-			},
-			rules: {
-				processIds: { required: true }
-			},
-			messages: {
-				processIds: { required: 'Please Select' }
-			},
-			submitHandler: function(form) {
-				/* $.ajax({
-					url:$(form).attr('action'),
-					data:$(form).serialize(),
-					beforeSend:function(){
-						$('#CMS-POPUP-MODEL').html('<center> <img alt="" src="./resource/img/loader.gif"></center>');
-					},
-					success:function(data){
-				 		$('#CMS-POPUP-MODEL').html(data);
-					}
-				});  */
-				alert("1");
-				$(form).submit();
-				alert("2");
+	$('#<%=formName %>_tble').on('click', '.task_action', function(){
+		alert();
+		var thisObj=$(this);
+		var taskId=$(thisObj).attr('data-id');
+		var type=$(thisObj).attr('data-type');
+		var param='action=taskAction&type='+type+'&taskId='+taskId;
+		$.getJSON('task?'+param, function(data){
+			if(data.errorExists==false){
+				updateTaskAction( type, taskId );
 			}
 		});
-		
-	}catch(e){
-		alert('Something went wrong. Please Try Later..!');
-	} --%>
+	});
 	
 	
 	
@@ -316,7 +315,7 @@ $(document).ready(function(){
 				if(type=='start'){
 					/* $(thisObj).text('Complete');
 					$(thisObj).attr('data-type', 'complete'); */
-					$('#<%=formName %>').find('button[type="submit"]').click();
+					<%-- $('#<%=formName %>').find('button[type="submit"]').click(); --%>
 				}else if(type=='complete'){
 					$(thisObj).remove();
 				}
@@ -332,6 +331,24 @@ $(document).ready(function(){
 	
 });
 
+function updateTaskAction( type, taskId ){
+	var data='-';
+	var status = $('#<%=formName %>_tble #task_status_'+taskId).html();
+	if(type=='started' || type=='resume' ){
+		status = 'started';
+		data='<i class="task_action fa fa-pause" data-id="'+taskId+'" data-type="pause" style="padding: 0px 3px; cursor: pointer;"></i>'
+			+'<i class="task_action fa fa-stop" data-id="'+taskId+'" data-type="close" style="padding: 0px 3px; cursor: pointer;"></i>'
+	}else if(type=='pause'){
+		status = 'pause';
+		data='<i class="task_action fa fa-play" data-id="'+taskId+'" data-type="resume" style="padding: 0px 3px; cursor: pointer;"></i>';
+	}else if(type=='close'){
+		status = 'close';
+	}
+	
+	$('#<%=formName %>_tble #task_status_'+taskId).html(status);
+	$('#<%=formName %>_tble #task_action_div_'+taskId).html(data);
+	
+}
 
 function <%=formName %>reset(){
 	$('#<%=formName %> #serviceName').val('');$('#<%=formName %> #serviceName').attr('value', '');

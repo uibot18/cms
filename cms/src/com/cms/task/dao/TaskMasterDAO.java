@@ -225,37 +225,31 @@ public class TaskMasterDAO {
 		return dto;
 	}
 
-	public static boolean updateTaskStart(Connection preCon, int taskId, String loginId) {
+	public static boolean updateTaskAction(Connection preCon, int taskId, String loginId, String action) {
 		Connection con=null;
-		PreparedStatement stmt=null;
-		int i=1;
+		Statement stmt=null;
+		
+		String query="update  task_master set   update_user='"+loginId+"', update_date=NOW()";
+		if(action.equalsIgnoreCase("started")) {
+			query+=", start_time=NOW(), task_status='started' ";
+		}else if(action.equalsIgnoreCase("pause")) {
+			query+=", pause_time_start=NOW(), task_status='pause' ";
+		}else if(action.equalsIgnoreCase("resume")) {
+			query+=", pause_time_end=NOW(), task_status='started' ";
+		}else if(action.equalsIgnoreCase("close")) {
+			query+=", end_time=NOW(), task_status='close' ";
+		}
+		query+=" WHERE task_id= "+taskId;
+		System.out.println("query: "+query);
 		try {
 			con=preCon==null?DBConnection.getConnection():preCon;
-			stmt=con.prepareStatement(UPDATE_TASK_START);
-			stmt.setString(i++, loginId);
-			stmt.setInt(i++, taskId);
-			int rowAffect=stmt.executeUpdate();
+			stmt=con.createStatement();
+			int rowAffect=stmt.executeUpdate(query);
 			if(rowAffect!=0) { return true; }
 		} catch (Exception e) { e.printStackTrace(); } 
 		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
 		return false;
 	}
-	public static boolean updateTaskClose(Connection preCon, int taskId, String loginId) {
-		Connection con=null;
-		PreparedStatement stmt=null;
-		int i=1;
-		try {
-			con=preCon==null?DBConnection.getConnection():preCon;
-			stmt=con.prepareStatement(UPDATE_TASK_CLOSE);
-			stmt.setString(i++, loginId);
-			stmt.setInt(i++, taskId);
-			int rowAffect=stmt.executeUpdate();
-			if(rowAffect!=0) { return true; }
-		} catch (Exception e) { e.printStackTrace(); } 
-		finally { DBUtil.close( stmt, preCon==null?con:null  ); }
-		return false;
-	}
-
-
+	
 
 }

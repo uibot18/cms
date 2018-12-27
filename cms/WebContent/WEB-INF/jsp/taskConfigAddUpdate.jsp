@@ -886,7 +886,8 @@ $(document).ready( function(){
 	});
 	
 	$('#<%=formName %>').on('click','#btn_escalationAdd', function(){
-		$(this).css('pointer-events', 'none');
+		var thisObj=$(this);
+		$(thisObj).css('pointer-events', 'none');
 		var sno=$('#<%=formName %> #esc_rowCount').val(); if(isNaN(sno) || sno==''){ sno=0;}
 		sno=parseInt(sno)+1;
 		
@@ -895,9 +896,9 @@ $(document).ready( function(){
 			if(!$.isEmptyObject(response) && response.errorExists==false){
 				$('#<%=formName %> #escalationContainer').append(response.data);
 				$('#<%=formName %> #esc_rowCount').val(sno);
-				$(this).css('pointer-events', '');
 				initPage();
 			}
+			$(thisObj).css('pointer-events', '');
 		});
 		
 	});
