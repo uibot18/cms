@@ -73,17 +73,17 @@ System.out.print("true");
                		<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name<span style="color: #f62d51;">*</span></label>
+		                                        <label for="customerName" class="col-sm-3 p-t-5  control-label col-form-label">Customer Name<span style="color: #f62d51;">*</span></label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="timesheetinput1" class="form-control" placeholder="Customer Name" name="customerName" value="<%=AppUtil.getNullToEmpty(ledgerMstDO.getLedgerName() )%>" required="required"">
+		                                           <input type="text" id="customerName" class="form-control" placeholder="Customer Name" name="customerName" value="<%=AppUtil.getNullToEmpty(ledgerMstDO.getLedgerName() )%>" required="required"">
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Contact Person Name<span style="color: #f62d51;">*</span></label>
+		                                        <label for="contactPerson" class="col-sm-3 p-t-5  control-label col-form-label">Contact Person Name<span style="color: #f62d51;">*</span></label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Contact Person" name="contactPerson" value="<%=AppUtil.getNullToEmpty(personalDO.getFirstName() )%>" required="required">
+		                                           <input type="text" id="contactPerson" class="form-control" placeholder="Contact Person" name="contactPerson" value="<%=AppUtil.getNullToEmpty(personalDO.getFirstName() )%>" required="required">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -137,7 +137,7 @@ System.out.print("true");
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Road Name</label>
 		                                        <div class="col-sm-8">
-		                                          <input type="text" id="timesheetinput1" class="form-control" placeholder="Rood Name" name="roadName" value="<%=AppUtil.getNullToEmpty(addressDO.getRoadName() )%>">
+		                                          <input type="text" id="timesheetinput1" class="form-control" placeholder="Road Name" name="roadName" value="<%=AppUtil.getNullToEmpty(addressDO.getRoadName() )%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -145,18 +145,18 @@ System.out.print("true");
                                 	<div class="row">
                                 	<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
+		                                        <label for="pinCode" class="col-sm-3 p-t-5  control-label col-form-label">Pin Code</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="Pin Code" name="pinCode" value="<%=AppUtil.getNullToEmpty(addressDO.getPincode() )%>">
+		                                            <input type="text" id="pinCode" class="form-control numbersonly" placeholder="Pin Code" name="pinCode" value="<%=AppUtil.getNullToEmpty(addressDO.getPincode() )%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
                                 	
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Email<span style="color: #f62d51;">*</span></label>
+		                                        <label for="email" class="col-sm-3 p-t-5  control-label col-form-label">Email<span style="color: #f62d51;">*</span></label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="Email" name="email" value="<%=AppUtil.getNullToEmpty(contactDO.getEmail1() )%>" required="required">
+		                                            <input type="text" id="email" class="form-control email" placeholder="Email" name="email" value="<%=AppUtil.getNullToEmpty(contactDO.getEmail1() )%>" required="required">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -170,9 +170,9 @@ System.out.print("true");
                                 	
                                 	<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Mobile Number<span style="color: #f62d51;">*</span></label>
+		                                        <label for="mobileNumber" class="col-sm-3 p-t-5  control-label col-form-label">Mobile Number<span style="color: #f62d51;">*</span></label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Mobile Number" name="mobileNumber" value="<%=AppUtil.getNullToEmpty(contactDO.getMobile1() )%>" required="required">
+		                                           <input type="text" id="mobileNumber" class="form-control numbersonly" placeholder="Mobile Number" maxlength="15" name="mobileNumber" value="<%=AppUtil.getNullToEmpty(contactDO.getMobile1() )%>" required="required">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -180,7 +180,7 @@ System.out.print("true");
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">Web Site</label>
 		                                        <div class="col-sm-8">
-		                                           <input type="text" id="timesheetinput2" class="form-control" placeholder="Website" name="webSite" value="<%=AppUtil.getNullToEmpty(contactDO.getWebsite() )%>">
+		                                           <input type="text" id="timesheetinput2" class="form-control " placeholder="Website" name="webSite" value="<%=AppUtil.getNullToEmpty(contactDO.getWebsite() )%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -192,9 +192,9 @@ System.out.print("true");
                                 	<div class="row">
                                 	<div class="col-sm-6">
                                 			<div class="form-group row">
-		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">PAN<span style="color: #f62d51;">*</span></label>
+		                                        <label for="pan" class="col-sm-3 p-t-5  control-label col-form-label">PAN<span style="color: #f62d51;">*</span></label>
 		                                        <div class="col-sm-8">
-		                                         <input type="text" id="timesheetinput2" class="form-control" placeholder="PAN" name="pan" value="<%=AppUtil.getNullToEmpty(panNo)%>" required="required">
+		                                         <input type="text" id="pan" class="form-control panno" placeholder="PAN" name="pan" value="<%=AppUtil.getNullToEmpty(panNo)%>" required="required">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -203,7 +203,7 @@ System.out.print("true");
                                 			<div class="form-group row">
 		                                        <label for="fname" class="col-sm-3 p-t-5  control-label col-form-label">GST</label>
 		                                        <div class="col-sm-8">
-		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" value="<%=AppUtil.getNullToEmpty( gstinNo )%>">
+		                                            <input type="text" id="timesheetinput2" class="form-control" placeholder="GST" name="gst" readonly="readonly" value="<%=AppUtil.getNullToEmpty( gstinNo )%>">
 		                                        </div>
 		                                    </div>
                                 		</div>
@@ -221,6 +221,16 @@ System.out.print("true");
 
 
 <script type="text/javascript">
+
+jQuery.validator.addMethod("lettersonly", function(value, element) {return this.optional(element) || value.match(/^[a-zA-Z ]+$/);	}, " Enter Characters Only"); 
+jQuery.validator.addMethod("alphanumeric",function(value, element) {return this.optional(element) || value == value.match(/^[a-z0-9A-Z]+$/);	}, " Enter Characters, Numbers Only"); 
+jQuery.validator.addMethod("Decimal", function(value, element)  { return this.optional(element) ||value.match(/^[0.0-9.9]+$/);}," Enter Decimal Only" ); 
+jQuery.validator.addMethod("numbersonly", function(value, element) { return this.optional(element) || value.match(/^[0-9-]+$/);	}, " Enter Numbers Only"); 
+jQuery.validator.addMethod("alphaSpl", function(value, element) {return this.optional(element) || value.match(/^[a-zA-Z-,. 0-9\/]+$/); }," Enter Characters,Numbers,Space,slash,hypen and comma Only " ); 
+jQuery.validator.addMethod("email", function(value, element) {   return this.optional(element) ||value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/);	 }," Enter valid Email id" ); 
+jQuery.validator.addMethod("panno", function(value, element) {   return this.optional(element) ||value.match( /^([A-Z]{5})(\d{4})([A-Z]{1})$/); }," Enter valid Pan No" );	
+jQuery.validator.addClassRules("web", {url:true,maxlength:75}); 
+
 $(document).ready( function(){
 	try{		
 		$('#<%=formName%>').validate({
@@ -230,9 +240,16 @@ $(document).ready( function(){
 				error.insertAfter(element);
 			},
 			rules: {
+				pan: { required: true },
+				mobileNumber:{required:true},
 				
 			},
 			messages: {
+				pan: { required: 'PAN number is required' },
+				mobileNumber:{required:'Mobile Number is required'},
+				contactPerson:{required:'Contact Person Name is required'},
+				email:{required:'Email is required'},
+				customerName:{required:'Customer Name is required'}
 				
 			},
 			submitHandler: function(form) {

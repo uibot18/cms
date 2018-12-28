@@ -40,19 +40,19 @@ String formName="cust_Srh_frm_"+Math.abs( new Random().nextInt(9999) );
 	                            		<i class="fa fa-plus"></i> 
 	                            		ADD
 	                            	</button>
-	                            	<button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-light btn-sm float-right btn-rounded" style="">
+	                            	<!-- <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="m-r-1 btn btn-light btn-sm float-right btn-rounded" style="">
 	                            		<i class="fa fa-eye"></i> 
 	                            		VIEW
-	                            	</button> 
+	                            	</button>  -->
                             	</h4>
                            	</div>
                             <div class="card-body">
                                  <form id="<%=formName %>" class="form" action="customer" method="post">
 			                    <input type="hidden" name="action" value="search">
-			                    	<div class="col-12">
+			                    	<!-- <div class="col-12">
                                         <label class="m-t-20">Default Material Date Timepicker</label>
                                         <input type="text" id="date-format" class="form-control" placeholder="Saturday 24 June 2017 - 21:44">
-                                    </div>
+                                    </div> -->
                                 	<div class="row">
                                 		<div class="col-sm-6">
                                 			<div class="form-group row">

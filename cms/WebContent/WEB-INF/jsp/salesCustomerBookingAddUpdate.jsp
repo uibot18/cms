@@ -135,7 +135,7 @@ label.invalid{
 
 $(document).ready( function(){
 	try{	
-		initPage();
+		//initPage();
 		$('#<%=formName%>').validate({
 			errorClass: 'invalid',
 			validClass: 'valid',

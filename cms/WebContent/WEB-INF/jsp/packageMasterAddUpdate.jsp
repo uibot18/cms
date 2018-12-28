@@ -66,7 +66,7 @@ label.invalid{
 </div>
 
 <script type="text/javascript">
-initPage();
+//initPage();
 $(document).ready( function(){
 	
 	try{		

@@ -106,8 +106,8 @@ $(document).ready( function(){
 				holidayDate: { required: true }
 			},
 			messages: {
-				holidayDate: { required: 'Holiday Date is required' }
-
+				holidayDate: { required: 'Holiday Date is required' },
+				holidayName: { required: 'Holiday Name is required' }
 			},
 			submitHandler: function(form) {
 				$.ajax({

@@ -265,11 +265,11 @@ LoginDetail loginDetail = LoginUtil.getLoginDetail(request);
                 </li>
                 
                 
-             <%--    <%=MenuUtil.generateMenuItem( request )%> --%>
+                <%=MenuUtil.generateMenuItem( request )%> 
                 
                 
                                
-             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="home" aria-expanded="false"><i class="ti-loop"></i><span class="hide-menu">Back To Home</span></a></li>
+            <!--  <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="home" aria-expanded="false"><i class="ti-loop"></i><span class="hide-menu">Back To Home</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Master</span></a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item"><a href="service?action=search" class="sidebar-link cms_menu_item"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Service</span></a></li>
@@ -295,7 +295,7 @@ LoginDetail loginDetail = LoginUtil.getLoginDetail(request);
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rights?action=search" aria-expanded="false"><i class="far fa-copyright"></i><span class="hide-menu">Rights</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="rightsTemplate?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Rights Template</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="timesheet?action=search" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Time Sheet</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=employeeRightsSearch" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee Rights</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link cms_menu_item" href="employee?action=employeeRightsSearch" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Employee Rights</span></a></li> -->
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
