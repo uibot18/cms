@@ -40,7 +40,7 @@ public class TaskSearchHandler {
 		if(taskDateFrom.contains("1000")) { taskDateFrom="";}
 		if(taskDateTo.contains("1000")) { taskDateTo="";}
 
-		String query="SELECT a.task_id, a.task_date_from, a.task_date_to, a.task_config_id, b.task_config_name, a.assigned_to, c.first_name, a.task_status " + 
+		String query="SELECT a.task_id, a.task_date_from, a.task_date_to, a.task_config_id, b.task_config_name, a.assigned_to, c.first_name, a.task_status , a.pause_time_start " + 
 				"FROM task_master a, task_config_master b, adm_employee_master_view c " + 
 				"WHERE a.task_config_id=b.task_config_id AND a.assigned_to=c.emp_id " + 
 				"AND a.bool_delete_status=0 AND b.bool_delete_status=0 " ;

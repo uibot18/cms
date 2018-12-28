@@ -40,10 +40,10 @@
 <script src="./static/dist/js/pages/dashboards/dashboard1.js"></script>
 
 <script src="./static/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
-    <script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
-    
-    <script src="./static/assets/libs/moment/moment.js"></script>
+<script src="./static/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="./static/assets/libs/moment/moment.js"></script>
     <!-- <script src="./static/assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script> -->
     <script src="./static/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
 
@@ -96,8 +96,6 @@ $("#CMS-POPUP-DISPLAY").on('show.bs.modal', function (e) {
 });
 
 
-
-
 $('.cms_menu_item').click(function(){
 	
 	var url=$(this).attr('href');
@@ -144,7 +142,7 @@ function initPage(){
 		format: 'DD/MM/YYYY HH:mm' 
 	}); */
 	$(".date_time_picker").datetimepicker({
-		format: 'dd/mm/yyyy hh:ii'
+		format: 'DD/MM/YYYY HH:mm'
 	});
 }
 

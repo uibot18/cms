@@ -278,18 +278,9 @@ public class TaskCreationHandler {
 		String type=AppUtil.getNullToEmpty( request.getParameter("type") );
 		int taskId = AppUtil.getNullToInteger( request.getParameter("taskId") );
 		
-		boolean success = false;
-		
-		if(type.equalsIgnoreCase("start")) {
-			success = TaskMasterDAO.updateTaskStart(null, taskId, loginDetail.getLoginId());
-		}
-		else if(type.equalsIgnoreCase("complete")) {
-			success = TaskMasterDAO.updateTaskClose(null, taskId, loginDetail.getLoginId());
-		}
-		
 		AjaxModel model = new AjaxModel();
 		
-		if(success) {
+		if(TaskMasterDAO.updateTaskAction(null, taskId, loginDetail.getLoginId(), type)) {
 			model.setErrorExists(false);
 			model.setMessage("Task "+type+"ed");
 		}else {

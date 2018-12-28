@@ -152,6 +152,7 @@ public class TaskConfigCreationController {
 			escChildDO.setEmpId( AppUtil.getNullToEmpty( request.getParameter("esc_empId_"+i)  )  );
 			escChildDO.setTicketDuration( AppUtil.getNullToInteger( request.getParameter("esc_ticketDuration_"+i) ) );
 			escChildDO.setTicketDurationUom( AppUtil.getNullToEmpty( request.getParameter("esc_ticketDurationUom_"+i),"na" ) );
+			escChildDO.setLevel( AppUtil.getNullToInteger( request.getParameter( "esc_level_"+i )) );
 			escChildDO.setCreatedUser(loginId);
 			escChildDO.setUpdateUser(loginId);
 			escChildList.add(escChildDO);
@@ -224,11 +225,10 @@ public class TaskConfigCreationController {
 		StringBuffer escChildRow = new StringBuffer();
 
 		escChildRow.append("<div class='row esc_row esc_row_style'>");
-
 		escChildRow.append("<div class='col-md-4'>");
 		escChildRow.append("<div class='form-group'>");
-		escChildRow.append("<label for='esc_department_"+sno+"'>Department</label>");
-		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<label for='esc_department_"+sno+"' class='col-md-4 label-control'>Department</label>");
+		escChildRow.append("<div class='col-md-8'>");
 		escChildRow.append("<select id='esc_department_"+sno+"' class='form-control esc_department select2' placeholder='Department' name='esc_department_"+sno+"' >");
 		escChildRow.append("<option value=''>-Please Select-</option>" );
 		escChildRow.append(EmployeeCreationHandler.formDepartmentOption(""+escChildDO.getDepartment() ) );
@@ -236,37 +236,43 @@ public class TaskConfigCreationController {
 		
 		escChildRow.append("<div class='col-md-4'>");
 		escChildRow.append("<div class='form-group'>");
-		escChildRow.append("<label for=''>Designation</label>");
-		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<label for='esc_designation_"+sno+"' class='col-md-4 label-control'>Designation</label>");
+		escChildRow.append("<div class='col-md-8'>");
 		escChildRow.append("<select id='esc_designation_"+sno+"' class='form-control esc_designation select2' placeholder='Designation' name='esc_designation_"+sno+"' >");
 		escChildRow.append("<option value=''>-Please Select-</option>");
 		escChildRow.append(EmployeeCreationHandler.formDesignationOption("", ""+escChildDO.getDesignation() ));
 		escChildRow.append("</select></div></div></div>");
 		
-		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='col-md-4' style='margin-bottom: 10px;'>");
 		escChildRow.append("<div class='form-group'>");
-		escChildRow.append("<label for='esc_empId_"+sno+"'>Employee</label>");
-		escChildRow.append("<div class='position-relative'>");
+		escChildRow.append("<label for='esc_empId_"+sno+"' class='col-md-4 label-control'>Employee</label>");
+		escChildRow.append("<div class='col-md-8'>");
 		escChildRow.append("<select id='esc_empId_"+sno+"' class='form-control esc_empId select2' placeholder='Employee' name='esc_empId_"+sno+"' >");
 		escChildRow.append("<option value=''>-Please Select-</option>");
 		escChildRow.append( EmployeeCreationHandler.formEmployeeOption(""+escChildDO.getEmpId() ) );
 		escChildRow.append("</select></div></div></div>");
 		
-		escChildRow.append("<div class='col-md-2'>");
+		escChildRow.append("<div class='col-md-4'>");
 		escChildRow.append("<div class='form-group'>");
-		escChildRow.append("<label for='esc_ticketDuration_"+sno+"'>Ticket Duration</label>");
-		escChildRow.append("<div class='position-relative '>");
+		escChildRow.append("<label for='esc_level_"+sno+"' class='col-md-4 label-control'>Escalation Level</label>");
+		escChildRow.append("<div class='col-md-8'>");
+		escChildRow.append("<input type='text' id='esc_level_"+sno+"' class='form-control esc_level' placeholder='Level' name='esc_level_"+sno+"' value='"+escChildDO.getLevel()+"'>");
+		escChildRow.append("</div></div></div>");
+		
+		escChildRow.append("<div class='col-md-4'>");
+		escChildRow.append("<div class='form-group'>");
+		escChildRow.append("<label for='esc_ticketDuration_"+sno+"' class='col-md-4 label-control'>Ticket Duration</label>");
+		escChildRow.append("<div class='col-md-8'>");
 		escChildRow.append("<input type='text' id='esc_ticketDuration_"+sno+"' class='form-control esc_ticketDuration' placeholder='Ticket Duration' name='esc_ticketDuration_"+sno+"' value='"+escChildDO.getTicketDuration()+"'>");
 		escChildRow.append("</div></div></div>");
 		
 		escChildRow.append("<div class='col-md-4'>");
 		escChildRow.append("<div class='form-group'>");
-		escChildRow.append("<label for='esc_ticketDurationUom_"+sno+"'>&nbsp;</label>");
-		escChildRow.append("<div class='position-relative '>");
+		escChildRow.append("<label for='esc_ticketDurationUom_"+sno+"' class='col-md-4 label-control'>Duration Type</label>");
+		escChildRow.append("<div class='col-md-8'>");
 		escChildRow.append("<select id='esc_ticketDurationUom_"+sno+"' class='form-control esc_ticketDurationUom select2' placeholder='UOM' name='esc_ticketDurationUom_"+sno+"' >");
 		escChildRow.append( AppUtil.formOption(durationMap, escChildDO.getTicketDurationUom()) );
 		escChildRow.append("</select></div></div></div>");
-		
 		escChildRow.append("</div>");
 		return escChildRow.toString();
 	}
