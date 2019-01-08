@@ -1,5 +1,7 @@
 package com.cms.employee.bean;
 
+import com.application.util.AppDateUtil;
+
 public class UserMasterDO { 
 
 private int empId=0;
@@ -10,7 +12,7 @@ private String gender="Male";
 private String maritalStatus="Single";
 private int bloodGroup=0;
 private int mobile=0;
-private String dateOfBirth="";
+private String dateOfBirth=AppDateUtil.getDefaultDBDate(false);
 private int department=0;
 private int role=0;
 private int profile=0;

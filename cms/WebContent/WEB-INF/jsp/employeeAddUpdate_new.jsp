@@ -83,8 +83,8 @@ int bankId=branchDO.getBankId();
  </style>
  <div class="modal-dialog modal-lg" style="width: 600px;">
 	<div class="modal-content" >
-			<form class="tab-wizard wizard-circle"  action="employee?action=save" method="post" id="<%=formName%>">
-					<input type="hidden" name="action" value="save">
+			<form class="tab-wizard wizard-circle"  action="employee?action=save_new" method="post" id="<%=formName%>">
+					<input type="hidden" name="action" value="save_new">
 					<input type="hidden" name="employeeId" value="<%=employeeDO.getEmpId()%>">
 					<input type="hidden" name="ledgerId" value="<%=employeeDO.getLedgerId()%>"> 
 			<div class="modal-header" style="">
@@ -143,7 +143,11 @@ int bankId=branchDO.getBankId();
                   			<div class="form-group row">
                             	<label for="email" class="col-sm-3 p-t-5  control-label col-form-label">Role<span style="color: #f62d51;">*</span></label>
                             	<div class="col-sm-9">
-                                	<input type="text" id="role" class="form-control form-control-sm jval_name" placeholder="Role" name="role" value="<%=employeeDO.getDesignationId()%>" required="required" maxlength="80">
+                                	<%-- <input type="text" id="role" class="form-control form-control-sm jval_name" placeholder="Role" name="role" value="<%=employeeDO.getDesignationId()%>" required="required" maxlength="80"> --%>
+                                	<select id="role" class="form-control custom-select select2" placeholder="Role" required="required" name="role" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<%=EmployeeCreationHandler.formRoleOption( ""+employeeDO.getDepartmentId() )%>
+									</select>
                             	</div>
                         	</div>
                   		</div>
@@ -157,7 +161,11 @@ int bankId=branchDO.getBankId();
                   			<div class="form-group row">
                             	<label for="email" class="col-sm-3 p-t-5  control-label col-form-label">Profile<span style="color: #f62d51;">*</span></label>
                             	<div class="col-sm-9">
-                                	<input type="text" id="profile" class="form-control form-control-sm jval_name" placeholder="Profile" name="profile" value="<%=employeeDO.getDepartmentId()%>" required="required" maxlength="80">
+                                <%-- 	<input type="text" id="profile" class="form-control form-control-sm jval_name" placeholder="Profile" name="profile" value="<%=employeeDO.getDepartmentId()%>" required="required" maxlength="80"> --%>
+                                <select id="profile" class="form-control custom-select select2" placeholder="Profile" required="required" name="profile" style="width: 100%; height:26px;">
+										<option>-Please Select-</option>
+										<%=EmployeeCreationHandler.formProfileOption( ""+employeeDO.getDepartmentId() )%>
+									</select>
                             	</div>
                         	</div>
                   		</div>

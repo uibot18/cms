@@ -3,9 +3,13 @@ package com.application.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.List;
 import java.util.TimeZone;
-
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.util.Date;
 public class AppDateUtil {
 
 	public static final String DISPLAY_DATE_TIME="dd/MM/yyyy HH:mm:ss";
@@ -172,4 +176,59 @@ public class AppDateUtil {
 		}
 	}
 
+	private static final String DB_sql_date_format="yyyy-MM-dd";
+	private static final String DB_sql_Time_format="HH:mm:ss";
+	private static final String DB_sql_default_date="1000-01-01";
+	private static final String DB_sql_Default_Time="00:00:00";
+	
+	private static final String Application_sql_date_format="dd/MM/yyyy";
+	private static final String Application_sql_Time_format="HH:mm:ss";
+	private static final String Application_sql_Default_date="01/01/1000";
+	private static final String Application_sql_Default_Time="00:00:00";
+
+	
+	public static String getDefaultDBDate(boolean withtime){
+		return DB_sql_default_date+(withtime?" "+DB_sql_Default_Time:"");
+	}
+	
+	public static String getDefaultAppDate(boolean withtime){
+		return Application_sql_Default_date+(withtime? " "+Application_sql_Default_Time:"");
+	}
+	
+	public static String AppDateToDBDate(String dt,boolean withtime,boolean need_default_value)	{
+		return DateFormatConverter("App_to_DB",dt,withtime,need_default_value);
+	}
+	
+	public static String DateFormatConverter(String Converttype,String dt,boolean withtime,boolean need_default_value){
+		dt=AppUtil.getNullToEmpty(dt);
+		
+		String Appformat=Application_sql_date_format;
+		Appformat=withtime? Appformat+" "+Application_sql_Time_format:Appformat;
+		String DBformat=DB_sql_date_format;
+		DBformat=withtime? DBformat+" "+DB_sql_Time_format:DBformat;
+		String AppDefault=Application_sql_Default_date;
+		AppDefault=withtime? AppDefault+" "+Application_sql_Default_Time:AppDefault;
+		String DBDefault=DB_sql_default_date;
+		DBDefault=withtime? DBDefault+" "+DB_sql_Default_Time:DBDefault;
+		SimpleDateFormat appdateFormat = new SimpleDateFormat(Appformat);
+		SimpleDateFormat dbdateFormat = new SimpleDateFormat(DBformat);
+		appdateFormat.setLenient(false);
+		dbdateFormat.setLenient(false);
+		if(!dt.equalsIgnoreCase(""))
+			{
+			 try {
+					if(Converttype.equalsIgnoreCase("App_to_DB")){
+						Date date = appdateFormat.parse(dt);
+						dt=dbdateFormat.format(date);
+					}
+					else{
+						Date date = dbdateFormat.parse(dt);
+						dt=appdateFormat.format(date);
+					}
+				} catch (ParseException e) {dt="";}
+			}
+		if(dt.equalsIgnoreCase("")&&need_default_value)
+			dt=Converttype.equalsIgnoreCase("App_to_DB")?DBDefault:AppDefault;
+		return dt;
+	}
 }

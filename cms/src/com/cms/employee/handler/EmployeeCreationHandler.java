@@ -21,7 +21,9 @@ import com.application.util.PageAlertType;
 import com.cms.common.master.CmnGroupName;
 import com.cms.common.master.dao.CommonMasterDAO;
 import com.cms.employee.bean.AdmEmployeeMasterDO;
+import com.cms.employee.bean.UserMasterDO;
 import com.cms.employee.dao.AdmEmployeeMasterDAO;
+import com.cms.employee.dao.UserMasterDAO;
 import com.cms.finance.LedgerRefType;
 import com.cms.finance.bean.FinanceLedgerMasterDO;
 import com.cms.finance.bean.FinancePartyAddressDetailsDO;
@@ -300,4 +302,60 @@ if(masterId.isEmpty()) masterId="0";
 		AjaxUtil.sendResponse(request, response, model);
 	}
 	
+	/*save new employee*/
+	
+	public static void savenewEmployee(HttpServletRequest request, HttpServletResponse response) {
+
+		UserMasterDO userDo=constructUserDO( request, response );
+			int empId=UserMasterDAO.insert(null, userDo);
+			if( empId!=0) {
+				request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Detail Successfully Saved..!");
+			}else {
+				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Details..!");
+			}
+
+	}
+	
+	
+	
+	private static UserMasterDO constructUserDO(HttpServletRequest request, HttpServletResponse response) {
+
+		String loginId="Admin";
+
+		UserMasterDO employeeDO=new UserMasterDO();
+
+		String firstName=AppUtil.getNullToEmpty( request.getParameter("firstName") );
+		String middleName=AppUtil.getNullToEmpty( request.getParameter("middleName") );
+		String lastName=AppUtil.getNullToEmpty( request.getParameter("lastName") );
+		String email=AppUtil.getNullToEmpty( request.getParameter("email") );
+		int role=AppUtil.getNullToInteger( request.getParameter("role") );
+		int profile=AppUtil.getNullToInteger( request.getParameter("profile") );
+		
+		employeeDO.setFirstName(firstName);
+		employeeDO.setLastName(lastName);
+		employeeDO.setEmail(email);
+		employeeDO.setProfile(profile);
+		employeeDO.setRole(role);
+
+		return employeeDO;
+	}
+	
+	public static String formRoleOption( String selRole ) {
+
+		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.DEPARTMENT.getGroupName()+"' ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formOption(cmnMap, selRole);
+	}
+	
+	
+	public static String formProfileOption( String selRole ) {
+
+		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.SERVICE.getGroupName()+"' ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formOption(cmnMap, selRole);
+	}
 }
