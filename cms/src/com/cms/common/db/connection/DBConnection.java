@@ -20,7 +20,8 @@ public class DBConnection {
 //			LIVE CONNECTION
 //			con=DriverManager.getConnection( "jdbc:mysql://13.127.156.166:3306/projectsdb_new","root","P@ss@2018");
 			//server 18.217.133.221
-			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","P@ssw0rd");
+			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","root");
+			//con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","P@ssw0rd");
 //		LOCAL CONNECTION	
 //			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","password");
 //			con=DriverManager.getConnection( "jdbc:mysql://18.217.133.221:3306/projectsdb_new","root","P@ssw0rd");

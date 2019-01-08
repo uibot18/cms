@@ -30,6 +30,13 @@ public class EmployeeController extends HttpServlet {
 			EmployeeSearchHandler.doSearch(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/employeeSearch.jsp").forward(request, response);
 		}
+		if(action.equalsIgnoreCase("search_new")) {
+			EmployeeSearchHandler.doSearch(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/employeeSearch_new.jsp").forward(request, response);
+		}
+		else if(action.equalsIgnoreCase("add_new")) {
+			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate_new.jsp").forward(request, response);
+		}
 		else if(action.equalsIgnoreCase("add")) {
 			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate.jsp").forward(request, response);
 		}
@@ -54,7 +61,7 @@ public class EmployeeController extends HttpServlet {
 		else if(action.equalsIgnoreCase("employeeRightsSearch")) {
 			EmployeeSearchHandler.doEmployeeRightsSearch(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/employeeRightsSearch.jsp").forward(request, response);
-		}
+		}		
 		else if(action.equalsIgnoreCase("employeeRightsMap")) {
 			EmployeeCreationHandler.doEmployeeRightsMapping( request, response);
 			EmployeeSearchHandler.doEmployeeRightsSearch(request, response);

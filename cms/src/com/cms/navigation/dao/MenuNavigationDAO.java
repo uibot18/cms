@@ -96,7 +96,7 @@ public class MenuNavigationDAO {
 		try {
 			con=preCon==null?DBConnection.getConnection():preCon;
 			stmt=con.createStatement();
-			rs=stmt.executeQuery( query );
+			rs=stmt.executeQuery( query );			
 			while(rs.next()) { dtos.add(constructDTO( con, rs, needChild) );	}
 		} catch (Exception e) { e.printStackTrace(); }
 		finally { DBUtil.close( rs, stmt, preCon==null?con:null ); }
