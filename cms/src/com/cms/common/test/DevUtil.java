@@ -10,9 +10,16 @@ import java.util.List;
 
 import com.application.util.AppDateUtil;
 import com.application.util.AppUtil;
+import com.cms.common.db.connection.DBConnection;
 
 public class DevUtil {
 
+	public static void main(String arsg[])
+	{
+		generateDOAndDAO(DBConnection.getConnection(), "user_master");
+	}
+	
+	
 	public static void generateDOAndDAO( Connection con, String tableName ) {
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -225,7 +232,7 @@ public class DevUtil {
 	private static void generateFile(String fileName, String content)  {
 		try {
 //			FileOutputStream fos=new FileOutputStream("H:\\Madhan Project\\"+fileName);
-			FileOutputStream fos=new FileOutputStream("C:\\Users\\SWEET INDHU\\Desktop\\devUtil\\"+fileName);
+			FileOutputStream fos=new FileOutputStream("C:\\Users\\Kuzhanthai Jesu\\Desktop\\UIBOT\\"+fileName);
 			fos.write(content.getBytes());fos.flush();fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
