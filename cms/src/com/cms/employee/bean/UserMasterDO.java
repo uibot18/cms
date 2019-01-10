@@ -11,7 +11,7 @@ private String email="";
 private String gender="Male";
 private String maritalStatus="Single";
 private int bloodGroup=0;
-private int mobile=0;
+private String mobile="";
 private String dateOfBirth=AppDateUtil.getDefaultDBDate(false);
 private int department=0;
 private int role=0;
@@ -70,10 +70,10 @@ this.bloodGroup=bloodGroup;
 public int getBloodGroup(){
 return this.bloodGroup;
 }
-public void setMobile(int mobile){
+public void setMobile(String mobile){
 this.mobile=mobile;
 }
-public int getMobile(){
+public String getMobile(){
 return this.mobile;
 }
 public void setDateOfBirth(String dateOfBirth){

@@ -45,6 +45,11 @@ public class EmployeeCreationHandler {
 		AdmEmployeeMasterDO employeeDO =AdmEmployeeMasterDAO.getAdmEmployeeMasterByEmpId(null, employeeId, true);
 		request.setAttribute("employeeDO",employeeDO );
 	}
+	public static void donewEmployeeEdit( HttpServletRequest request, HttpServletResponse response ) {
+		int employeeId=AppUtil.getNullToInteger(request.getParameter("employeeId"));
+		UserMasterDO employeeDO =UserMasterDAO.getUserMasterByEmpId(null, employeeId, true);
+		request.setAttribute("employeeDO",employeeDO );
+	}
 	public static void saveEmployee(HttpServletRequest request, HttpServletResponse response) {
 
 		AdmEmployeeMasterDO employeeDO= constructDO( request, response );
@@ -307,6 +312,7 @@ if(masterId.isEmpty()) masterId="0";
 	public static void savenewEmployee(HttpServletRequest request, HttpServletResponse response) {
 
 		UserMasterDO userDo=constructUserDO( request, response );
+		if(userDo.getEmpId()==0) {
 			int empId=UserMasterDAO.insert(null, userDo);
 			if( empId!=0) {
 				request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Detail Successfully Saved..!");
@@ -314,6 +320,16 @@ if(masterId.isEmpty()) masterId="0";
 				request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Details..!");
 			}
 
+		}
+			
+		else {
+				if(UserMasterDAO.update(null, userDo)) {
+					userDo=UserMasterDAO.getUserMasterByEmpId(null, userDo.getEmpId(), true);
+					request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Detail Successfully Saved..!");
+				}else {
+					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Details..!");
+				}
+			}
 	}
 	
 	
@@ -323,7 +339,7 @@ if(masterId.isEmpty()) masterId="0";
 		String loginId="Admin";
 
 		UserMasterDO employeeDO=new UserMasterDO();
-
+		int emp_id=AppUtil.getNullToInteger( request.getParameter("empid") );
 		String firstName=AppUtil.getNullToEmpty( request.getParameter("firstName") );
 		String middleName=AppUtil.getNullToEmpty( request.getParameter("middleName") );
 		String lastName=AppUtil.getNullToEmpty( request.getParameter("lastName") );
@@ -331,12 +347,50 @@ if(masterId.isEmpty()) masterId="0";
 		int role=AppUtil.getNullToInteger( request.getParameter("role") );
 		int profile=AppUtil.getNullToInteger( request.getParameter("profile") );
 		
+		String gender=AppUtil.getNullToEmpty( request.getParameter("gender") ,"Male");
+		String marital_status=AppUtil.getNullToEmpty( request.getParameter("marital_status") ,"Single");
+		int blood_group=AppUtil.getNullToInteger( request.getParameter("blood_group") );
+		String mobile=AppUtil.getNullToEmpty( request.getParameter("mobile") );
+		String date_of_birth=AppUtil.getNullToEmpty( request.getParameter("date_of_birth") ,"1000-01-01");
+		
+		int department=AppUtil.getNullToInteger( request.getParameter("department") );
+		int state=AppUtil.getNullToInteger( request.getParameter("state") );
+		int country=AppUtil.getNullToInteger( request.getParameter("country") );
+		int reporting_manager=AppUtil.getNullToInteger( request.getParameter("reporting_manager") );
+		
+		
+		String subordinates=AppUtil.getNullToEmpty( request.getParameter("subordinates") );
+		String pan_card=AppUtil.getNullToEmpty( request.getParameter("pan_card") );
+		String bank_detials=AppUtil.getNullToEmpty( request.getParameter("bank_detials") );
+		String epf_no=AppUtil.getNullToEmpty( request.getParameter("epf_no") );
+		String street=AppUtil.getNullToEmpty( request.getParameter("street") );
+		String city=AppUtil.getNullToEmpty( request.getParameter("city") );
+		String zipcode=AppUtil.getNullToEmpty( request.getParameter("zipcode") );
+		
+		employeeDO.setEmpId(emp_id);
 		employeeDO.setFirstName(firstName);
 		employeeDO.setLastName(lastName);
 		employeeDO.setEmail(email);
 		employeeDO.setProfile(profile);
 		employeeDO.setRole(role);
-
+		employeeDO.setGender(gender);
+		employeeDO.setMaritalStatus(marital_status);
+		employeeDO.setBloodGroup(blood_group);
+		employeeDO.setMobile(mobile);
+		employeeDO.setDateOfBirth(date_of_birth);
+		employeeDO.setDepartment(department);
+		employeeDO.setReportingManager(reporting_manager);
+		employeeDO.setSubordinates(subordinates);
+		employeeDO.setPanCard(pan_card);
+		employeeDO.setBankDetials(bank_detials);
+		employeeDO.setEpfNo(epf_no);
+		employeeDO.setStreet(street);
+		employeeDO.setCity(city);
+		employeeDO.setState(state);
+		employeeDO.setZipcode(zipcode);
+		employeeDO.setCountry(country);
+		
+		
 		return employeeDO;
 	}
 	

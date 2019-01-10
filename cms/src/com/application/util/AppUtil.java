@@ -21,7 +21,7 @@ public class AppUtil {
 		int retVal=defaultVal;
 		try {
 			if(strVal!=null && !strVal.isEmpty()) { retVal=Integer.parseInt(strVal.trim()); }
-		} catch (Exception e) { System.out.println("Error While parse Integer"); }
+		} catch (Exception e) { retVal=0;System.out.println("Error While parse Integer"); }
 		return retVal;
 	}
 
