@@ -16,7 +16,7 @@ public class DevUtil {
 
 	public static void main(String arsg[])
 	{
-		generateDOAndDAO(DBConnection.getConnection(), "user_master");
+		generateDOAndDAO(DBConnection.getConnection(), "profile_master");
 	}
 	
 	

@@ -16,6 +16,11 @@ public enum CmnGroupName {
 	PROCESS(12, "process"),
 	TIME_SHEET_PROCESS(13, "time sheet process"),
 	TIME_SHEET_PROCESS_CHILD(14, "time_sheet_process_child"),
+	USER_ROLES(15, "user_roles"),
+	USER_PROFILES(16, "user_profiles"),
+	BLOOD_GROUP(17, "blood_group"),
+	STATE(18, "state"),
+	COUNTRY(19, "country"),
 	
 	;
 	private int groupId;

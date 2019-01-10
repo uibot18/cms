@@ -57,6 +57,23 @@
 		<url-pattern>/employee</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>commonMasterController</servlet-name>
+		<servlet-class>com.cms.common.master.controller.CommonMasterController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>commonMasterController</servlet-name>
+		<url-pattern>/common_master</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>profilesController</servlet-name>
+		<servlet-class>com.cms.profiles.controller.ProfilesController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>profilesController</servlet-name>
+		<url-pattern>/profiles</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>holidayTypeController</servlet-name>
 		<servlet-class>com.cms.holiday.controller.HolidayTypeController</servlet-class>
 	</servlet>
@@ -199,6 +216,7 @@
 		<filter-name>cmsFilter</filter-name>
 		<url-pattern>/login</url-pattern>
 		<url-pattern>/home</url-pattern>
+		<url-pattern>/profiles</url-pattern>
 		<url-pattern>/userRegistration</url-pattern>
 		<url-pattern>/employee</url-pattern>
 		<url-pattern>/holidayType</url-pattern>

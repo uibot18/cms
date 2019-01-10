@@ -23,7 +23,7 @@ public class DBConnection {
 			//con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","root");
 			//con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","P@ssw0rd");
 //		LOCAL CONNECTION	
-			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","password");
+			con=DriverManager.getConnection( "jdbc:mysql://localhost:3306/projectsdb_new","root","root");
 //			con=DriverManager.getConnection( "jdbc:mysql://18.217.133.221:3306/projectsdb_new","root","P@ssw0rd");
 //			System.out.println("Connection created..!");
 		} catch (Exception e) {
