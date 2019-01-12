@@ -21,7 +21,7 @@ public enum CmnGroupName {
 	BLOOD_GROUP(17, "blood_group"),
 	STATE(18, "state"),
 	COUNTRY(19, "country"),
-	
+	ROLR(20, "country"),
 	;
 	private int groupId;
 	private String groupName;

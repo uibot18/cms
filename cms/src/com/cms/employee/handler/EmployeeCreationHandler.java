@@ -210,6 +210,34 @@ public class EmployeeCreationHandler {
 
 		return AppUtil.formOption(cmnMap, selDepartment);
 	}
+	
+	
+
+	public static String formBloodgroupOption( String bloodgroup ) {
+
+		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.BLOOD_GROUP.getGroupName()+"' ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formOption(cmnMap, bloodgroup);
+	}
+	
+	public static String formStateOption( String state ) {
+
+		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.STATE.getGroupName()+"' ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formOption(cmnMap, state);
+	}
+	public static String formCountryOption( String country ) {
+
+		String subQry=" AND cmn_group_id IN( select cmn_group_id from common_group_master where cmn_group_name='"+CmnGroupName.COUNTRY.getGroupName()+"' ) ";
+		Map<String, String> cmnMap=CommonMasterDAO.getCommonDetMapBySubQry(null, subQry);
+		if(cmnMap==null){ cmnMap=new HashMap<String, String>(); }
+
+		return AppUtil.formOption(cmnMap, country);
+	}
 	public static String formDesignationOption( String deptIds, String selDesignation ) {
 
 		deptIds = AppUtil.getNullToEmpty( deptIds );
@@ -331,7 +359,25 @@ if(masterId.isEmpty()) masterId="0";
 				}
 			}
 	}
+	public static void updatepermission(HttpServletRequest request, HttpServletResponse response) {
+
+		UserMasterDO userDo=new UserMasterDO();
+		
+		int emp_id=AppUtil.getNullToInteger( request.getParameter("empid") );
+		String group_ids[]=request.getParameterValues("group_ids");
+		userDo.setEmpId(emp_id);
+		userDo.setGroupIds(AppUtil.convertArrayToString(group_ids,","));
 	
+			
+	
+				if(UserMasterDAO.updatePermissions(null, userDo)) {
+					userDo=UserMasterDAO.getUserMasterByEmpId(null, userDo.getEmpId(), true);
+					request.setAttribute(PageAlertType.SUCCESS.getType(), "Employee Permission Detail Successfully Saved..!");
+				}else {
+					request.setAttribute(PageAlertType.ERROR.getType(), "Failed to Save Employee Permission Details..!");
+				}
+			
+	}
 	
 	
 	private static UserMasterDO constructUserDO(HttpServletRequest request, HttpServletResponse response) {

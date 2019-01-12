@@ -48,6 +48,10 @@ public class EmployeeController extends HttpServlet {
 			EmployeeCreationHandler.savenewEmployee( request, response );
 			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate_new.jsp").forward(request, response);
 		}
+		else if(action.equalsIgnoreCase("update_permissions")) {
+			EmployeeCreationHandler.savenewEmployee( request, response );
+			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate_new.jsp").forward(request, response);
+		}
 		else if(action.equalsIgnoreCase("edit")) {
 			EmployeeCreationHandler.doEmployeeEdit(request, response);
 			request.getRequestDispatcher("WEB-INF/jsp/employeeAddUpdate.jsp").forward(request, response);

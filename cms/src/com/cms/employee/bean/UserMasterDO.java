@@ -26,8 +26,17 @@ private String city="";
 private int state=0;
 private String zipcode="";
 private int country=0;
+private String GroupIds="";
 
-
+@Override
+public String toString() {
+	return "UserMasterDO [empId=" + empId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+			+ ", gender=" + gender + ", maritalStatus=" + maritalStatus + ", bloodGroup=" + bloodGroup + ", mobile="
+			+ mobile + ", dateOfBirth=" + dateOfBirth + ", department=" + department + ", role=" + role + ", profile="
+			+ profile + ", reportingManager=" + reportingManager + ", subordinates=" + subordinates + ", panCard="
+			+ panCard + ", bankDetials=" + bankDetials + ", epfNo=" + epfNo + ", street=" + street + ", city=" + city
+			+ ", state=" + state + ", zipcode=" + zipcode + ", country=" + country + ", GroupIds=" + GroupIds + "]";
+}
 public void setEmpId(int empId){
 this.empId=empId;
 }
@@ -156,6 +165,12 @@ return this.zipcode;
 }
 public void setCountry(int country){
 this.country=country;
+}
+public String getGroupIds() {
+	return GroupIds;
+}
+public void setGroupIds(String groupIds) {
+	GroupIds = groupIds;
 }
 public int getCountry(){
 return this.country;

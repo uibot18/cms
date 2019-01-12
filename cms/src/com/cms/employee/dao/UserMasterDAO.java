@@ -17,6 +17,7 @@ public class UserMasterDAO {
 private static final String SELECT="select   emp_id, first_name, last_name, email, gender, marital_status, blood_group, mobile, date_of_birth, department, role, profile, reporting_manager, subordinates, pan_card, bank_detials, epf_no, street, city, state, zipcode, country from user_master ";
 private static final String INSERT="insert into user_master( emp_id, first_name, last_name, email, gender, marital_status, blood_group, mobile, date_of_birth, department, role, profile, reporting_manager, subordinates, pan_card, bank_detials, epf_no, street, city, state, zipcode, country)  values(  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 private static final String UPDATE="update  user_master set  first_name=?, last_name=?, email=?, gender=?, marital_status=?, blood_group=?, mobile=?, date_of_birth=?, department=?, role=?, profile=?, reporting_manager=?, subordinates=?, pan_card=?, bank_detials=?, epf_no=?, street=?, city=?, state=?, zipcode=?, country=? WHERE emp_id=? ";
+private static final String UPDATE_PERMISSIONS="update  user_master set  group_ids=? WHERE emp_id=? ";
 
 public static int insert(Connection preCon, UserMasterDO dto) {
 int insertId=0;
@@ -153,5 +154,21 @@ finally { }
 return dto;
 } 
 
+
+public static boolean updatePermissions(Connection preCon, UserMasterDO dto) {
+Connection con=null;
+PreparedStatement stmt=null;
+int i=1;
+try {
+con=preCon==null?DBConnection.getConnection():preCon;
+stmt=con.prepareStatement(UPDATE_PERMISSIONS);
+stmt.setString(i++, dto.getGroupIds());
+stmt.setInt(i++,dto.getEmpId());
+int rowAffect=stmt.executeUpdate();
+if(rowAffect!=0) { return true; }
+} catch (Exception e) { e.printStackTrace(); } 
+finally { DBUtil.close( stmt, preCon==null?con:null  ); }
+return false;
+}
 
 }
